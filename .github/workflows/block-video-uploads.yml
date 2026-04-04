@@ -1,0 +1,58 @@
+name: Block Video Uploads
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  block-videos:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check for video files
+      run: |
+        echo "Checking for video files in the repository..."
+        
+        # Define video file extensions
+        VIDEO_EXTENSIONS=("mp4" "avi" "mov" "wmv" "flv" "webm" "mkv" "m4v" "3gp" "ogv")
+        
+        # Flag to track if video files are found
+        VIDEOS_FOUND=false
+        
+        # Check for video files
+        for ext in "${VIDEO_EXTENSIONS[@]}"; do
+          if find . -type f -name "*.$ext" | grep -q .; then
+            echo "❌ Found video files with .$ext extension:"
+            find . -type f -name "*.$ext"
+            VIDEOS_FOUND=true
+          fi
+        done
+        
+        # Check media directory specifically
+        if [ -d "media" ]; then
+          echo "Checking media directory for video files..."
+          find media -type f \( -name "*.mp4" -o -name "*.avi" -o -name "*.mov" -o -name "*.wmv" -o -name "*.flv" -o -name "*.webm" -o -name "*.mkv" -o -name "*.m4v" -o -name "*.3gp" -o -name "*.ogv" \) | while read file; do
+            echo "❌ Found video file: $file"
+            VIDEOS_FOUND=true
+          done
+        fi
+        
+        # Fail if videos are found
+        if [ "$VIDEOS_FOUND" = true ]; then
+          echo ""
+          echo "🚫 VIDEO UPLOADS BLOCKED 🚫"
+          echo "Video files are not allowed in this repository."
+          echo "Please remove video files and use external hosting services instead."
+          echo ""
+          echo "Recommended alternatives:"
+          echo "- YouTube for video hosting"
+          echo "- Vimeo for professional video hosting"
+          echo "- AWS S3 + CloudFront for custom video hosting"
+          exit 1
+        else
+          echo "✅ No video files found. Repository is compliant."
+        fi
