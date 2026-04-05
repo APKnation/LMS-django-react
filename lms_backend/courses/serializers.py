@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Course, Lesson, Category
+from .models import Course, Lesson, Category, Comment, Announcement
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -61,3 +61,43 @@ class CourseListSerializer(serializers.ModelSerializer):
             'is_free', 'price', 'created_at', 'lesson_count'
         ]
         read_only_fields = ['id', 'created_at']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source='user.username', read_only=True)
+    replies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'lesson', 'user', 'user_name', 'content', 'parent', 'replies',
+                  'created_at', 'updated_at', 'is_instructor_response']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'is_instructor_response']
+
+    def get_replies(self, obj):
+        if hasattr(obj, 'replies'):
+            return CommentSerializer(obj.replies.all(), many=True).data
+        return []
+
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'lesson', 'content', 'parent']
+        read_only_fields = ['id']
+
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    instructor_name = serializers.CharField(source='instructor.username', read_only=True)
+
+    class Meta:
+        model = Announcement
+        fields = ['id', 'course', 'instructor', 'instructor_name', 'title', 'content',
+                  'created_at', 'updated_at', 'is_pinned']
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+
+class AnnouncementCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Announcement
+        fields = ['id', 'course', 'title', 'content', 'is_pinned']
+        read_only_fields = ['id']
