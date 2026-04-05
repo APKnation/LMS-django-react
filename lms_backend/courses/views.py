@@ -2,11 +2,14 @@ from rest_framework import viewsets, permissions, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Q
-from .models import Course, Lesson, Category
+from django.db.models import Q, Count, Avg
+from enrollment.models import Enrollment
+from progress.models import Progress
+from .models import Course, Lesson, Category, Comment, Announcement
 from .serializers import (
     CourseSerializer, CourseCreateSerializer, CourseListSerializer,
-    LessonSerializer, CategorySerializer
+    LessonSerializer, CategorySerializer, CommentSerializer, CommentCreateSerializer,
+    AnnouncementSerializer, AnnouncementCreateSerializer
 )
 
 
@@ -92,8 +95,97 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = CourseListSerializer(courses, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'], permission_classes=[IsInstructor])
+    def analytics(self, request, pk=None):
+        course = self.get_object()
+        
+        # Only allow instructor of the course to view analytics
+        if course.instructor != request.user:
+            return Response({'error': 'Permission denied'}, status=403)
+        
+        total_lessons = course.lessons.count()
+        total_enrollments = Enrollment.objects.filter(course=course).count()
+        
+        # Completion stats
+        progress_data = Progress.objects.filter(lesson__course=course)
+        completed_lessons = progress_data.filter(completed=True).count()
+        
+        # Students who completed all lessons
+        students_with_progress = progress_data.values('student').distinct().count()
+        
+        # Average completion rate per student
+        if total_enrollments > 0 and total_lessons > 0:
+            avg_completion_rate = (completed_lessons / (total_enrollments * total_lessons)) * 100
+        else:
+            avg_completion_rate = 0
+        
+        data = {
+            'course_id': course.id,
+            'course_title': course.title,
+            'total_lessons': total_lessons,
+            'total_enrollments': total_enrollments,
+            'completed_lessons_count': completed_lessons,
+            'students_with_progress': students_with_progress,
+            'average_completion_rate': round(avg_completion_rate, 2),
+            'revenue': float(course.price * total_enrollments) if not course.is_free else 0
+        }
+        return Response(data)
+
 
 class LessonViewSet(viewsets.ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return CommentCreateSerializer
+        return CommentSerializer
+
+    def perform_create(self, serializer):
+        # Check if user is the instructor of the lesson's course
+        lesson = serializer.validated_data.get('lesson')
+        is_instructor = lesson.course.instructor == self.request.user
+        serializer.save(user=self.request.user, is_instructor_response=is_instructor)
+
+    @action(detail=False, methods=['get'])
+    def lesson_comments(self, request):
+        lesson_id = request.query_params.get('lesson')
+        if lesson_id:
+            comments = Comment.objects.filter(lesson_id=lesson_id, parent=None)
+            serializer = self.get_serializer(comments, many=True)
+            return Response(serializer.data)
+        return Response({'error': 'lesson parameter required'}, status=400)
+
+
+class AnnouncementViewSet(viewsets.ModelViewSet):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsInstructor()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return AnnouncementCreateSerializer
+        return AnnouncementSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(instructor=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def course_announcements(self, request):
+        course_id = request.query_params.get('course')
+        if course_id:
+            announcements = Announcement.objects.filter(course_id=course_id)
+            serializer = self.get_serializer(announcements, many=True)
+            return Response(serializer.data)
+        return Response({'error': 'course parameter required'}, status=400)
