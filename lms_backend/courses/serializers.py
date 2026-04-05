@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Course, Lesson, Category, Comment, Announcement
+from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -101,3 +101,46 @@ class AnnouncementCreateSerializer(serializers.ModelSerializer):
         model = Announcement
         fields = ['id', 'course', 'title', 'content', 'is_pinned']
         read_only_fields = ['id']
+
+
+class AssignmentSerializer(serializers.ModelSerializer):
+    course_title = serializers.CharField(source='course.title', read_only=True)
+    lesson_title = serializers.CharField(source='lesson.title', read_only=True)
+
+    class Meta:
+        model = Assignment
+        fields = ['id', 'course', 'course_title', 'lesson', 'lesson_title', 'title', 'description',
+                  'submission_type', 'max_points', 'deadline', 'allow_late_submission', 'created_at']
+        read_only_fields = ['id', 'created_at']
+
+
+class AssignmentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assignment
+        fields = ['id', 'course', 'lesson', 'title', 'description', 'submission_type',
+                  'max_points', 'deadline', 'allow_late_submission']
+        read_only_fields = ['id']
+
+
+class AssignmentSubmissionSerializer(serializers.ModelSerializer):
+    student_name = serializers.CharField(source='student.username', read_only=True)
+    assignment_title = serializers.CharField(source='assignment.title', read_only=True)
+
+    class Meta:
+        model = AssignmentSubmission
+        fields = ['id', 'assignment', 'assignment_title', 'student', 'student_name',
+                  'submission_file', 'submission_text', 'submission_link', 'submitted_at',
+                  'score', 'feedback', 'status', 'is_late']
+        read_only_fields = ['id', 'submitted_at', 'is_late']
+
+
+class AssignmentSubmissionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssignmentSubmission
+        fields = ['id', 'assignment', 'submission_file', 'submission_text', 'submission_link']
+        read_only_fields = ['id']
+
+
+class GradeSubmissionSerializer(serializers.Serializer):
+    score = serializers.DecimalField(max_digits=5, decimal_places=2)
+    feedback = serializers.CharField(required=False, allow_blank=True)
