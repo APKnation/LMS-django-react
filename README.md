@@ -2,34 +2,27 @@
 
 A Learning Management System built with Django REST Framework and React.
 
-## 🚫 Video Upload Policy
+## Features Implemented
 
-**Video file uploads are NOT allowed in this repository.**
+### Student Features
+- **Course Search & Filtering** - Filter by category, instructor, difficulty, price range
+- **Bookmark Lessons** - Save lesson progress markers with notes
+- **Notes System** - Take notes on lessons with video timestamps
+- **Discussion/Comments** - Q&A on lessons with instructor responses
+- **Certificates** - Auto-generated certificates on course completion
 
-### Why?
-- Video files are large and bloat the repository
-- They slow down cloning and operations
-- Better performance with external hosting
-- Easier to manage and update content
-
-### Alternatives
-Use external video hosting services:
-- **YouTube** - Free and widely supported
-- **Vimeo** - Professional video hosting
-- **AWS S3 + CloudFront** - Custom solution
-- **Wistia** - Business video hosting
-
-### How it works
-- Lessons use `video_url` field instead of file uploads
-- Add video URLs from YouTube, Vimeo, or other platforms
-- GitHub Actions automatically block video file commits
-- Django validation prevents video uploads through the API
+### Instructor Features
+- **Course Analytics** - View student progress stats, completion rates, revenue
+- **Announcements** - Notify enrolled students about updates
+- **Course Management** - Create draft/published courses with categories
 
 ## API Endpoints
 
 ### Authentication
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| POST | `/api/token/` | Get JWT access & refresh tokens |
+| POST | `/api/token/refresh/` | Refresh JWT token |
 | POST | `/api/auth/login/` | Login (session-based) |
 | POST | `/api/auth/logout/` | Logout |
 
@@ -45,15 +38,37 @@ Use external video hosting services:
 | GET | `/api/users/instructors/` | List instructors |
 | GET | `/api/users/students/` | List students |
 
+### Categories (`/api/categories/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/categories/` | List all categories |
+| POST | `/api/categories/` | Create category |
+| GET | `/api/categories/{id}/` | Retrieve category |
+| PUT | `/api/categories/{id}/` | Update category |
+| DELETE | `/api/categories/{id}/` | Delete category |
+
 ### Courses (`/api/courses/`)
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/courses/` | List all courses |
+| GET | `/api/courses/` | List all courses (with filters) |
 | POST | `/api/courses/` | Create course (instructor) |
 | GET | `/api/courses/{id}/` | Retrieve course |
 | PUT | `/api/courses/{id}/` | Update course |
 | DELETE | `/api/courses/{id}/` | Delete course |
 | GET | `/api/courses/{id}/lessons/` | Get course lessons |
+| GET | `/api/courses/{id}/analytics/` | Get course analytics (instructor only) |
+| GET | `/api/courses/search/` | Search courses by query |
+| GET | `/api/courses/my_courses/` | Get my created courses (instructor) |
+
+**Filter Parameters for `/api/courses/`:**
+- `?category=1` - Filter by category ID
+- `?difficulty=beginner` - Filter by difficulty (beginner/intermediate/advanced)
+- `?instructor=1` - Filter by instructor ID
+- `?is_free=true` - Filter free courses
+- `?min_price=10&max_price=100` - Filter by price range
+- `?instructor_name=john` - Filter by instructor username
+- `?category_name=python` - Filter by category name
+- `?search=python` - Search in title/description
 
 ### Lessons (`/api/lessons/`)
 | Method | Endpoint | Description |
@@ -111,11 +126,59 @@ Use external video hosting services:
 | GET | `/api/progress/my_progress/` | Get my progress |
 | POST | `/api/progress/mark_complete/` | Mark lesson as complete |
 
+### Bookmarks (`/api/bookmarks/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/bookmarks/` | List all bookmarks |
+| POST | `/api/bookmarks/` | Create bookmark |
+| GET | `/api/bookmarks/{id}/` | Retrieve bookmark |
+| PUT | `/api/bookmarks/{id}/` | Update bookmark |
+| DELETE | `/api/bookmarks/{id}/` | Delete bookmark |
+| GET | `/api/bookmarks/my_bookmarks/` | Get my bookmarks |
+
+### Notes (`/api/notes/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/notes/` | List all notes |
+| POST | `/api/notes/` | Create note |
+| GET | `/api/notes/{id}/` | Retrieve note |
+| PUT | `/api/notes/{id}/` | Update note |
+| DELETE | `/api/notes/{id}/` | Delete note |
+| GET | `/api/notes/my_notes/?lesson=1` | Get my notes (optional lesson filter) |
+
+### Certificates (`/api/certificates/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/certificates/` | List certificates |
+| GET | `/api/certificates/{id}/` | Retrieve certificate |
+| POST | `/api/certificates/generate/` | Generate certificate for course |
+| GET | `/api/certificates/my_certificates/` | Get my certificates |
+
+### Comments (`/api/comments/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/comments/` | List all comments |
+| POST | `/api/comments/` | Create comment |
+| GET | `/api/comments/{id}/` | Retrieve comment |
+| PUT | `/api/comments/{id}/` | Update comment |
+| DELETE | `/api/comments/{id}/` | Delete comment |
+| GET | `/api/comments/lesson_comments/?lesson=1` | Get comments for lesson |
+
+### Announcements (`/api/announcements/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/announcements/` | List all announcements |
+| POST | `/api/announcements/` | Create announcement (instructor) |
+| GET | `/api/announcements/{id}/` | Retrieve announcement |
+| PUT | `/api/announcements/{id}/` | Update announcement (instructor) |
+| DELETE | `/api/announcements/{id}/` | Delete announcement (instructor) |
+| GET | `/api/announcements/course_announcements/?course=1` | Get course announcements |
+
 ## Setup
 
 ```bash
 cd lms_backend
-pip install django djangorestframework djangorestframework-simplejwt django-cors-headers
+pip install django djangorestframework djangorestframework-simplejwt django-cors-headers django-filter
 python3 manage.py migrate
 python3 manage.py runserver
 ```
