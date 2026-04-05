@@ -3,13 +3,17 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q, Count, Avg
+from django.utils import timezone
 from enrollment.models import Enrollment
 from progress.models import Progress
-from .models import Course, Lesson, Category, Comment, Announcement
+from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission
 from .serializers import (
     CourseSerializer, CourseCreateSerializer, CourseListSerializer,
     LessonSerializer, CategorySerializer, CommentSerializer, CommentCreateSerializer,
-    AnnouncementSerializer, AnnouncementCreateSerializer
+    AnnouncementSerializer, AnnouncementCreateSerializer,
+    AssignmentSerializer, AssignmentCreateSerializer,
+    AssignmentSubmissionSerializer, AssignmentSubmissionCreateSerializer,
+    GradeSubmissionSerializer
 )
 
 
@@ -189,3 +193,88 @@ class AnnouncementViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(announcements, many=True)
             return Response(serializer.data)
         return Response({'error': 'course parameter required'}, status=400)
+
+
+class AssignmentViewSet(viewsets.ModelViewSet):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsInstructor()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return AssignmentCreateSerializer
+        return AssignmentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    @action(detail=False, methods=['get'])
+    def course_assignments(self, request):
+        course_id = request.query_params.get('course')
+        if course_id:
+            assignments = Assignment.objects.filter(course_id=course_id)
+            serializer = self.get_serializer(assignments, many=True)
+            return Response(serializer.data)
+        return Response({'error': 'course parameter required'}, status=400)
+
+
+class AssignmentSubmissionViewSet(viewsets.ModelViewSet):
+    queryset = AssignmentSubmission.objects.all()
+    serializer_class = AssignmentSubmissionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return AssignmentSubmissionCreateSerializer
+        return AssignmentSubmissionSerializer
+
+    def get_queryset(self):
+        # Students see their own submissions, instructors see all for their courses
+        if not self.request.user.is_instructor:
+            return AssignmentSubmission.objects.filter(student=self.request.user)
+        return AssignmentSubmission.objects.filter(assignment__course__instructor=self.request.user)
+
+    def perform_create(self, serializer):
+        assignment = serializer.validated_data.get('assignment')
+        
+        # Check if deadline has passed
+        is_late = False
+        if timezone.now() > assignment.deadline:
+            if not assignment.allow_late_submission:
+                return Response({'error': 'Submission deadline has passed'}, status=400)
+            is_late = True
+        
+        serializer.save(student=self.request.user, is_late=is_late)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsInstructor])
+    def grade(self, request, pk=None):
+        """Grade an assignment submission"""
+        submission = self.get_object()
+        
+        # Check if instructor owns the course
+        if submission.assignment.course.instructor != request.user:
+            return Response({'error': 'Permission denied'}, status=403)
+        
+        serializer = GradeSubmissionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        submission.score = serializer.validated_data['score']
+        submission.feedback = serializer.validated_data.get('feedback', '')
+        submission.status = 'graded'
+        submission.save()
+        
+        return Response(AssignmentSubmissionSerializer(submission).data)
+
+    @action(detail=False, methods=['get'])
+    def my_submissions(self, request):
+        """Get current user's submissions"""
+        submissions = AssignmentSubmission.objects.filter(student=request.user)
+        assignment_id = request.query_params.get('assignment')
+        if assignment_id:
+            submissions = submissions.filter(assignment_id=assignment_id)
+        serializer = self.get_serializer(submissions, many=True)
+        return Response(serializer.data)
