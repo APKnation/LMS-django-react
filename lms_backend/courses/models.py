@@ -64,3 +64,35 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_instructor_response = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.lesson.title}"
+
+
+class Announcement(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='announcements')
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='announcements')
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_pinned = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-is_pinned', '-created_at']
+
+    def __str__(self):
+        return f"{self.title} - {self.course.title}"
