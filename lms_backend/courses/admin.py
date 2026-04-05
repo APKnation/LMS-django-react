@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Course, Lesson, Comment, Announcement
+from .models import Category, Course, Lesson, Comment, Announcement, Assignment, AssignmentSubmission
 
 
 @admin.register(Category)
@@ -21,6 +21,20 @@ class LessonAdmin(admin.ModelAdmin):
     list_display = ['title', 'course', 'order', 'duration']
     list_filter = ['course']
     search_fields = ['title', 'course__title']
+
+
+@admin.register(Assignment)
+class AssignmentAdmin(admin.ModelAdmin):
+    list_display = ['title', 'course', 'lesson', 'submission_type', 'max_points', 'deadline', 'allow_late_submission']
+    list_filter = ['submission_type', 'course', 'deadline']
+    search_fields = ['title', 'course__title']
+
+
+@admin.register(AssignmentSubmission)
+class AssignmentSubmissionAdmin(admin.ModelAdmin):
+    list_display = ['student', 'assignment', 'status', 'score', 'is_late', 'submitted_at']
+    list_filter = ['status', 'is_late', 'submitted_at']
+    search_fields = ['student__username', 'assignment__title']
 
 
 @admin.register(Comment)
