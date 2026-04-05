@@ -8,10 +8,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from accounts.views import UserViewSet
 from courses.views import (
     CourseViewSet, LessonViewSet, CategoryViewSet,
-    CommentViewSet, AnnouncementViewSet
+    CommentViewSet, AnnouncementViewSet, AssignmentViewSet, AssignmentSubmissionViewSet
 )
 from enrollment.views import EnrollmentViewSet
-from quiz.views import QuizViewSet, QuestionViewSet, ChoiceViewSet
+from quiz.views import QuizViewSet, QuestionViewSet, ChoiceViewSet, QuizAttemptViewSet
 from progress.views import (
     ProgressViewSet, BookmarkViewSet, NoteViewSet, CertificateViewSet
 )
@@ -25,6 +25,9 @@ router.register(r'enrollments', EnrollmentViewSet)
 router.register(r'quizzes', QuizViewSet)
 router.register(r'questions', QuestionViewSet)
 router.register(r'choices', ChoiceViewSet)
+router.register(r'quiz-attempts', QuizAttemptViewSet)
+router.register(r'assignments', AssignmentViewSet)
+router.register(r'assignment-submissions', AssignmentSubmissionViewSet)
 router.register(r'progress', ProgressViewSet)
 router.register(r'bookmarks', BookmarkViewSet)
 router.register(r'notes', NoteViewSet)
