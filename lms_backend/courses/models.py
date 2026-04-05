@@ -66,6 +66,56 @@ class Lesson(models.Model):
         return self.title
 
 
+class Assignment(models.Model):
+    SUBMISSION_TYPES = [
+        ('file', 'File Upload'),
+        ('text', 'Text Submission'),
+        ('link', 'Link Submission'),
+    ]
+
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, null=True, blank=True, related_name='assignments')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    submission_type = models.CharField(max_length=20, choices=SUBMISSION_TYPES, default='file')
+    max_points = models.PositiveIntegerField(default=100)
+    deadline = models.DateTimeField()
+    allow_late_submission = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.title} - {self.course.title}"
+
+
+class AssignmentSubmission(models.Model):
+    STATUS_CHOICES = [
+        ('submitted', 'Submitted'),
+        ('graded', 'Graded'),
+        ('late', 'Late'),
+    ]
+
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='submissions')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assignment_submissions')
+    submission_file = models.FileField(upload_to='assignment_submissions/', blank=True, null=True)
+    submission_text = models.TextField(blank=True)
+    submission_link = models.URLField(blank=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    score = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    feedback = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='submitted')
+    is_late = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ['assignment', 'student']
+        ordering = ['-submitted_at']
+
+    def __str__(self):
+        return f"{self.student.username} - {self.assignment.title}"
+
+
 class Comment(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
