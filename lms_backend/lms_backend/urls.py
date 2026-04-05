@@ -6,13 +6,19 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from accounts.views import UserViewSet
-from courses.views import CourseViewSet, LessonViewSet
+from courses.views import (
+    CourseViewSet, LessonViewSet, CategoryViewSet,
+    CommentViewSet, AnnouncementViewSet
+)
 from enrollment.views import EnrollmentViewSet
 from quiz.views import QuizViewSet, QuestionViewSet, ChoiceViewSet
-from progress.views import ProgressViewSet
+from progress.views import (
+    ProgressViewSet, BookmarkViewSet, NoteViewSet, CertificateViewSet
+)
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'categories', CategoryViewSet)
 router.register(r'courses', CourseViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'enrollments', EnrollmentViewSet)
@@ -20,6 +26,11 @@ router.register(r'quizzes', QuizViewSet)
 router.register(r'questions', QuestionViewSet)
 router.register(r'choices', ChoiceViewSet)
 router.register(r'progress', ProgressViewSet)
+router.register(r'bookmarks', BookmarkViewSet)
+router.register(r'notes', NoteViewSet)
+router.register(r'certificates', CertificateViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'announcements', AnnouncementViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
