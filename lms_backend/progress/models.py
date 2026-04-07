@@ -10,6 +10,8 @@ class Progress(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     completed_at = models.DateTimeField(null=True, blank=True)
+    last_watched_at = models.DateTimeField(auto_now=True)
+    last_timestamp = models.PositiveIntegerField(default=0, help_text="Video timestamp in seconds for resuming")
 
     class Meta:
         unique_together = ['student', 'lesson']

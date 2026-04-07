@@ -177,3 +177,16 @@ class Announcement(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.course.title}"
+class Review(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveIntegerField(default=5)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['course', 'student']
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.student.username} - {self.course.title} ({self.rating})"
