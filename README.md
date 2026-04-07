@@ -96,6 +96,17 @@ A Learning Management System built with Django REST Framework and React.
 | GET | `/api/quizzes/{id}/` | Retrieve quiz |
 | PUT | `/api/quizzes/{id}/` | Update quiz |
 | DELETE | `/api/quizzes/{id}/` | Delete quiz |
+| GET | `/api/quizzes/{id}/start_attempt/` | Start or get current quiz attempt |
+| GET | `/api/quizzes/{id}/questions_for_quiz/` | Get quiz questions (without answers) |
+
+### Quiz Attempts (`/api/quiz-attempts/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/quiz-attempts/` | List all attempts |
+| POST | `/api/quiz-attempts/` | Create attempt |
+| GET | `/api/quiz-attempts/{id}/` | Retrieve attempt |
+| POST | `/api/quiz-attempts/{id}/submit/` | Submit quiz answers (auto-graded) |
+| GET | `/api/quiz-attempts/my_attempts/?quiz=1` | Get my attempts |
 
 ### Questions (`/api/questions/`)
 | Method | Endpoint | Description |
@@ -114,6 +125,27 @@ A Learning Management System built with Django REST Framework and React.
 | GET | `/api/choices/{id}/` | Retrieve choice |
 | PUT | `/api/choices/{id}/` | Update choice |
 | DELETE | `/api/choices/{id}/` | Delete choice |
+
+### Assignments (`/api/assignments/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/assignments/` | List all assignments |
+| POST | `/api/assignments/` | Create assignment (instructor) |
+| GET | `/api/assignments/{id}/` | Retrieve assignment |
+| PUT | `/api/assignments/{id}/` | Update assignment (instructor) |
+| DELETE | `/api/assignments/{id}/` | Delete assignment (instructor) |
+| GET | `/api/assignments/course_assignments/?course=1` | Get course assignments |
+
+### Assignment Submissions (`/api/assignment-submissions/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/assignment-submissions/` | List all submissions |
+| POST | `/api/assignment-submissions/` | Submit assignment |
+| GET | `/api/assignment-submissions/{id}/` | Retrieve submission |
+| PUT | `/api/assignment-submissions/{id}/` | Update submission |
+| DELETE | `/api/assignment-submissions/{id}/` | Delete submission |
+| POST | `/api/assignment-submissions/{id}/grade/` | Grade submission (instructor) |
+| GET | `/api/assignment-submissions/my_submissions/?assignment=1` | Get my submissions |
 
 ### Progress (`/api/progress/`)
 | Method | Endpoint | Description |
