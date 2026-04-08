@@ -16,6 +16,7 @@ from quiz.views import QuizViewSet, QuestionViewSet, ChoiceViewSet, QuizAttemptV
 from progress.views import (
     ProgressViewSet, BookmarkViewSet, NoteViewSet, CertificateViewSet
 )
+from payments.views import CouponViewSet, OrderViewSet, InstructorPayoutViewSet, AnalyticsViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -36,6 +37,10 @@ router.register(r'notes', NoteViewSet)
 router.register(r'certificates', CertificateViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'announcements', AnnouncementViewSet)
+router.register(r'coupons', CouponViewSet)
+router.register(r'orders', OrderViewSet)
+router.register(r'payouts', InstructorPayoutViewSet)
+router.register(r'analytics', AnalyticsViewSet, basename='analytics')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

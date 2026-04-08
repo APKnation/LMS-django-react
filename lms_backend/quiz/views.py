@@ -184,3 +184,72 @@ class QuizAttemptViewSet(viewsets.ModelViewSet):
             attempts = attempts.filter(quiz_id=quiz_id)
         serializer = self.get_serializer(attempts, many=True)
         return Response(serializer.data)
+
+    @action(detail=True, methods=['get'])
+    def time_remaining(self, request, pk=None):
+        """Get time remaining for quiz attempt"""
+        attempt = self.get_object()
+
+        if attempt.status != 'in_progress':
+            return Response({'error': 'Attempt not in progress'}, status=400)
+
+        time_limit_minutes = attempt.quiz.time_limit
+        elapsed = (timezone.now() - attempt.started_at).total_seconds() / 60
+        remaining = max(0, time_limit_minutes - elapsed)
+        is_expired = remaining <= 0
+
+        if is_expired and attempt.status == 'in_progress':
+            attempt.status = 'timed_out'
+            attempt.completed_at = timezone.now()
+            attempt.save()
+
+        return Response({
+            'time_limit_minutes': time_limit_minutes,
+            'elapsed_minutes': round(elapsed, 2),
+            'remaining_minutes': round(remaining, 2),
+            'is_expired': is_expired,
+            'status': attempt.status
+        })
+
+    @action(detail=True, methods=['post'])
+    def auto_submit(self, request, pk=None):
+        """Auto-submit when time expires - scores 0 for unanswered questions"""
+        attempt = self.get_object()
+
+        if attempt.status != 'in_progress':
+            return Response({'error': 'Attempt not in progress'}, status=400)
+
+        time_limit = attempt.quiz.time_limit
+        elapsed = (timezone.now() - attempt.started_at).total_seconds() / 60
+
+        if elapsed < time_limit:
+            return Response({
+                'error': 'Time has not expired yet',
+                'remaining_minutes': round(time_limit - elapsed, 2)
+            }, status=400)
+
+        questions = attempt.quiz.questions.all()
+        answered_questions = QuizAnswer.objects.filter(attempt=attempt).values_list('question_id', flat=True)
+
+        total_score = 0
+        for question in questions:
+            if question.id in answered_questions:
+                answer = QuizAnswer.objects.get(attempt=attempt, question=question)
+                total_score += answer.points_earned
+            else:
+                QuizAnswer.objects.create(
+                    attempt=attempt,
+                    question=question,
+                    text_answer='',
+                    is_correct=False,
+                    points_earned=0
+                )
+
+        attempt.score = total_score
+        attempt.percentage = (total_score / attempt.max_possible_score * 100) if attempt.max_possible_score > 0 else 0
+        attempt.is_passed = attempt.percentage >= attempt.quiz.passing_score
+        attempt.status = 'timed_out'
+        attempt.completed_at = timezone.now()
+        attempt.save()
+
+        return Response(QuizAttemptSerializer(attempt).data)
