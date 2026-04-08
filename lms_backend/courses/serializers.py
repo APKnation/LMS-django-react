@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission
+from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission, Review
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -144,3 +144,25 @@ class AssignmentSubmissionCreateSerializer(serializers.ModelSerializer):
 class GradeSubmissionSerializer(serializers.Serializer):
     score = serializers.DecimalField(max_digits=5, decimal_places=2)
     feedback = serializers.CharField(required=False, allow_blank=True)
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    student_name = serializers.CharField(source='student.username', read_only=True)
+    course_title = serializers.CharField(source='course.title', read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['id', 'course', 'course_title', 'student', 'student_name', 'rating', 'content', 'created_at']
+        read_only_fields = ['id', 'created_at', 'student']
+
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['id', 'course', 'rating', 'content']
+        read_only_fields = ['id']
+
+    def validate_rating(self, value):
+        if value < 1 or value > 5:
+            raise serializers.ValidationError('Rating must be between 1 and 5')
+        return value

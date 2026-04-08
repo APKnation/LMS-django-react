@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Course, Lesson, Comment, Announcement, Assignment, AssignmentSubmission
+from .models import Category, Course, Lesson, Comment, Announcement, Assignment, AssignmentSubmission, Review
 
 
 @admin.register(Category)
@@ -35,6 +35,16 @@ class AssignmentSubmissionAdmin(admin.ModelAdmin):
     list_display = ['student', 'assignment', 'status', 'score', 'is_late', 'submitted_at']
     list_filter = ['status', 'is_late', 'submitted_at']
     search_fields = ['student__username', 'assignment__title']
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['student', 'course', 'rating', 'content_preview', 'created_at']
+    list_filter = ['rating', 'created_at']
+    search_fields = ['content', 'student__username', 'course__title']
+
+    def content_preview(self, obj):
+        return obj.content[:50] + '...' if len(obj.content) > 50 else obj.content
 
 
 @admin.register(Comment)

@@ -8,11 +8,11 @@ User = settings.AUTH_USER_MODEL
 class Quiz(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='quizzes')
     title = models.CharField(max_length=200, default='Quiz')
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, default='')
     time_limit = models.PositiveIntegerField(help_text='Time limit in minutes', default=30)
     passing_score = models.PositiveIntegerField(default=70, help_text='Passing percentage')
     max_attempts = models.PositiveIntegerField(default=3, help_text='Maximum attempts allowed')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']

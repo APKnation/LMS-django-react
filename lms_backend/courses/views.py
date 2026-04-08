@@ -6,14 +6,14 @@ from django.db.models import Q, Count, Avg
 from django.utils import timezone
 from enrollment.models import Enrollment
 from progress.models import Progress
-from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission
+from .models import Course, Lesson, Category, Comment, Announcement, Assignment, AssignmentSubmission, Review
 from .serializers import (
     CourseSerializer, CourseCreateSerializer, CourseListSerializer,
     LessonSerializer, CategorySerializer, CommentSerializer, CommentCreateSerializer,
     AnnouncementSerializer, AnnouncementCreateSerializer,
     AssignmentSerializer, AssignmentCreateSerializer,
     AssignmentSubmissionSerializer, AssignmentSubmissionCreateSerializer,
-    GradeSubmissionSerializer
+    GradeSubmissionSerializer, ReviewSerializer, ReviewCreateSerializer
 )
 
 
@@ -278,3 +278,48 @@ class AssignmentSubmissionViewSet(viewsets.ModelViewSet):
             submissions = submissions.filter(assignment_id=assignment_id)
         serializer = self.get_serializer(submissions, many=True)
         return Response(serializer.data)
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ReviewCreateSerializer
+        return ReviewSerializer
+
+    def get_queryset(self):
+        queryset = Review.objects.all()
+        course_id = self.request.query_params.get('course')
+        if course_id:
+            queryset = queryset.filter(course_id=course_id)
+        return queryset.select_related('student', 'course')
+
+    def perform_create(self, serializer):
+        serializer.save(student=self.request.user)
+
+    @action(detail=False, methods=['get'])
+    def my_reviews(self, request):
+        """Get current user's reviews"""
+        reviews = Review.objects.filter(student=request.user)
+        serializer = self.get_serializer(reviews, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def course_reviews(self, request):
+        """Get reviews for a specific course with average rating"""
+        course_id = request.query_params.get('course')
+        if not course_id:
+            return Response({'error': 'course parameter required'}, status=400)
+
+        reviews = Review.objects.filter(course_id=course_id)
+        avg_rating = reviews.aggregate(avg_rating=Avg('rating'))['avg_rating']
+
+        serializer = self.get_serializer(reviews, many=True)
+        return Response({
+            'reviews': serializer.data,
+            'average_rating': round(avg_rating or 0, 1),
+            'total_reviews': reviews.count()
+        })
