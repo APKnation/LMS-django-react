@@ -64,7 +64,7 @@ class InstructorPayout(models.Model):
         ('failed', 'Failed'),
     ]
 
-    instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payouts')
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stripe_payouts')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     period_start = models.DateTimeField()
     period_end = models.DateTimeField()
