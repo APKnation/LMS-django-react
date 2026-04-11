@@ -65,19 +65,19 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Side - Welcome Section */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 items-center justify-center text-white p-12">
+      <div className="lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
         <div className="text-center">
-          <p className="text-lg tracking-widest mb-4">JOIN</p>
-          <h1 className="text-6xl font-bold mb-6">LMS</h1>
-          <p className="text-xl opacity-90">Learning Management System</p>
-          <p className="mt-4 text-sm opacity-80">Start your learning journey today</p>
+          <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">JOIN</p>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-6">LMS</h1>
+          <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
+          <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Start your learning journey today</p>
         </div>
       </div>
 
       {/* Right Side - Register Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-8 lg:p-16">
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-6 lg:p-16 flex-grow">
         <div className="w-full max-w-md space-y-6">
           <div className="text-center">
             <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">REGISTER FOR LMS</h2>
@@ -90,23 +90,23 @@ const Register = () => {
           )}
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleChange}
-                placeholder="First Name"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
-              />
-              <input
-                type="text"
-                name="last_name"
-                onChange={handleChange}
-                placeholder="Last Name"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
-              />
-            </div>
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              placeholder="First Name"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+            />
+
+            <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              placeholder="Last Name"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+            />
 
             <input
               type="text"
@@ -128,26 +128,25 @@ const Register = () => {
               className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
             />
 
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="Password *"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
-              />
-              <input
-                type="password"
-                name="password2"
-                value={formData.password2}
-                onChange={handleChange}
-                required
-                placeholder="Confirm Password *"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
-              />
-            </div>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Password *"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+            />
+
+            <input
+              type="password"
+              name="password2"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+              placeholder="Confirm Password *"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+            />
 
             <div className="bg-gray-50 p-4 rounded">
               <p className="text-sm text-gray-600 mb-3">Register as:</p>

@@ -41,19 +41,19 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Side - Welcome Section */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 items-center justify-center text-white p-12">
+      <div className="lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
         <div className="text-center">
-          <p className="text-lg tracking-widest mb-4">WELCOME TO</p>
-          <h1 className="text-6xl font-bold mb-6">LMS</h1>
-          <p className="text-xl opacity-90">Learning Management System</p>
-          <p className="mt-4 text-sm opacity-80">Empowering education through technology</p>
+          <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">WELCOME TO</p>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-6">LMS</h1>
+          <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
+          <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Empowering education through technology</p>
         </div>
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-8 lg:p-16">
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-6 lg:p-16 flex-grow">
         <div className="w-full max-w-md space-y-6">
           <div className="text-center">
             <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
