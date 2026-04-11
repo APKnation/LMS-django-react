@@ -41,32 +41,32 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
-      {/* Left Side - Welcome Section */}
-      <div className="lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
-        <div className="text-center">
-          <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">WELCOME TO</p>
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-6">LMS</h1>
-          <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
-          <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Empowering education through technology</p>
-        </div>
-      </div>
-
-      {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-6 lg:p-16 flex-grow">
-        <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 lg:p-8">
+      <div className="w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+        {/* Left Side - Welcome Section */}
+        <div className="lg:w-2/5 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
           <div className="text-center">
-            <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
+            <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">WELCOME TO</p>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">LMS</h1>
+            <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
+            <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Empowering education through technology</p>
           </div>
+        </div>
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
-              {error}
+        {/* Right Side - Login Form */}
+        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-6 lg:p-12">
+          <div className="w-full max-w-sm space-y-5">
+            <div className="text-center">
+              <h2 className="text-xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
             </div>
-          )}
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded text-sm">
+                {error}
+              </div>
+            )}
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="username"
@@ -77,9 +77,7 @@ const Login = () => {
                 placeholder="Username"
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
-            </div>
 
-            <div>
               <input
                 type="password"
                 id="password"
@@ -90,30 +88,30 @@ const Login = () => {
                 placeholder="Password"
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
+
+              <div className="flex justify-end">
+                <Link to="/forgot-password" className="text-xs text-gray-500 hover:text-rose-500 transition-colors">
+                  Forgot Password?
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                {loading ? 'Logging in...' : 'LOGIN'}
+              </button>
+            </form>
+
+            <div className="text-center">
+              <p className="text-xs text-gray-500">
+                If you are a new user,{' '}
+                <Link to="/register" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
+                  Signup here
+                </Link>
+              </p>
             </div>
-
-            <div className="flex justify-end">
-              <Link to="/forgot-password" className="text-sm text-gray-500 hover:text-rose-500 transition-colors">
-                Forgot Password?
-              </Link>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            >
-              {loading ? 'Logging in...' : 'LOGIN'}
-            </button>
-          </form>
-
-          <div className="text-center">
-            <p className="text-sm text-gray-500">
-              If you are a new user,{' '}
-              <Link to="/register" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
-                Signup here
-              </Link>
-            </p>
           </div>
         </div>
       </div>
