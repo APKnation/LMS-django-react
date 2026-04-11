@@ -65,39 +65,39 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 lg:p-8">
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 lg:p-12">
+      <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:min-h-[600px]">
         {/* Left Side - Welcome Section */}
-        <div className="lg:w-2/5 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
+        <div className="lg:w-2/5 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white p-10 lg:p-16">
           <div className="text-center">
-            <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">JOIN</p>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">LMS</h1>
-            <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
-            <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Start your learning journey today</p>
+            <p className="text-lg lg:text-2xl tracking-widest mb-4 lg:mb-6">JOIN</p>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 lg:mb-8">LMS</h1>
+            <p className="text-xl lg:text-3xl opacity-90">Learning Management System</p>
+            <p className="mt-4 lg:mt-6 text-sm lg:text-base opacity-80">Create your account and start learning today</p>
           </div>
         </div>
 
         {/* Right Side - Register Form */}
-        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-6 lg:p-12">
-          <div className="w-full max-w-sm space-y-4">
+        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-8 lg:p-16">
+          <div className="w-full max-w-lg space-y-6">
             <div className="text-center">
-              <h2 className="text-xl font-semibold text-gray-800 tracking-wide">REGISTER FOR LMS</h2>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 tracking-wide">REGISTER FOR LMS</h2>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg text-base lg:text-lg">
                 {error}
               </div>
             )}
 
-            <form className="space-y-3" onSubmit={handleSubmit}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <input
                 type="text"
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
                 placeholder="First Name"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -106,7 +106,7 @@ const Register = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 placeholder="Last Name"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -116,7 +116,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Username *"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -126,7 +126,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Email *"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -136,7 +136,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Password *"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -146,21 +146,21 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Confirm Password *"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all text-sm"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
-              <div className="bg-gray-50 p-3 rounded">
-                <p className="text-xs text-gray-600 mb-2">Register as:</p>
-                <div className="flex space-x-4">
+              <div className="bg-gray-50 p-4 lg:p-5 rounded-lg">
+                <p className="text-sm lg:text-base text-gray-600 mb-3">Register as:</p>
+                <div className="space-y-3">
                   <label className="flex items-center cursor-pointer">
                     <input
                       type="radio"
                       name="userType"
                       checked={formData.is_student}
                       onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
-                      className="w-4 h-4 text-rose-500 border-gray-300 focus:ring-rose-500"
+                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
                     />
-                    <span className="ml-2 text-xs text-gray-700">Student</span>
+                    <span className="ml-3 text-sm lg:text-base text-gray-700">Student</span>
                   </label>
                   <label className="flex items-center cursor-pointer">
                     <input
@@ -168,9 +168,9 @@ const Register = () => {
                       name="userType"
                       checked={formData.is_instructor}
                       onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
-                      className="w-4 h-4 text-rose-500 border-gray-300 focus:ring-rose-500"
+                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
                     />
-                    <span className="ml-2 text-xs text-gray-700">Instructor</span>
+                    <span className="ml-3 text-sm lg:text-base text-gray-700">Instructor</span>
                   </label>
                 </div>
               </div>
@@ -178,16 +178,16 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full py-4 lg:py-5 bg-gradient-to-r from-indigo-900 to-purple-800 text-white font-semibold rounded-lg hover:from-indigo-800 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-base lg:text-lg"
               >
                 {loading ? 'Creating account...' : 'REGISTER'}
               </button>
             </form>
 
             <div className="text-center">
-              <p className="text-xs text-gray-500">
+              <p className="text-sm lg:text-base text-gray-500">
                 Already have an account?{' '}
-                <Link to="/login" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
+                <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors">
                   Sign in here
                 </Link>
               </p>

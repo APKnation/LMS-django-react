@@ -41,32 +41,32 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 lg:p-8">
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 lg:p-12">
+      <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:min-h-[600px]">
         {/* Left Side - Welcome Section */}
-        <div className="lg:w-2/5 bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white p-8 lg:p-12">
+        <div className="lg:w-2/5 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white p-10 lg:p-16">
           <div className="text-center">
-            <p className="text-base lg:text-lg tracking-widest mb-2 lg:mb-4">WELCOME TO</p>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">LMS</h1>
-            <p className="text-lg lg:text-xl opacity-90">Learning Management System</p>
-            <p className="mt-2 lg:mt-4 text-xs lg:text-sm opacity-80">Empowering education through technology</p>
+            <p className="text-lg lg:text-2xl tracking-widest mb-4 lg:mb-6">WELCOME TO</p>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 lg:mb-8">LMS</h1>
+            <p className="text-xl lg:text-3xl opacity-90">Learning Management System</p>
+            <p className="mt-4 lg:mt-6 text-sm lg:text-base opacity-80">Access your courses and continue learning</p>
           </div>
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-6 lg:p-12">
-          <div className="w-full max-w-sm space-y-5">
+        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-8 lg:p-16">
+          <div className="w-full max-w-md space-y-6">
             <div className="text-center">
-              <h2 className="text-xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg text-base lg:text-lg">
                 {error}
               </div>
             )}
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="username"
@@ -74,8 +74,8 @@ const Login = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
-                placeholder="Username"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                placeholder="Username *"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <input
@@ -85,12 +85,12 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                placeholder="Password"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
+                placeholder="Password *"
+                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
               />
 
               <div className="flex justify-end">
-                <Link to="/forgot-password" className="text-xs text-gray-500 hover:text-rose-500 transition-colors">
+                <Link to="/forgot-password" className="text-base lg:text-lg text-gray-500 hover:text-indigo-500 transition-colors">
                   Forgot Password?
                 </Link>
               </div>
@@ -98,16 +98,16 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full py-4 lg:py-5 bg-gradient-to-r from-indigo-900 to-purple-800 text-white font-semibold rounded-lg hover:from-indigo-800 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-base lg:text-lg"
               >
                 {loading ? 'Logging in...' : 'LOGIN'}
               </button>
             </form>
 
             <div className="text-center">
-              <p className="text-xs text-gray-500">
+              <p className="text-sm lg:text-base text-gray-500">
                 If you are a new user,{' '}
-                <Link to="/register" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
+                <Link to="/register" className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors">
                   Signup here
                 </Link>
               </p>
