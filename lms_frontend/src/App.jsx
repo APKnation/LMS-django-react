@@ -4,7 +4,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
-import './App.css';
 
 // Placeholder components - to be created
 const Home = () => <div className="page"><h1>Home Page</h1></div>;
