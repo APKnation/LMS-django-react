@@ -65,160 +65,133 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-lg w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl">
+    <div className="min-h-screen flex">
+      {/* Left Side - Welcome Section */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 items-center justify-center text-white p-12">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
-          <p className="text-sm text-gray-600">Join our learning community today</p>
+          <p className="text-lg tracking-widest mb-4">JOIN</p>
+          <h1 className="text-6xl font-bold mb-6">LMS</h1>
+          <p className="text-xl opacity-90">Learning Management System</p>
+          <p className="mt-4 text-sm opacity-80">Start your learning journey today</p>
         </div>
+      </div>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-            {error}
+      {/* Right Side - Register Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-8 lg:p-16">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">REGISTER FOR LMS</h2>
           </div>
-        )}
 
-        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-1">
-                First Name
-              </label>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
-                id="first_name"
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
-                placeholder="First name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+                placeholder="First Name"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
-            </div>
-
-            <div>
-              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-1">
-                Last Name
-              </label>
               <input
                 type="text"
-                id="last_name"
                 name="last_name"
-                value={formData.last_name}
                 onChange={handleChange}
-                placeholder="Last name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+                placeholder="Last Name"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-              Username <span className="text-red-500">*</span>
-            </label>
             <input
               type="text"
-              id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
               required
-              placeholder="Choose a username"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+              placeholder="Username *"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
             />
-          </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email <span className="text-red-500">*</span>
-            </label>
             <input
               type="email"
-              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+              placeholder="Email *"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
             />
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password <span className="text-red-500">*</span>
-              </label>
+            <div className="grid grid-cols-2 gap-4">
               <input
                 type="password"
-                id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 required
-                placeholder="Min 8 characters"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+                placeholder="Password *"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
-            </div>
-
-            <div>
-              <label htmlFor="password2" className="block text-sm font-medium text-gray-700 mb-1">
-                Confirm Password <span className="text-red-500">*</span>
-              </label>
               <input
                 type="password"
-                id="password2"
                 name="password2"
                 value={formData.password2}
                 onChange={handleChange}
                 required
-                placeholder="Confirm password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors outline-none"
+                placeholder="Confirm Password *"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
             </div>
-          </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <label className="block text-sm font-medium text-gray-700 mb-3">Register as:</label>
-            <div className="flex space-x-6">
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  name="userType"
-                  checked={formData.is_student}
-                  onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
-                  className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">Student</span>
-              </label>
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  name="userType"
-                  checked={formData.is_instructor}
-                  onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
-                  className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">Instructor</span>
-              </label>
+            <div className="bg-gray-50 p-4 rounded">
+              <p className="text-sm text-gray-600 mb-3">Register as:</p>
+              <div className="flex space-x-6">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    checked={formData.is_student}
+                    onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
+                    className="w-4 h-4 text-rose-500 border-gray-300 focus:ring-rose-500"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">Student</span>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    checked={formData.is_instructor}
+                    onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
+                    className="w-4 h-4 text-rose-500 border-gray-300 focus:ring-rose-500"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">Instructor</span>
+                </label>
+              </div>
             </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              {loading ? 'Creating account...' : 'REGISTER'}
+            </button>
+          </form>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-500">
+              Already have an account?{' '}
+              <Link to="/login" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
+                Sign in here
+              </Link>
+            </p>
           </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
-
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link to="/login" className="font-medium text-teal-600 hover:text-teal-500 transition-colors">
-              Sign in here
-            </Link>
-          </p>
         </div>
       </div>
     </div>
