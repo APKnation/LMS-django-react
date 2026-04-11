@@ -41,25 +41,32 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl">
+    <div className="min-h-screen flex">
+      {/* Left Side - Welcome Section */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-rose-500 to-orange-500 items-center justify-center text-white p-12">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-          <p className="text-sm text-gray-600">Sign in to your LMS account</p>
+          <p className="text-lg tracking-widest mb-4">WELCOME TO</p>
+          <h1 className="text-6xl font-bold mb-6">LMS</h1>
+          <p className="text-xl opacity-90">Learning Management System</p>
+          <p className="mt-4 text-sm opacity-80">Empowering education through technology</p>
         </div>
+      </div>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-            {error}
+      {/* Right Side - Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-white p-8 lg:p-16">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">LOGIN TO LMS</h2>
           </div>
-        )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                Username
-              </label>
               <input
                 type="text"
                 id="username"
@@ -67,15 +74,12 @@ const Login = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
-                placeholder="Enter your username"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors outline-none"
+                placeholder="Username"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
               <input
                 type="password"
                 id="password"
@@ -83,28 +87,34 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors outline-none"
+                placeholder="Password"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition-all"
               />
             </div>
+
+            <div className="flex justify-end">
+              <Link to="/forgot-password" className="text-sm text-gray-500 hover:text-rose-500 transition-colors">
+                Forgot Password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white font-medium rounded hover:from-rose-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              {loading ? 'Logging in...' : 'LOGIN'}
+            </button>
+          </form>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-500">
+              If you are a new user,{' '}
+              <Link to="/register" className="text-rose-500 hover:text-rose-600 font-medium transition-colors">
+                Signup here
+              </Link>
+            </p>
           </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
-              Register here
-            </Link>
-          </p>
         </div>
       </div>
     </div>
