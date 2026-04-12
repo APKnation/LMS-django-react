@@ -7,9 +7,7 @@ import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-
-// Placeholder components - to be created
-const Courses = () => <div className="page"><h1>Courses</h1></div>;
+import Courses from './pages/Courses';
 
 function App() {
   return (
