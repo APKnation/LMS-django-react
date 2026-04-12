@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 
 const Home = () => {
@@ -17,19 +18,40 @@ const Home = () => {
               Empowering education through technology
             </p>
             <div className="space-x-4">
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
               >
                 Get Started
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Stats Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Trusted by Thousands
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="text-4xl font-bold text-indigo-600 mb-2">10,000+</div>
+              <p className="text-gray-600">Active Students</p>
+            </div>
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">500+</div>
+              <p className="text-gray-600">Courses Available</p>
+            </div>
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="text-4xl font-bold text-purple-600 mb-2">98%</div>
+              <p className="text-gray-600">Success Rate</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Why Choose Our LMS?
@@ -63,11 +85,110 @@ const Home = () => {
           <div className="text-center">
             <div className="flex-shrink-0 bg-purple-500 rounded-lg p-3 mx-auto w-16 h-16 flex items-center justify-center mb-4">
               <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 4.866A3.001 3.001 0 0115 15a3.001 3.001 0 01-2.288-4.866 5.002 5.002 0 01-4.424 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">Get Certified</h3>
             <p className="text-gray-600">Earn certificates upon course completion</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="bg-gray-100 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              What Our Students Say
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://picsum.photos/seed/student1/50/50.jpg" 
+                  alt="Student" 
+                  className="w-12 h-12 rounded-full"
+                />
+                <div className="ml-4">
+                  <h4 className="font-medium text-gray-900">John Doe</h4>
+                  <p className="text-sm text-gray-500">Computer Science Student</p>
+                </div>
+              </div>
+              <p className="text-gray-600 italic">
+                "This LMS has transformed my learning experience. The courses are well-structured and the instructors are amazing!"
+              </p>
+              <div className="flex items-center mt-4">
+                <span className="text-yellow-400">★★★★★</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://picsum.photos/seed/student2/50/50.jpg" 
+                  alt="Student" 
+                  className="w-12 h-12 rounded-full"
+                />
+                <div className="ml-4">
+                  <h4 className="font-medium text-gray-900">Jane Smith</h4>
+                  <p className="text-sm text-gray-500">Business Student</p>
+                </div>
+              </div>
+              <p className="text-gray-600 italic">
+                "I love the flexibility of learning at my own pace. The progress tracking keeps me motivated!"
+              </p>
+              <div className="flex items-center mt-4">
+                <span className="text-yellow-400">★★★★★</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://picsum.photos/seed/student3/50/50.jpg" 
+                  alt="Student" 
+                  className="w-12 h-12 rounded-full"
+                />
+                <div className="ml-4">
+                  <h4 className="font-medium text-gray-900">Mike Johnson</h4>
+                  <p className="text-sm text-gray-500">Instructor</p>
+                </div>
+              </div>
+              <p className="text-gray-600 italic">
+                "As an instructor, this platform makes it easy to create and manage courses. Highly recommended!"
+              </p>
+              <div className="flex items-center mt-4">
+                <span className="text-yellow-400">★★★★★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-indigo-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Start Your Learning Journey?
+          </h2>
+          <p className="text-xl mb-8">
+            Join thousands of students already learning with our platform
+          </p>
+          <div className="space-x-4">
+            <Link
+              to="/register"
+              className="inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              Sign Up Now
+            </Link>
+            <Link
+              to="/courses"
+              className="inline-block px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-indigo-600 transition-colors"
+            >
+              Browse Courses
+            </Link>
           </div>
         </div>
       </div>
