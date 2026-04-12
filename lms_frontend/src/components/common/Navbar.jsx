@@ -79,13 +79,13 @@ const Navbar = () => {
           {/* Right side - User menu */}
           <div className="flex items-center">
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-6">
                 <span className="text-sm text-gray-700">
                   Welcome, {user?.first_name || user?.username}
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors"
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors"
                 >
                   Logout
                 </button>
