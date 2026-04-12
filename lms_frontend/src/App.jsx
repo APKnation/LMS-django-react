@@ -6,10 +6,10 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 // Placeholder components - to be created
 const Courses = () => <div className="page"><h1>Courses</h1></div>;
-const Profile = () => <div className="page"><h1>Profile</h1></div>;
 
 function App() {
   return (
