@@ -5,9 +5,9 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 
 // Placeholder components - to be created
-const Home = () => <div className="page"><h1>Home Page</h1></div>;
 const Courses = () => <div className="page"><h1>Courses</h1></div>;
 const Profile = () => <div className="page"><h1>Profile</h1></div>;
 
