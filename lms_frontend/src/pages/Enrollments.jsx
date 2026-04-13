@@ -179,16 +179,9 @@ const Enrollments = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
                           {enrollment.course_title}
                         </h3>
-                        {enrollment.is_active && (
-                          <span className="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full animate-pulse">
-                            ACTIVE
-                          </span>
-                        )}
-                      </div>
                       <p className="text-gray-600 text-sm mb-3">
                         {enrollment.course_description}
                       </p>
