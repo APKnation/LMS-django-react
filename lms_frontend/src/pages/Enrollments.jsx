@@ -175,106 +175,78 @@ const Enrollments = () => {
               </div>
             ) : (
               filteredEnrollments.map(enrollment => (
-                <div key={enrollment.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="flex flex-col lg:flex-row">
-                    {/* Course Image */}
-                    <div className="lg:w-1/3">
-                      <img
-                        src={enrollment.course_thumbnail || 'https://picsum.photos/seed/course' + enrollment.course_id + '/400/250.jpg'}
-                        alt={enrollment.course_title}
-                        className="w-full h-48 lg:h-full object-cover"
-                      />
-                    </div>
-
-                    {/* Course Info */}
-                    <div className="flex-1 p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                            {enrollment.course_title}
-                          </h3>
-                          <p className="text-gray-600 text-sm mb-2">
-                            {enrollment.course_description}
-                          </p>
-                          <div className="flex items-center text-sm text-gray-500 mb-2">
-                            <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                            {enrollment.course_instructor}
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end space-y-2">
-                          {enrollment.is_active && (
-                            <span className="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full animate-pulse">
-                              ACTIVE
-                            </span>
-                          )}
-                          <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(enrollment.is_active)}`}>
-                            {enrollment.is_active ? 'In Progress' : 'Completed'}
+                <div key={enrollment.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6 border border-gray-100">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {enrollment.course_title}
+                        </h3>
+                        {enrollment.is_active && (
+                          <span className="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full animate-pulse">
+                            ACTIVE
                           </span>
-                          {enrollment.certificate_url && (
-                            <a
-                              href={enrollment.certificate_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-full hover:bg-emerald-700"
-                            >
-                              View Certificate
-                            </a>
-                          )}
-                        </div>
+                        )}
                       </div>
-
-                      {/* Progress Bar */}
-                      {enrollment.progress && (
-                        <div className="mb-4">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm font-medium text-gray-700">Progress</span>
-                            <span className="text-sm text-gray-500">
-                              {getProgressPercentage(enrollment)}% Complete
-                            </span>
-                          </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${getProgressPercentage(enrollment)}%` }}
-                            ></div>
-                          </div>
-                          <div className="flex justify-between text-xs text-gray-500 mt-1">
-                            <span>{enrollment.progress.completed_lessons || 0} lessons completed</span>
-                            <span>{enrollment.progress.total_lessons || 0} total lessons</span>
-                          </div>
-                        </div>
+                      <p className="text-gray-600 text-sm mb-3">
+                        {enrollment.course_description}
+                      </p>
+                      <div className="flex items-center text-sm text-gray-500 space-x-4">
+                        <span className="flex items-center">
+                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">👤</span>
+                          {enrollment.course_instructor}
+                        </span>
+                        <span className="flex items-center">
+                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📚</span>
+                          {enrollment.course_difficulty}
+                        </span>
+                        <span className="flex items-center">
+                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">💰</span>
+                          {enrollment.course_is_free ? 'FREE' : `$${enrollment.course_price}`}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end space-y-2 ml-4">
+                      <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(enrollment.is_active)}`}>
+                        {enrollment.is_active ? 'In Progress' : 'Completed'}
+                      </span>
+                      {enrollment.certificate_url && (
+                        <a
+                          href={enrollment.certificate_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-full hover:bg-emerald-700"
+                        >
+                          View Certificate
+                        </a>
                       )}
 
-                      {/* Action Buttons */}
-                      <div className="flex space-x-3">
-                        <button className="flex-1 px-4 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700">
-                          Continue Learning
-                        </button>
-                        <button className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50">
-                          View Details
-                        </button>
-                      </div>
-
-                      {/* Enrollment Info */}
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="text-gray-500">Enrolled:</span>
-                            <span className="text-gray-900 font-medium">
-                              {new Date(enrollment.enrolled_at).toLocaleDateString()}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-gray-500">Duration:</span>
-                            <span className="text-gray-900 font-medium">
-                              {enrollment.course?.duration || '8 weeks'}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                  {/* Progress Section */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm text-gray-600 mb-2">
+                      <span className="font-medium">Learning Progress</span>
+                      <span className="font-bold">{getProgressPercentage(enrollment)}%</span>
                     </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
+                        style={{ width: `${getProgressPercentage(enrollment)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div className="text-sm text-gray-500">
+                      <span className="flex items-center">
+                        <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📅</span>
+                        Enrolled {new Date(enrollment.enrolled_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <button className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                      Continue Learning →
+                    </button>
                   </div>
                 </div>
               ))
