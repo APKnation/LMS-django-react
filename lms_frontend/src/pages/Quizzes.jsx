@@ -38,7 +38,6 @@ const Quizzes = () => {
         }
       });
       
-      console.log('Quizzes fetched from backend:', quizzesData);
       setQuizzes(quizzesData);
       setError(null);
     } catch (error) {
@@ -55,7 +54,7 @@ const Quizzes = () => {
       return;
     }
     fetchQuizzesData();
-  }, [isAuthenticated, fetchQuizzesData]);
+  }, [isAuthenticated]);
 
   // Auto-refresh quizzes data every 30 seconds
   useEffect(() => {
@@ -64,7 +63,7 @@ const Quizzes = () => {
     }, 30000); // Poll every 30 seconds
 
     return () => clearInterval(intervalId);
-  }, [fetchQuizzesData]);
+  }, []); // Remove fetchQuizzesData dependency to prevent multiple intervals
 
   const filteredQuizzes = quizzes.filter(quiz => {
     if (filter === 'all') return true;
@@ -226,7 +225,7 @@ const Quizzes = () => {
                           </div>
                           <div className="w-full bg-emerald-100 rounded-full h-2">
                             <div
-                              className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                              className="bg-emerald-500 h-2 rounded-full transition-all duration-700"
                               style={{ width: `${Math.round((quiz.score / quiz.total_questions) * 100)}%` }}
                             ></div>
                           </div>

@@ -237,11 +237,9 @@ const Enrollments = () => {
                       <div className="relative">
                         <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
                           <div
-                            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-4 rounded-full transition-all duration-700 ease-out relative"
+                            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-4 rounded-full transition-all duration-700 ease-out"
                             style={{ width: `${getProgressPercentage(enrollment)}%` }}
-                          >
-                            <div className="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
-                          </div>
+                          ></div>
                         </div>
                       </div>
                     </div>
