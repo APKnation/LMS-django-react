@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Quizzes = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
     fetchQuizzes();
-  }, []);
+  }, [isAuthenticated, fetchQuizzes]);
 
   const fetchQuizzes = async () => {
     try {
