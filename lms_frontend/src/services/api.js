@@ -82,7 +82,7 @@ export const coursesAPI = {
     api.post(`/courses/${courseId}/enroll/`),
   
   getEnrolled: () =>
-    api.get('/courses/enrolled/'),
+    api.get('/enrollments/'),
   
   search: (query) =>
     api.get('/courses/search/', { params: { q: query } }),
