@@ -81,7 +81,7 @@ const Quizzes = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                All Quizzes ({mockQuizzes.length})
+                All Quizzes ({quizzes.length})
               </button>
               <button
                 onClick={() => setFilter('in_progress')}
@@ -91,7 +91,7 @@ const Quizzes = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                In Progress ({mockQuizzes.filter(q => !q.completed).length})
+                In Progress ({quizzes.filter(q => !q.completed).length})
               </button>
               <button
                 onClick={() => setFilter('completed')}
@@ -101,7 +101,7 @@ const Quizzes = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                Completed ({mockQuizzes.filter(q => q.completed).length})
+                Completed ({quizzes.filter(q => q.completed).length})
               </button>
             </nav>
           </div>
@@ -152,7 +152,7 @@ const Quizzes = () => {
                 </p>
               </div>
             ) : (
-              mockQuizzes.map(quiz => (
+              quizzes.map(quiz => (
                 <div key={quiz.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
