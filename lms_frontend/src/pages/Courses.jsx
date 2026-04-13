@@ -171,13 +171,13 @@ const Courses = () => {
                 {/* Course Image */}
                 <div className="relative">
                   <img 
-                    src={course.image || 'https://picsum.photos/seed/course' + course.id + '/400/250.jpg'} 
+                    src={course.image} 
                     alt={course.title}
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded-full">
-                      {course.level || 'Beginner'}
+                      {course.level}
                     </span>
                   </div>
                 </div>
@@ -185,10 +185,10 @@ const Courses = () => {
                 {/* Course Content */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-500">{course.category || 'General'}</span>
+                    <span className="text-sm text-gray-500">{course.category}</span>
                     <div className="flex items-center">
                       <span className="text-yellow-400">★</span>
-                      <span className="text-sm text-gray-600 ml-1">{course.rating || '4.5'}</span>
+                      <span className="text-sm text-gray-600 ml-1">{course.rating}</span>
                     </div>
                   </div>
 
@@ -197,14 +197,14 @@ const Courses = () => {
                   </h3>
 
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {course.description || 'Learn new skills and advance your career.'}
+                    {course.description}
                   </p>
 
                   <div className="flex items-center text-sm text-gray-500 mb-4">
                     <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    {course.instructor || 'Expert Instructor'}
+                    {course.instructor}
                   </div>
 
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">

@@ -47,39 +47,7 @@ const Quizzes = () => {
     window.location.href = `/courses/${courseId}/quizzes/${quizId}`;
   };
 
-  // Mock data for demonstration
-  const mockQuizzes = [
-    {
-      id: 1,
-      title: 'React Fundamentals Quiz',
-      course_title: 'Introduction to React',
-      course_id: 1,
-      completed: true,
-      score: 85,
-      total_questions: 20,
-      completed_at: '2024-01-15T10:30:00Z'
-    },
-    {
-      id: 2,
-      title: 'JavaScript Advanced Quiz',
-      course_title: 'Advanced JavaScript',
-      course_id: 2,
-      completed: false,
-      score: null,
-      total_questions: 25,
-      completed_at: null
-    },
-    {
-      id: 3,
-      title: 'UI/UX Design Assessment',
-      course_title: 'UI/UX Design Fundamentals',
-      course_id: 3,
-      completed: true,
-      score: 92,
-      total_questions: 15,
-      completed_at: '2024-01-10T14:20:00Z'
-    }
-  ];
+  const quizzes = [];
 
   return (
     <div className="min-h-screen bg-gray-50">
