@@ -24,9 +24,15 @@ const Dashboard = () => {
       console.log('Enrollments API Response:', enrollmentsResponse.data);
       const enrollments = enrollmentsResponse.data || [];
       
+      // Fetch all available courses for total count
+      const allCoursesResponse = await coursesAPI.getAll();
+      console.log('All Courses API Response:', allCoursesResponse.data);
+      const allCourses = allCoursesResponse.data || [];
+      
       // Calculate stats from real data
       const stats = {
-        totalCourses: enrollments.length,
+        totalCourses: allCourses.length,
+        enrolledCourses: enrollments.length,
         completed: enrollments.filter(e => e.status === 'completed').length,
         inProgress: enrollments.filter(e => e.status === 'in_progress').length,
         certificates: enrollments.filter(e => e.certificate_earned).length
@@ -109,6 +115,10 @@ const Dashboard = () => {
                       <dl>
                         <dt className="text-sm font-medium text-gray-500">Total Courses</dt>
                         <dd className="text-2xl font-bold text-gray-900">{stats.totalCourses}</dd>
+                      </dl>
+                      <dl>
+                        <dt className="text-sm font-medium text-gray-500">Enrolled Courses</dt>
+                        <dd className="text-2xl font-bold text-gray-900">{stats.enrolledCourses}</dd>
                       </dl>
                     </div>
                   </div>
