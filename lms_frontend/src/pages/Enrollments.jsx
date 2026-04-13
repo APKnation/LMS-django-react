@@ -191,16 +191,16 @@ const Enrollments = () => {
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                            {enrollment.course?.title}
+                            {enrollment.course_title}
                           </h3>
                           <p className="text-gray-600 text-sm mb-2">
-                            {enrollment.course?.description}
+                            {enrollment.course_description}
                           </p>
                           <div className="flex items-center text-sm text-gray-500 mb-2">
                             <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            {enrollment.course_instructor || 'Expert Instructor'}
+                            {enrollment.course_instructor}
                           </div>
                         </div>
                         <div className="flex flex-col items-end space-y-2">
