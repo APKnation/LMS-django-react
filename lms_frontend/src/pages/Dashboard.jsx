@@ -25,9 +25,7 @@ const Dashboard = () => {
         coursesAPI.getAll()
       ]);
       
-      console.log('Enrollments API Response:', enrollmentsResponse.data);
-      console.log('All Courses API Response:', allCoursesResponse.data);
-      
+            
       const enrollments = enrollmentsResponse.data || [];
       const allCourses = allCoursesResponse.data || [];
       
@@ -35,9 +33,9 @@ const Dashboard = () => {
       const stats = {
         totalCourses: allCourses.length,
         enrolledCourses: enrollments.length,
-        completed: enrollments.filter(e => e.status === 'completed').length,
-        inProgress: enrollments.filter(e => e.status === 'in_progress').length,
-        certificates: enrollments.filter(e => e.certificate_earned).length
+        completed: enrollments.filter(e => !e.is_active).length,
+        inProgress: enrollments.filter(e => e.is_active).length,
+        certificates: enrollments.filter(e => e.certificate_url).length
       };
       
       setStats(stats);
@@ -49,7 +47,7 @@ const Dashboard = () => {
         title: `Enrolled in ${enrollment.course_title || 'Course'}`,
         description: enrollment.course_description || 'Course enrollment',
         timestamp: enrollment.enrolled_at,
-        status: enrollment.is_active ? 'in_progress' : 'completed'
+        status: enrollment.is_active ? 'active' : 'completed'
       }));
       
       setRecentActivity(recentActivity);
