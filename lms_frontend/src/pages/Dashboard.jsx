@@ -25,6 +25,7 @@ const Dashboard = () => {
       
       // Fetch enrolled courses for stats
       const enrollmentsResponse = await coursesAPI.getEnrolled();
+      console.log('Enrollments API Response:', enrollmentsResponse.data);
       const enrollments = enrollmentsResponse.data || [];
       
       // Calculate stats from real data

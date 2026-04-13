@@ -25,6 +25,7 @@ const Courses = () => {
       if (searchTerm) params.search = searchTerm;
 
       const response = await coursesAPI.getAll(params);
+      console.log('API Response:', response.data);
       setCourses(response.data);
       setError(null);
     } catch (error) {
