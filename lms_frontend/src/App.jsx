@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Courses from './pages/Courses';
+import Enrollments from './pages/Enrollments';
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/enrollments"
+            element={
+              <ProtectedRoute>
+                <Enrollments />
               </ProtectedRoute>
             }
           />
