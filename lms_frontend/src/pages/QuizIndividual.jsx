@@ -15,6 +15,7 @@ const QuizIndividual = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [score, setScore] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
