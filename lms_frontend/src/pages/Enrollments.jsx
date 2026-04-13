@@ -221,6 +221,8 @@ const Enrollments = () => {
                           View Certificate
                         </a>
                       )}
+                    </div>
+                  </div>
 
                   {/* Progress Section */}
                   <div className="mb-4">
