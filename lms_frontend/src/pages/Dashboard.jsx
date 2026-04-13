@@ -19,14 +19,16 @@ const Dashboard = () => {
     try {
       setLoading(true);
       
-      // Fetch enrolled courses for stats
-      const enrollmentsResponse = await coursesAPI.getEnrolled();
-      console.log('Enrollments API Response:', enrollmentsResponse.data);
-      const enrollments = enrollmentsResponse.data || [];
+      // Fetch both APIs in parallel
+      const [enrollmentsResponse, allCoursesResponse] = await Promise.all([
+        coursesAPI.getEnrolled(),
+        coursesAPI.getAll()
+      ]);
       
-      // Fetch all available courses for total count
-      const allCoursesResponse = await coursesAPI.getAll();
+      console.log('Enrollments API Response:', enrollmentsResponse.data);
       console.log('All Courses API Response:', allCoursesResponse.data);
+      
+      const enrollments = enrollmentsResponse.data || [];
       const allCourses = allCoursesResponse.data || [];
       
       // Calculate stats from real data
