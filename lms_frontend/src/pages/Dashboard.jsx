@@ -226,7 +226,6 @@ const Dashboard = () => {
                               }`}>
                                 {activity.status === 'completed' ? 'Completed' : 
                                  activity.status === 'in_progress' ? 'In Progress' : 'Not Started'}
-                                }
                               </span>
                             </div>
                           </div>

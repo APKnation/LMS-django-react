@@ -47,7 +47,7 @@ const Quizzes = () => {
     window.location.href = `/courses/${courseId}/quizzes/${quizId}`;
   };
 
-  const quizzes = [];
+  // Remove mock data - quizzes will be fetched from API
 
   return (
     <div className="min-h-screen bg-gray-50">
