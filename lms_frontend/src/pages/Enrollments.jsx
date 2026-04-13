@@ -175,7 +175,7 @@ const Enrollments = () => {
               </div>
             ) : (
               filteredEnrollments.map(enrollment => (
-                <div key={enrollment.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6 border border-gray-100">
+                <div key={enrollment.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-indigo-200">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -192,19 +192,29 @@ const Enrollments = () => {
                       <p className="text-gray-600 text-sm mb-3">
                         {enrollment.course_description}
                       </p>
-                      <div className="flex items-center text-sm text-gray-500 space-x-4">
-                        <span className="flex items-center">
-                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">👤</span>
-                          {enrollment.course_instructor}
-                        </span>
-                        <span className="flex items-center">
-                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📚</span>
-                          {enrollment.course_difficulty}
-                        </span>
-                        <span className="flex items-center">
-                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">💰</span>
-                          {enrollment.course_is_free ? 'FREE' : `$${enrollment.course_price}`}
-                        </span>
+                      <div className="flex items-center text-sm text-gray-600 space-x-6">
+                        <div className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span className="font-medium">{enrollment.course_instructor}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">
+                            {enrollment.course_difficulty}
+                          </span>
+                        </div>
+                        <div className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className={`font-bold ${enrollment.course_is_free ? 'text-green-600' : 'text-gray-900'}`}>
+                            {enrollment.course_is_free ? 'FREE' : `$${enrollment.course_price}`}
+                          </span>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col items-end space-y-2 ml-4">
@@ -227,28 +237,37 @@ const Enrollments = () => {
                   <div>
                     {/* Progress Section */}
                     <div className="mb-4">
-                      <div className="flex justify-between text-sm text-gray-600 mb-2">
-                        <span className="font-medium">Learning Progress</span>
-                        <span className="font-bold">{getProgressPercentage(enrollment)}%</span>
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-sm font-semibold text-gray-700">Learning Progress</span>
+                        <span className="text-sm font-bold text-indigo-600">{getProgressPercentage(enrollment)}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
-                        <div
-                          className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
-                          style={{ width: `${getProgressPercentage(enrollment)}%` }}
-                        ></div>
+                      <div className="relative">
+                        <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-4 rounded-full transition-all duration-700 ease-out relative"
+                            style={{ width: `${getProgressPercentage(enrollment)}%` }}
+                          >
+                            <div className="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
                     {/* Footer */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <div className="text-sm text-gray-500">
-                        <span className="flex items-center">
-                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📅</span>
-                          Enrolled {new Date(enrollment.enrolled_at).toLocaleDateString()}
-                        </span>
+                        <div className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>Enrolled {new Date(enrollment.enrolled_at).toLocaleDateString()}</span>
+                        </div>
                       </div>
-                      <button className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
-                        Continue Learning →
+                      <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105">
+                        Continue Learning
+                        <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                       </button>
                     </div>
                   </div>
