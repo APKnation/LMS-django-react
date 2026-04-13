@@ -223,32 +223,34 @@ const Enrollments = () => {
                       )}
                     </div>
                   </div>
+                  
+                  <div>
+                    {/* Progress Section */}
+                    <div className="mb-4">
+                      <div className="flex justify-between text-sm text-gray-600 mb-2">
+                        <span className="font-medium">Learning Progress</span>
+                        <span className="font-bold">{getProgressPercentage(enrollment)}%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                          className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
+                          style={{ width: `${getProgressPercentage(enrollment)}%` }}
+                        ></div>
+                      </div>
+                    </div>
 
-                  {/* Progress Section */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm text-gray-600 mb-2">
-                      <span className="font-medium">Learning Progress</span>
-                      <span className="font-bold">{getProgressPercentage(enrollment)}%</span>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <div className="text-sm text-gray-500">
+                        <span className="flex items-center">
+                          <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📅</span>
+                          Enrolled {new Date(enrollment.enrolled_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <button className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                        Continue Learning →
+                      </button>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
-                        style={{ width: `${getProgressPercentage(enrollment)}%` }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div className="text-sm text-gray-500">
-                      <span className="flex items-center">
-                        <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">📅</span>
-                        Enrolled {new Date(enrollment.enrolled_at).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <button className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
-                      Continue Learning →
-                    </button>
                   </div>
                 </div>
               ))
