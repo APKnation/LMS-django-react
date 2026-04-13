@@ -12,23 +12,6 @@ const Quizzes = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
-    fetchQuizzesData();
-  }, [isAuthenticated, fetchQuizzesData]);
-
-  // Auto-refresh quizzes data every 30 seconds
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      fetchQuizzesData();
-    }, 30000); // Poll every 30 seconds
-
-    return () => clearInterval(intervalId);
-  }, [fetchQuizzesData]);
-
   const fetchQuizzesData = async () => {
     try {
       setLoading(true);
@@ -65,6 +48,23 @@ const Quizzes = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    fetchQuizzesData();
+  }, [isAuthenticated, fetchQuizzesData]);
+
+  // Auto-refresh quizzes data every 30 seconds
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchQuizzesData();
+    }, 30000); // Poll every 30 seconds
+
+    return () => clearInterval(intervalId);
+  }, [fetchQuizzesData]);
 
   const filteredQuizzes = quizzes.filter(quiz => {
     if (filter === 'all') return true;
