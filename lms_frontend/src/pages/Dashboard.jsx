@@ -15,6 +15,45 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch enrolled courses for stats
+      const enrollmentsResponse = await coursesAPI.getEnrolled();
+      console.log('Enrollments API Response:', enrollmentsResponse.data);
+      const enrollments = enrollmentsResponse.data || [];
+      
+      // Calculate stats from real data
+      const stats = {
+        totalCourses: enrollments.length,
+        completed: enrollments.filter(e => e.completed).length,
+        inProgress: enrollments.filter(e => !e.completed).length,
+        certificates: enrollments.filter(e => e.certificate_earned).length
+      };
+      
+      setStats(stats);
+      
+      // Create recent activity from enrollments
+      const recentActivity = enrollments.slice(0, 5).map(enrollment => ({
+        id: enrollment.id,
+        type: 'enrollment',
+        title: `Enrolled in ${enrollment.course?.title || 'Course'}`,
+        description: enrollment.course?.description || 'Course enrollment',
+        timestamp: enrollment.enrolled_at,
+        status: enrollment.completed ? 'completed' : 'in_progress'
+      }));
+      
+      setRecentActivity(recentActivity);
+      setError(null);
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error);
+      setError('Failed to load dashboard data. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
@@ -27,47 +66,6 @@ const Dashboard = () => {
 
     return () => clearInterval(intervalId);
   }, [fetchDashboardData]);
-
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true);
-      
-      // Fetch enrolled courses for stats
-      const enrollmentsResponse = await coursesAPI.getEnrolled();
-      console.log('Enrollments API Response:', enrollmentsResponse.data);
-      const enrollments = enrollmentsResponse.data || [];
-      
-      // Calculate stats from real data
-      const completedCount = enrollments.filter(e => e.status === 'completed').length;
-      const inProgressCount = enrollments.filter(e => e.status === 'in_progress' || e.status === 'not_started').length;
-      const certificateCount = enrollments.filter(e => e.certificate_url).length;
-      
-      setStats({
-        totalCourses: enrollments.length,
-        completed: completedCount,
-        inProgress: inProgressCount,
-        certificates: certificateCount
-      });
-
-      // Set recent activity from enrollments
-      const activity = enrollments.slice(0, 3).map(enrollment => ({
-        id: enrollment.id,
-        type: 'course_enrollment',
-        title: `Enrolled in ${enrollment.course?.title || 'Course'}`,
-        description: enrollment.course?.description || 'Started learning journey',
-        date: enrollment.enrolled_at,
-        status: enrollment.status
-      }));
-      
-      setRecentActivity(activity);
-      setError(null);
-    } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
-      setError('Failed to load dashboard data. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
