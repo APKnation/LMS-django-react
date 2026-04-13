@@ -86,6 +86,15 @@ export const coursesAPI = {
   
   search: (query) =>
     api.get('/courses/search/', { params: { q: query } }),
+  
+  getQuiz: (courseId, quizId) =>
+    api.get(`/courses/${courseId}/quizzes/${quizId}/`),
+  
+  submitQuiz: (courseId, quizId, answers) =>
+    api.post(`/courses/${courseId}/quizzes/${quizId}/submit/`, { answers }),
+  
+  getQuizzes: (courseId) =>
+    api.get(`/courses/${courseId}/quizzes/`),
 };
 
 export default api;
