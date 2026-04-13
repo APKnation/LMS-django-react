@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Category, Course, Lesson, Comment, Announcement, Assignment, AssignmentSubmission, Review
+from .models import Category, Course, Lesson, Comment, Announcement, Assignment, AssignmentSubmission, Review, Tag
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
 
 
 @admin.register(Category)
