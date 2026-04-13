@@ -17,10 +17,10 @@ const Quizzes = () => {
       navigate('/login');
       return;
     }
-    fetchQuizzes();
-  }, [isAuthenticated, fetchQuizzes]);
+    fetchQuizzesData();
+  }, [isAuthenticated, fetchQuizzesData]);
 
-  const fetchQuizzes = async () => {
+  const fetchQuizzesData = async () => {
     try {
       setLoading(true);
       // Fetch quizzes from enrolled courses
