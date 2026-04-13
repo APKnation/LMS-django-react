@@ -97,7 +97,7 @@ const Enrollments = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                Active Courses ({enrollments.filter(e => e.status === 'in_progress' || e.status === 'not_started').length})
+                Active Courses ({enrollments.filter(e => e.is_active).length})
               </button>
               <button
                 onClick={() => setActiveTab('completed')}
@@ -107,7 +107,7 @@ const Enrollments = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
-                Completed ({enrollments.filter(e => e.status === 'completed').length})
+                Completed ({enrollments.filter(e => !e.is_active).length})
               </button>
               <button
                 onClick={() => setActiveTab('all')}
