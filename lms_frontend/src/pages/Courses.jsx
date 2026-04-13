@@ -223,9 +223,7 @@ const Courses = () => {
                   </p>
 
                   <div className="flex items-center text-sm text-gray-500 mb-4">
-                    <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 100-14 0 7 7 0 100-14 0zM12 14v7" />
-                    </svg>
+                    <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">👤</span>
                     {course.instructor_name || 'Unknown Instructor'}
                   </div>
 
