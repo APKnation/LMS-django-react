@@ -11,6 +11,7 @@ const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(0);
 
   useEffect(() => {
     fetchCourses();
@@ -27,6 +28,9 @@ const Courses = () => {
       const response = await coursesAPI.getAll(params);
       console.log('API Response:', response.data);
       setCourses(response.data);
+      
+      // Force re-render by updating timestamp
+      setLastUpdate(Date.now());
       setError(null);
     } catch (error) {
       console.error('Failed to fetch courses:', error);
