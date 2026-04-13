@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { coursesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
 
 const Courses = () => {
@@ -7,105 +8,53 @@ const Courses = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedLevel, setSelectedLevel] = useState('all');
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Mock course data
-  const courses = [
-    {
-      id: 1,
-      title: 'Introduction to React',
-      instructor: 'John Doe',
-      category: 'Programming',
-      level: 'Beginner',
-      duration: '8 weeks',
-      enrolled: 1234,
-      rating: 4.8,
-      price: 49.99,
-      image: 'https://picsum.photos/seed/react-course/400/250.jpg',
-      description: 'Learn the fundamentals of React.js and build modern web applications.'
-    },
-    {
-      id: 2,
-      title: 'Advanced JavaScript',
-      instructor: 'Jane Smith',
-      category: 'Programming',
-      level: 'Advanced',
-      duration: '12 weeks',
-      enrolled: 892,
-      rating: 4.9,
-      price: 79.99,
-      image: 'https://picsum.photos/seed/js-course/400/250.jpg',
-      description: 'Master advanced JavaScript concepts and best practices.'
-    },
-    {
-      id: 3,
-      title: 'UI/UX Design Fundamentals',
-      instructor: 'Mike Johnson',
-      category: 'Design',
-      level: 'Beginner',
-      duration: '6 weeks',
-      enrolled: 2156,
-      rating: 4.7,
-      price: 39.99,
-      image: 'https://picsum.photos/seed/design-course/400/250.jpg',
-      description: 'Learn the principles of user interface and user experience design.'
-    },
-    {
-      id: 4,
-      title: 'Digital Marketing Strategy',
-      instructor: 'Sarah Wilson',
-      category: 'Marketing',
-      level: 'Intermediate',
-      duration: '10 weeks',
-      enrolled: 1567,
-      rating: 4.6,
-      price: 59.99,
-      image: 'https://picsum.photos/seed/marketing-course/400/250.jpg',
-      description: 'Develop effective digital marketing strategies for business growth.'
-    },
-    {
-      id: 5,
-      title: 'Python for Data Science',
-      instructor: 'David Brown',
-      category: 'Data Science',
-      level: 'Intermediate',
-      duration: '14 weeks',
-      enrolled: 3421,
-      rating: 4.9,
-      price: 89.99,
-      image: 'https://picsum.photos/seed/python-course/400/250.jpg',
-      description: 'Learn Python programming for data analysis and machine learning.'
-    },
-    {
-      id: 6,
-      title: 'Business Management',
-      instructor: 'Emily Davis',
-      category: 'Business',
-      level: 'Beginner',
-      duration: '8 weeks',
-      enrolled: 987,
-      rating: 4.5,
-      price: 44.99,
-      image: 'https://picsum.photos/seed/business-course/400/250.jpg',
-      description: 'Essential business management skills for modern organizations.'
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      setLoading(true);
+      const params = {};
+      if (selectedCategory !== 'all') params.category = selectedCategory;
+      if (selectedLevel !== 'all') params.level = selectedLevel;
+      if (searchTerm) params.search = searchTerm;
+
+      const response = await coursesAPI.getAll(params);
+      setCourses(response.data);
+      setError(null);
+    } catch (error) {
+      console.error('Failed to fetch courses:', error);
+      setError('Failed to load courses. Please try again later.');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      fetchCourses();
+    }, 500); // Debounce search
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, selectedCategory, selectedLevel]);
 
   const categories = ['all', 'Programming', 'Design', 'Marketing', 'Data Science', 'Business'];
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
 
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
-    const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
-    
-    return matchesSearch && matchesCategory && matchesLevel;
-  });
-
-  const handleEnroll = (courseId) => {
-    // TODO: Implement enrollment logic
-    console.log('Enrolling in course:', courseId);
+  const handleEnroll = async (courseId) => {
+    try {
+      await coursesAPI.enroll(courseId);
+      alert('Successfully enrolled in course!');
+      fetchCourses(); // Refresh courses to update enrollment count
+    } catch (error) {
+      console.error('Failed to enroll:', error);
+      alert('Failed to enroll in course. Please try again.');
+    }
   };
 
   return (
@@ -185,86 +134,113 @@ const Courses = () => {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-gray-600">
-            Showing <span className="font-semibold">{filteredCourses.length}</span> courses
+            Showing <span className="font-semibold">{courses.length}</span> courses
           </p>
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            <p className="mt-4 text-gray-600">Loading courses...</p>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <div className="text-center py-12">
+            <svg className="mx-auto h-12 w-12 text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Courses</h3>
+            <p className="text-gray-500">{error}</p>
+            <button
+              onClick={fetchCourses}
+              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCourses.map(course => (
-            <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              {/* Course Image */}
-              <div className="relative">
-                <img 
-                  src={course.image} 
-                  alt={course.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded-full">
-                    {course.level}
-                  </span>
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map(course => (
+              <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                {/* Course Image */}
+                <div className="relative">
+                  <img 
+                    src={course.image || 'https://picsum.photos/seed/course' + course.id + '/400/250.jpg'} 
+                    alt={course.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded-full">
+                      {course.level || 'Beginner'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Course Content */}
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-500">{course.category || 'General'}</span>
+                    <div className="flex items-center">
+                      <span className="text-yellow-400">★</span>
+                      <span className="text-sm text-gray-600 ml-1">{course.rating || '4.5'}</span>
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {course.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    {course.description || 'Learn new skills and advance your career.'}
+                  </p>
+
+                  <div className="flex items-center text-sm text-gray-500 mb-4">
+                    <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    {course.instructor || 'Expert Instructor'}
+                  </div>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div className="flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {course.duration || '8 weeks'}
+                    </div>
+                    <div className="flex items-center">
+                      <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                      </svg>
+                      {course.enrolled ? course.enrolled.toLocaleString() : '0'} enrolled
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-indigo-600">
+                      ${course.price || '49.99'}
+                    </div>
+                    <button
+                      onClick={() => handleEnroll(course.id)}
+                      className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
+                    >
+                      {isStudent ? 'Enroll Now' : isInstructor ? 'View Course' : 'Enroll Now'}
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {/* Course Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-500">{course.category}</span>
-                  <div className="flex items-center">
-                    <span className="text-yellow-400">★</span>
-                    <span className="text-sm text-gray-600 ml-1">{course.rating}</span>
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {course.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {course.description}
-                </p>
-
-                <div className="flex items-center text-sm text-gray-500 mb-4">
-                  <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  {course.instructor}
-                </div>
-
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {course.duration}
-                  </div>
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                    </svg>
-                    {course.enrolled.toLocaleString()} enrolled
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl font-bold text-indigo-600">
-                    ${course.price}
-                  </div>
-                  <button
-                    onClick={() => handleEnroll(course.id)}
-                    className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
-                  >
-                    {isStudent ? 'Enroll Now' : isInstructor ? 'View Course' : 'Enroll Now'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* No Results */}
-        {filteredCourses.length === 0 && (
+        {!loading && !error && courses.length === 0 && (
           <div className="text-center py-12">
             <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

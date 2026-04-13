@@ -70,4 +70,22 @@ export const authAPI = {
     api.get('/users/me/'),
 };
 
+// Courses API
+export const coursesAPI = {
+  getAll: (params = {}) =>
+    api.get('/courses/', { params }),
+  
+  getById: (id) =>
+    api.get(`/courses/${id}/`),
+  
+  enroll: (courseId) =>
+    api.post(`/courses/${courseId}/enroll/`),
+  
+  getEnrolled: () =>
+    api.get('/courses/enrolled/'),
+  
+  search: (query) =>
+    api.get('/courses/search/', { params: { q: query } }),
+};
+
 export default api;
