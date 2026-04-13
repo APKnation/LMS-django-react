@@ -44,6 +44,15 @@ const Courses = () => {
     return () => clearTimeout(timeoutId);
   }, [searchTerm, selectedCategory, selectedLevel]);
 
+  // Auto-refresh courses every 30 seconds
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchCourses();
+    }, 30000); // Poll every 30 seconds
+
+    return () => clearInterval(intervalId);
+  }, [fetchCourses]);
+
   const categories = ['all', 'Programming', 'Design', 'Marketing', 'Data Science', 'Business'];
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
 

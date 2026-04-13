@@ -19,6 +19,15 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
+  // Auto-refresh dashboard data every 30 seconds
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchDashboardData();
+    }, 30000); // Poll every 30 seconds
+
+    return () => clearInterval(intervalId);
+  }, [fetchDashboardData]);
+
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
