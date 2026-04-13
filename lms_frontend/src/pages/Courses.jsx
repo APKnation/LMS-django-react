@@ -171,14 +171,22 @@ const Courses = () => {
               <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 {/* Course Image */}
                 <div className="relative">
-                  <img 
-                    src={course.image} 
-                    alt={course.title}
-                    className="w-full h-48 object-cover"
-                  />
+                  {course.thumbnail ? (
+                    <img 
+                      src={course.thumbnail} 
+                      alt={course.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-48 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                      <svg className="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C12 3 2.25 2.25S0 6.253 0 9.253v13C0 19.747 2.25 21.75 12 21.75c2.746 0 4.997-2.253 6.253-6.253V6.253z" />
+                      </svg>
+                    </div>
+                  )}
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded-full">
-                      {course.level}
+                      {course.difficulty}
                     </span>
                   </div>
                 </div>
@@ -186,10 +194,10 @@ const Courses = () => {
                 {/* Course Content */}
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-500">{course.category}</span>
+                    <span className="text-sm text-gray-500">{course.category || 'Uncategorized'}</span>
                     <div className="flex items-center">
                       <span className="text-yellow-400">★</span>
-                      <span className="text-sm text-gray-600 ml-1">{course.rating}</span>
+                      <span className="text-sm text-gray-600 ml-1">{course.rating || 'No ratings yet'}</span>
                     </div>
                   </div>
 
@@ -203,9 +211,9 @@ const Courses = () => {
 
                   <div className="flex items-center text-sm text-gray-500 mb-4">
                     <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 100-14 0 7 7 0 100-14 0zM12 14v7" />
                     </svg>
-                    {course.instructor}
+                    {course.instructor_name || 'Unknown Instructor'}
                   </div>
 
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
@@ -213,19 +221,19 @@ const Courses = () => {
                       <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      {course.duration || '8 weeks'}
+                      {course.duration || 'Self-paced'}
                     </div>
                     <div className="flex items-center">
                       <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                       </svg>
-                      {course.enrolled ? course.enrolled.toLocaleString() : '0'} enrolled
+                      {course.lesson_count || '0'} lessons
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div className="text-2xl font-bold text-indigo-600">
-                      ${course.price || '49.99'}
+                      ${course.is_free ? 'FREE' : `$${course.price || '0.00'}`}
                     </div>
                     <button
                       onClick={() => handleEnroll(course.id)}
