@@ -81,7 +81,7 @@ const Quizzes = () => {
   };
 
   const handleStartQuiz = (courseId, quizId) => {
-    window.location.href = `/courses/${courseId}/quizzes/${quizId}`;
+    alert('Quiz functionality will be available soon! This is a demo version.');
   };
 
   // Remove mock data - quizzes will be fetched from API
@@ -254,7 +254,7 @@ const Quizzes = () => {
                           onClick={() => handleStartQuiz(quiz.course_id, quiz.id)}
                           className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
                         >
-                          Start Quiz
+                          Demo Quiz
                           <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
