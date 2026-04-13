@@ -12,7 +12,10 @@ const Navbar = () => {
     navigate('/');
   };
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+  if (path === '/') return location.pathname === '/';
+  return location.pathname.startsWith(path);
+};
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
