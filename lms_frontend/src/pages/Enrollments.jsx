@@ -204,6 +204,11 @@ const Enrollments = () => {
                           </div>
                         </div>
                         <div className="flex flex-col items-end space-y-2">
+                          {enrollment.is_active && (
+                            <span className="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full animate-pulse">
+                              ACTIVE
+                            </span>
+                          )}
                           <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(enrollment.is_active)}`}>
                             {enrollment.is_active ? 'In Progress' : 'Completed'}
                           </span>
