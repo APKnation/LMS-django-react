@@ -27,8 +27,8 @@ const Dashboard = () => {
       // Calculate stats from real data
       const stats = {
         totalCourses: enrollments.length,
-        completed: enrollments.filter(e => e.completed).length,
-        inProgress: enrollments.filter(e => !e.completed).length,
+        completed: enrollments.filter(e => e.status === 'completed').length,
+        inProgress: enrollments.filter(e => e.status === 'in_progress').length,
         certificates: enrollments.filter(e => e.certificate_earned).length
       };
       
@@ -38,10 +38,10 @@ const Dashboard = () => {
       const recentActivity = enrollments.slice(0, 5).map(enrollment => ({
         id: enrollment.id,
         type: 'enrollment',
-        title: `Enrolled in ${enrollment.course?.title || 'Course'}`,
-        description: enrollment.course?.description || 'Course enrollment',
+        title: `Enrolled in ${enrollment.course_title || 'Course'}`,
+        description: enrollment.course_description || 'Course enrollment',
         timestamp: enrollment.enrolled_at,
-        status: enrollment.completed ? 'completed' : 'in_progress'
+        status: enrollment.is_active ? 'in_progress' : 'completed'
       }));
       
       setRecentActivity(recentActivity);

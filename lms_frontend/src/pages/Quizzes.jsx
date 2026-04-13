@@ -22,19 +22,19 @@ const Quizzes = () => {
       // Extract quizzes from enrolled courses
       const quizzesData = [];
       enrollments.forEach(enrollment => {
-        if (enrollment.course && enrollment.course.quizzes) {
-          enrollment.course.quizzes.forEach(quiz => {
-            quizzesData.push({
-              id: quiz.id,
-              title: quiz.title,
-              course_title: enrollment.course.title,
-              course_id: enrollment.course.id,
-              completed: quiz.completed || false,
-              score: quiz.score || null,
-              total_questions: quiz.total_questions || 0,
-              completed_at: quiz.completed_at || null
-            });
-          });
+        if (enrollment.course_id && enrollment.course_title) {
+          // For now, create mock quiz data since course.quizzes relationship doesn't exist yet
+          const mockQuiz = {
+            id: enrollment.course_id,
+            title: `${enrollment.course_title} Quiz`,
+            course_title: enrollment.course_title,
+            course_id: enrollment.course_id,
+            completed: false,
+            score: null,
+            total_questions: 3,
+            completed_at: null
+          };
+          quizzesData.push(mockQuiz);
         }
       });
       
