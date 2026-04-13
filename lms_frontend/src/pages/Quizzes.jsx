@@ -191,16 +191,19 @@ const Quizzes = () => {
               </div>
             ) : (
               quizzes.map(quiz => (
-                <div key={quiz.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="p-6">
+                <div key={quiz.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-indigo-200">
+                  <div className="p-2">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
                           {quiz.title}
                         </h3>
-                        <p className="text-gray-600 text-sm">
-                          Course: {quiz.course_title}
-                        </p>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                          <span className="font-medium">{quiz.course_title}</span>
+                        </div>
                       </div>
                       <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(quiz.completed)}`}>
                         {getStatusText(quiz.completed)}
@@ -208,33 +211,54 @@ const Quizzes = () => {
                     </div>
 
                     {quiz.completed ? (
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-500">Score:</span>
-                          <span className="font-semibold text-gray-900">
-                            {quiz.score}/{quiz.total_questions}
-                          </span>
-                          <span className="text-emerald-600 ml-2">
-                            ({Math.round((quiz.score / quiz.total_questions) * 100)}%)
-                          </span>
+                      <div className="space-y-4">
+                        <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium text-emerald-700">Quiz Score</span>
+                            <div className="flex items-center">
+                              <span className="text-2xl font-bold text-emerald-600 mr-2">
+                                {Math.round((quiz.score / quiz.total_questions) * 100)}%
+                              </span>
+                              <span className="text-sm text-gray-600">
+                                ({quiz.score}/{quiz.total_questions})
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-full bg-emerald-100 rounded-full h-2">
+                            <div
+                              className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                              style={{ width: `${Math.round((quiz.score / quiz.total_questions) * 100)}%` }}
+                            ></div>
+                          </div>
                         </div>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <span>Completed:</span>
-                          <span className="font-medium text-gray-900 ml-2">
-                            {new Date(quiz.completed_at).toLocaleDateString()}
-                          </span>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>Completed on {new Date(quiz.completed_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                     ) : (
                       <div className="text-center">
-                        <p className="text-gray-500 text-sm mb-4">
-                          Not started yet. Take this quiz to test your knowledge!
-                        </p>
+                        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
+                          <svg className="w-8 h-8 mx-auto text-blue-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <p className="text-blue-700 text-sm font-medium">
+                            Ready to test your knowledge?
+                          </p>
+                          <p className="text-blue-600 text-xs mt-1">
+                            {quiz.total_questions} questions • Multiple choice
+                          </p>
+                        </div>
                         <button
                           onClick={() => handleStartQuiz(quiz.course_id, quiz.id)}
-                          className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition-colors"
+                          className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
                         >
                           Start Quiz
+                          <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
                         </button>
                       </div>
                     )}
