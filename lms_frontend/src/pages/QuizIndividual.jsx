@@ -23,8 +23,10 @@ const QuizIndividual = () => {
       navigate('/login');
       return;
     }
-    fetchQuiz();
-  }, [courseId, quizId, isAuthenticated]);
+    // Show demo message instead of fetching from non-existent API
+    setError('Quiz functionality is not available yet. This is a demo version.');
+    setLoading(false);
+  }, [isAuthenticated, courseId, quizId]);
 
   const fetchQuiz = async () => {
     try {
@@ -251,68 +253,35 @@ const QuizIndividual = () => {
                 <p className="text-gray-600 mt-2">{getScoreMessage(score.percentage)}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">Correct Answers</p>
-                  <p className="text-xl font-semibold text-emerald-600">{score.correct_answers}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">Time Taken</p>
-                  <p className="text-xl font-semibold text-gray-900">{formatTime(score.time_taken)}</p>
-                </div>
-              </div>
-
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => navigate(`/courses/${courseId}`)}
-                  className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                >
-                  Back to Course
-                </button>
-                <button
-                  onClick={() => navigate(`/courses/${courseId}/quizzes`)}
-                  className="flex-1 px-4 py-2 border border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50"
-                >
-                  View All Quizzes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        
-        <div className="flex items-center justify-center py-12">
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-            <div className="text-center">
-              <svg className="mx-auto h-12 w-12 text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Quiz</h3>
-              <p className="text-gray-500 mb-4">{error}</p>
               <button
-                onClick={fetchQuiz}
+                onClick={() => navigate('/quizzes')}
                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
               >
-                Try Again
+                Back to Quizzes
               </button>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <svg className="mx-auto h-12 w-12 text-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Quiz Demo</h3>
+          <p className="text-gray-500 mb-4">{error}</p>
+          <div className="space-y-3">
+            <p className="text-sm text-gray-600">
+              Quiz functionality will be available in a future version. For now, you can browse your enrolled courses and quizzes.
+            </p>
+            <button
+              onClick={() => navigate('/quizzes')}
+              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200"
+            >
+              Back to Quizzes
+            </button>
         
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
