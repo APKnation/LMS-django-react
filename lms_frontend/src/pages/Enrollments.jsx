@@ -18,6 +18,7 @@ const Enrollments = () => {
     try {
       setLoading(true);
       const response = await coursesAPI.getEnrolled();
+      console.log('Enrollments API Response:', response.data);
       setEnrollments(response.data);
       setError(null);
     } catch (error) {
@@ -30,9 +31,9 @@ const Enrollments = () => {
 
   const filteredEnrollments = enrollments.filter(enrollment => {
     if (activeTab === 'active') {
-      return enrollment.status === 'in_progress' || enrollment.status === 'not_started';
+      return enrollment.is_active;
     } else if (activeTab === 'completed') {
-      return enrollment.status === 'completed';
+      return !enrollment.is_active; // Assuming completed means not active
     } else if (activeTab === 'all') {
       return true;
     }
@@ -40,33 +41,27 @@ const Enrollments = () => {
   });
 
   const getProgressPercentage = (enrollment) => {
-    if (!enrollment.progress) return 0;
-    return Math.round((enrollment.progress.completed_lessons / enrollment.progress.total_lessons) * 100);
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'bg-emerald-100 text-emerald-800';
-      case 'in_progress':
-        return 'bg-blue-100 text-blue-800';
-      case 'not_started':
-        return 'bg-gray-100 text-gray-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+    // Since we don't have progress tracking, return based on active status
+    if (enrollment.is_active) {
+      return 50; // In progress
+    } else {
+      return 100; // Completed
     }
   };
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'Completed';
-      case 'in_progress':
-        return 'In Progress';
-      case 'not_started':
-        return 'Not Started';
-      default:
-        return 'Unknown';
+  const getStatusColor = (isActive) => {
+    if (isActive) {
+      return 'bg-blue-100 text-blue-800'; // In Progress
+    } else {
+      return 'bg-emerald-100 text-emerald-800'; // Completed
+    }
+  };
+
+  const getStatusText = (isActive) => {
+    if (isActive) {
+      return 'In Progress';
+    } else {
+      return 'Completed';
     }
   };
 
@@ -185,8 +180,8 @@ const Enrollments = () => {
                     {/* Course Image */}
                     <div className="lg:w-1/3">
                       <img
-                        src={enrollment.course?.image || 'https://picsum.photos/seed/course' + enrollment.course?.id + '/400/250.jpg'}
-                        alt={enrollment.course?.title}
+                        src={enrollment.course_thumbnail || 'https://picsum.photos/seed/course' + enrollment.course_id + '/400/250.jpg'}
+                        alt={enrollment.course_title}
                         className="w-full h-48 lg:h-full object-cover"
                       />
                     </div>
@@ -205,12 +200,12 @@ const Enrollments = () => {
                             <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            {enrollment.course?.instructor || 'Expert Instructor'}
+                            {enrollment.course_instructor || 'Expert Instructor'}
                           </div>
                         </div>
                         <div className="flex flex-col items-end space-y-2">
-                          <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(enrollment.status)}`}>
-                            {getStatusText(enrollment.status)}
+                          <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(enrollment.is_active ? 'in_progress' : 'completed')}`}>
+                            {enrollment.is_active ? 'In Progress' : 'Completed'}
                           </span>
                           {enrollment.certificate_url && (
                             <a
