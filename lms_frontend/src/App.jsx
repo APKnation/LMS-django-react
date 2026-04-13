@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Courses from './pages/Courses';
 import Enrollments from './pages/Enrollments';
 import Quiz from './pages/Quiz';
+import QuizIndividual from './pages/QuizIndividual';
 import Quizzes from './pages/Quizzes';
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
             path="/courses/:courseId/quizzes/:quizId"
             element={
               <ProtectedRoute>
-                <Quiz />
+                <QuizIndividual />
               </ProtectedRoute>
             }
           />
