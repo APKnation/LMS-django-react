@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Courses from './pages/Courses';
 import Enrollments from './pages/Enrollments';
 import Quiz from './pages/Quiz';
+import Quizzes from './pages/Quizzes';
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Quiz />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quizzes"
+            element={
+              <ProtectedRoute>
+                <Quizzes />
               </ProtectedRoute>
             }
           />
