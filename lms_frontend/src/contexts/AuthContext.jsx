@@ -19,7 +19,11 @@ export const AuthProvider = ({ children }) => {
           setIsAuthenticated(true);
         } catch (error) {
           console.error('Failed to get user:', error);
-          logout();
+          // Clear tokens but don't redirect - let the component handle navigation
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          setUser(null);
+          setIsAuthenticated(false);
         }
       }
       setLoading(false);
