@@ -115,4 +115,53 @@ export const coursesAPI = {
     api.get(`/courses/${courseId}/quizzes/`),
 };
 
+// Progress API
+export const progressAPI = {
+  // Progress tracking
+  getMyProgress: () =>
+    api.get('/progress/my_progress/'),
+  
+  markComplete: (lessonId) =>
+    api.post('/progress/mark_complete/', { lesson: lessonId }),
+  
+  updateProgress: (progressId, data) =>
+    api.put(`/progress/${progressId}/`, data),
+  
+  // Bookmarks
+  getMyBookmarks: () =>
+    api.get('/bookmarks/my_bookmarks/'),
+  
+  addBookmark: (lessonId, note = '') =>
+    api.post('/bookmarks/', { lesson: lessonId, note }),
+  
+  removeBookmark: (bookmarkId) =>
+    api.delete(`/bookmarks/${bookmarkId}/`),
+  
+  // Notes
+  getMyNotes: (lessonId = null) =>
+    api.get('/notes/my_notes/', { params: lessonId ? { lesson: lessonId } : {} }),
+  
+  addNote: (lessonId, content, timestamp = 0) =>
+    api.post('/notes/', { lesson: lessonId, content, timestamp }),
+  
+  updateNote: (noteId, data) =>
+    api.put(`/notes/${noteId}/`, data),
+  
+  deleteNote: (noteId) =>
+    api.delete(`/notes/${noteId}/`),
+  
+  // Certificates
+  getMyCertificates: () =>
+    api.get('/certificates/my_certificates/'),
+  
+  generateCertificate: (courseId) =>
+    api.post('/certificates/generate/', { course: courseId }),
+  
+  downloadCertificate: (certificateId) =>
+    api.get(`/certificates/${certificateId}/download/`, { responseType: 'blob' }),
+  
+  verifyCertificate: (certificateNumber) =>
+    api.get('/certificates/verify/', { params: { certificate_number: certificateNumber } }),
+};
+
 export default api;
