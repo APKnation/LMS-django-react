@@ -41,13 +41,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 lg:p-12">
-      <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[700px] lg:min-h-[600px]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6 lg:p-12">
+      <div className="w-full max-w-md sm:max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px]">
         {/* Left Side - Welcome Section */}
-        <div className="lg:w-2/5 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white p-10 lg:p-16">
+        <div className="lg:w-2/5 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white p-8 sm:p-10 lg:p-16">
           <div className="text-center">
-            <p className="text-lg lg:text-2xl tracking-widest mb-4 lg:mb-6">WELCOME TO</p>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 lg:mb-8">LMS</h1>
+            <p className="text-lg sm:text-xl lg:text-2xl tracking-widest mb-4 lg:mb-6">WELCOME TO</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 lg:mb-8">LMS</h1>
             <p className="text-xl lg:text-3xl opacity-90">Learning Management System</p>
             <p className="mt-4 lg:mt-6 text-sm lg:text-base opacity-80">Access your courses and continue learning</p>
           </div>

@@ -2,16 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  
+  /* Mobile-first responsive text */
+  h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h2 {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+  
+  h3 {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+}
+
+@layer components {
+  /* Responsive containers */
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Responsive cards */
+  .card-responsive {
+    @apply bg-white rounded-lg shadow-lg p-4 sm:p-6;
+  }
+  
+  /* Responsive buttons */
+  .btn-primary {
+    @apply px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium rounded-lg transition-all duration-200;
+  }
+  
+  /* Responsive grid */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+  }
+  
+  /* Mobile navigation */
+  .nav-mobile {
+    @apply lg:hidden;
+  }
+  
+  .nav-desktop {
+    @apply hidden lg:flex;
+  }
+  
+  /* Responsive sidebar */
+  .sidebar-mobile {
+    @apply fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0;
+  }
+  
+  .sidebar-mobile-open {
+    @apply translate-x-0;
+  }
+  
+  .sidebar-mobile-closed {
+    @apply -translate-x-full;
+  }
+  
+  /* Responsive form inputs */
+  .input-responsive {
+    @apply w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500;
+  }
+  
+  /* Responsive images */
+  .img-responsive {
+    @apply w-full h-auto object-cover;
+  }
+}
+
+@layer utilities {
+  /* Responsive spacing */
+  .space-y-responsive {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+  
+  .space-x-responsive {
+    @apply space-x-2 sm:space-x-4 lg:space-x-6;
+  }
+  
+  /* Responsive text alignment */
+  .text-responsive-center {
+    @apply text-center sm:text-left;
+  }
+  
+  /* Hide/show utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+  
+  .tablet-up {
+    @apply hidden sm:block;
+  }
+  
+  .desktop-up {
+    @apply hidden lg:block;
+  }
+  
+  /* Responsive animations */
+  .animate-responsive {
+    @apply transition-all duration-200 ease-in-out;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
