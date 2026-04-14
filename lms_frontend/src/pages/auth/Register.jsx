@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Register = () => {
@@ -223,28 +223,6 @@ const Register = () => {
                 {loading ? 'Creating account...' : 'REGISTER'}
               </button>
             </form>
-
-            <div className="text-center">
-              <p className="text-sm lg:text-base text-gray-500">
-                Already have an account?{' '}
-                <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors">
-                  Sign in here
-                </Link>
-              </p>
-            </div>
-
-            {/* Information for existing students */}
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="flex items-start">
-                <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div className="text-xs text-blue-800">
-                  <p className="font-semibold mb-1">Already a student?</p>
-                  <p>If you're already registered as a student and want to become an instructor, contact administrators to request an instructor role upgrade.</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
