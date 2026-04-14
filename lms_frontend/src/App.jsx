@@ -12,6 +12,10 @@ import Enrollments from './pages/Enrollments';
 import Quiz from './pages/Quiz';
 import QuizIndividual from './pages/QuizIndividual';
 import Quizzes from './pages/Quizzes';
+import Progress from './pages/Progress';
+import Bookmarks from './pages/Bookmarks';
+import Notes from './pages/Notes';
+import Certificates from './pages/Certificates';
 
 function App() {
   return (
@@ -62,6 +66,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <Quizzes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/progress"
+            element={
+              <ProtectedRoute>
+                <Progress />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bookmarks"
+            element={
+              <ProtectedRoute>
+                <Bookmarks />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notes"
+            element={
+              <ProtectedRoute>
+                <Notes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/certificates"
+            element={
+              <ProtectedRoute>
+                <Certificates />
               </ProtectedRoute>
             }
           />
