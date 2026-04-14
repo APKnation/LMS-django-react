@@ -183,6 +183,17 @@ const Navbar = () => {
                 </p>
               </div>
               <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  isActive('/')
+                    ? 'bg-indigo-100 text-indigo-700'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                Home
+              </Link>
+              <Link
                 to="/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
@@ -246,6 +257,17 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  isActive('/')
+                    ? 'bg-indigo-100 text-indigo-700'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                Home
+              </Link>
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
