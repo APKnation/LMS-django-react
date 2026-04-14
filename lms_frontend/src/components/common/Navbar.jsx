@@ -9,8 +9,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    logout();
-    navigate('/', { replace: true }); // Redirect to home page
+    logout(navigate); // Pass navigate function to handle redirect
     setMobileMenuOpen(false);
   };
 

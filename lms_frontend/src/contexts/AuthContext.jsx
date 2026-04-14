@@ -79,11 +79,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = (navigate = null) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     setUser(null);
     setIsAuthenticated(false);
+    
+    // Navigate to home page if navigate function is provided
+    if (navigate) {
+      navigate('/', { replace: true });
+    }
   };
 
   const updateUser = (updatedUser) => {
