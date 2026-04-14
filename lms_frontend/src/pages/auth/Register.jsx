@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Register = () => {
@@ -223,6 +223,15 @@ const Register = () => {
                 {loading ? 'Creating account...' : 'REGISTER'}
               </button>
             </form>
+
+            <div className="text-center mt-6">
+              <p className="text-sm lg:text-base text-gray-500">
+                Already have an account?{' '}
+                <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors">
+                  Sign in here
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
