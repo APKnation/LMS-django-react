@@ -42,6 +42,21 @@ const Register = () => {
       return;
     }
 
+    // Instructor validation
+    if (formData.is_instructor) {
+      // In a real application, you might want to:
+      // 1. Require additional information (qualifications, experience)
+      // 2. Send for admin approval
+      // 3. Require email verification
+      // For now, we'll allow it but show a warning
+      const confirmInstructor = window.confirm(
+        'You are registering as an Instructor. This role requires approval from administrators. Continue?'
+      );
+      if (!confirmInstructor) {
+        return;
+      }
+    }
+
     setLoading(true);
 
     // Remove password2 before sending to API
@@ -50,6 +65,11 @@ const Register = () => {
     const result = await register(registerData);
     
     if (result.success) {
+      if (formData.is_instructor) {
+        alert('Registration successful! Your instructor account is pending approval from administrators.');
+      } else {
+        alert('Registration successful! Welcome to LMS.');
+      }
       navigate('/');
     } else {
       // Format error messages from API
@@ -150,29 +170,49 @@ const Register = () => {
               />
 
               <div className="bg-gray-50 p-4 lg:p-5 rounded-lg">
-                <p className="text-sm lg:text-base text-gray-600 mb-3">Register as:</p>
+                <p className="text-sm lg:text-base text-gray-600 mb-3 font-medium">Register as:</p>
                 <div className="space-y-3">
-                  <label className="flex items-center cursor-pointer">
+                  <label className="flex items-start cursor-pointer p-3 bg-white rounded-lg border-2 border-indigo-200 hover:border-indigo-400 transition-colors">
                     <input
                       type="radio"
                       name="userType"
                       checked={formData.is_student}
                       onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
-                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500 mt-1"
                     />
-                    <span className="ml-3 text-sm lg:text-base text-gray-700">Student</span>
+                    <div className="ml-3">
+                      <span className="text-sm lg:text-base font-semibold text-gray-900">Student</span>
+                      <p className="text-xs text-gray-500 mt-1">Enroll in courses, track progress, earn certificates</p>
+                    </div>
                   </label>
-                  <label className="flex items-center cursor-pointer">
+                  <label className="flex items-start cursor-pointer p-3 bg-white rounded-lg border-2 border-gray-200 hover:border-purple-400 transition-colors">
                     <input
                       type="radio"
                       name="userType"
                       checked={formData.is_instructor}
                       onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
-                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                      className="w-5 h-5 text-purple-600 border-gray-300 focus:ring-purple-500 mt-1"
                     />
-                    <span className="ml-3 text-sm lg:text-base text-gray-700">Instructor</span>
+                    <div className="ml-3">
+                      <span className="text-sm lg:text-base font-semibold text-gray-900">Instructor</span>
+                      <p className="text-xs text-gray-500 mt-1">Create courses, manage students, track analytics</p>
+                    </div>
                   </label>
                 </div>
+                
+                {formData.is_instructor && (
+                  <div className="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="flex items-start">
+                      <svg className="w-5 h-5 text-purple-600 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div className="text-xs text-purple-800">
+                        <p className="font-semibold mb-1">Instructor Registration</p>
+                        <p>Instructor accounts require approval from administrators. You'll be able to create courses once approved.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <button
@@ -191,6 +231,19 @@ const Register = () => {
                   Sign in here
                 </Link>
               </p>
+            </div>
+
+            {/* Information for existing students */}
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="flex items-start">
+                <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div className="text-xs text-blue-800">
+                  <p className="font-semibold mb-1">Already a student?</p>
+                  <p>If you're already registered as a student and want to become an instructor, contact administrators to request an instructor role upgrade.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
