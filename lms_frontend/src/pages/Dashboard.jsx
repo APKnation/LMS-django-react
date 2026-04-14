@@ -86,13 +86,45 @@ const Dashboard = () => {
               <p className="text-indigo-200 mt-1">Welcome back, {user?.first_name || user?.username}</p>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="px-3 py-1 bg-indigo-700 rounded-full text-sm">
-                {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
+              <span className={`px-3 py-1 rounded-full text-sm ${
+                user?.is_instructor && !user?.is_instructor_approved
+                  ? 'bg-yellow-600'
+                  : isStudent
+                  ? 'bg-indigo-700'
+                  : isInstructor
+                  ? 'bg-purple-700'
+                  : 'bg-gray-700'
+              }`}>
+                {user?.is_instructor && !user?.is_instructor_approved
+                  ? 'Pending Instructor'
+                  : isStudent
+                  ? 'Student'
+                  : isInstructor
+                  ? 'Instructor'
+                  : 'User'}
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Instructor Approval Warning */}
+      {user?.is_instructor && !user?.is_instructor_approved && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700">
+                <strong>Instructor Account Pending Approval</strong> - Your instructor account is awaiting approval from administrators. You will be able to create courses once approved.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
