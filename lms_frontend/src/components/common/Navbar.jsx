@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate('/', { replace: true }); // Redirect to home page
     setMobileMenuOpen(false);
   };
 
