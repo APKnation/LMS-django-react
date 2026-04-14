@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { coursesAPI } from '../services/api';
+import { coursesAPI, categoriesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
+import Categories from '../components/Categories';
 
 const Courses = () => {
   const { isStudent, isInstructor } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState('all');
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,12 +22,11 @@ const Courses = () => {
     try {
       setLoading(true);
       const params = {};
-      if (selectedCategory !== 'all') params.category = selectedCategory;
-      if (selectedLevel !== 'all') params.level = selectedLevel;
+      if (selectedCategory) params.category = selectedCategory.id;
+      if (selectedLevel !== 'all') params.difficulty = selectedLevel.toLowerCase();
       if (searchTerm) params.search = searchTerm;
 
       const response = await coursesAPI.getAll(params);
-      console.log('API Response:', response.data);
       setCourses(response.data);
       
       // Force re-render by updating timestamp
@@ -57,7 +57,6 @@ const Courses = () => {
     return () => clearInterval(intervalId);
   }, [fetchCourses]);
 
-  const categories = ['all', 'Programming', 'Design', 'Marketing', 'Data Science', 'Business'];
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
 
   const handleEnroll = async (courseId) => {
@@ -91,10 +90,37 @@ const Courses = () => {
 
       {/* Filters and Search */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Search */}
-            <div className="md:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar Filters */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow p-6">
+              <Categories 
+                onCategorySelect={setSelectedCategory}
+                selectedCategory={selectedCategory}
+              />
+              
+              {/* Level Filter */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Difficulty Level</h3>
+                <select
+                  value={selectedLevel}
+                  onChange={(e) => setSelectedLevel(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  {levels.map(level => (
+                    <option key={level} value={level}>
+                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {/* Search Bar */}
+            <div className="bg-white rounded-lg shadow p-6 mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Search Courses
               </label>
@@ -107,50 +133,15 @@ const Courses = () => {
               />
             </div>
 
-            {/* Category Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category
-              </label>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                {categories.map(category => (
-                  <option key={category} value={category}>
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </option>
-                ))}
-              </select>
+            {/* Results Count */}
+            <div className="mb-6">
+              <p className="text-gray-600">
+                Showing <span className="font-semibold">{courses.length}</span> courses
+                {selectedCategory && (
+                  <span> in <span className="font-semibold text-indigo-600">{selectedCategory.name}</span></span>
+                )}
+              </p>
             </div>
-
-            {/* Level Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Level
-              </label>
-              <select
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                {levels.map(level => (
-                  <option key={level} value={level}>
-                    {level.charAt(0).toUpperCase() + level.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            Showing <span className="font-semibold">{courses.length}</span> courses
-          </p>
-        </div>
 
         {/* Loading State */}
         {loading && (
@@ -269,6 +260,8 @@ const Courses = () => {
             <p className="text-gray-500">Try adjusting your search or filter criteria</p>
           </div>
         )}
+          </div>
+        </div>
       </div>
     </div>
   );
