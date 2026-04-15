@@ -17,10 +17,16 @@ const Payment = () => {
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState('card');
   const [cardDetails, setCardDetails] = useState({
     number: '',
     expiry: '',
     cvc: ''
+  });
+  const [mobileMoneyDetails, setMobileMoneyDetails] = useState({
+    provider: '',
+    phoneNumber: '',
+    accountName: ''
   });
 
   useEffect(() => {
@@ -80,15 +86,34 @@ const Payment = () => {
       setProcessing(true);
       setError(null);
       
-      const response = await paymentsAPI.createOrder(courseId, couponCode || null);
+      const orderData = {
+        course: courseId,
+        coupon_code: couponCode || null,
+        payment_method: paymentMethod,
+        mobile_money_phone: paymentMethod !== 'card' ? mobileMoneyDetails.phoneNumber : '',
+        mobile_money_account_name: paymentMethod !== 'card' ? mobileMoneyDetails.accountName : ''
+      };
+      
+      const response = await paymentsAPI.createOrder(orderData);
       setOrder(response.data);
       
       // Initiate checkout
       const checkoutResponse = await paymentsAPI.checkout(response.data.id);
       
-      // In a real app, you would use Stripe Elements here
-      // For now, simulate payment completion
-      await simulatePayment(checkoutResponse.data.order.stripe_payment_intent_id);
+      // Handle mobile money payments
+      if (paymentMethod !== 'card') {
+        if (checkoutResponse.data.success) {
+          alert('Payment successful! You are now enrolled in the course.');
+          navigate(`/courses/${courseId}`);
+        } else {
+          setError('Payment failed. Please try again.');
+        }
+      } else {
+        // Handle card payments with Stripe
+        // In a real app, you would use Stripe Elements here
+        // For now, simulate payment completion
+        await simulatePayment(checkoutResponse.data.order.stripe_payment_intent_id);
+      }
       
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to process payment');
@@ -112,6 +137,20 @@ const Payment = () => {
     const { name, value } = e.target;
     setCardDetails(prev => ({ ...prev, [name]: value }));
   };
+
+  const handleMobileMoneyChange = (e) => {
+    const { name, value } = e.target;
+    setMobileMoneyDetails(prev => ({ ...prev, [name]: value }));
+  };
+
+  const paymentMethods = [
+    { id: 'card', name: 'Credit/Debit Card', icon: '💳' },
+    { id: 'vodacom', name: 'Vodacom M-Pesa', icon: '📱' },
+    { id: 'airtel', name: 'Airtel Money', icon: '📱' },
+    { id: 'halotel', name: 'Halotel Money', icon: '📱' },
+    { id: 'ttcl', name: 'TTCL Money', icon: '📱' },
+    { id: 'yas', name: 'Yas Money', icon: '📱' }
+  ];
 
   const finalPrice = course ? (parseFloat(course.price) - discountAmount).toFixed(2) : '0.00';
 
@@ -219,46 +258,114 @@ const Payment = () => {
             {!course?.is_free && (
               <div className="bg-white rounded-lg shadow p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Details</h2>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
-                    <input
-                      type="text"
-                      name="number"
-                      value={cardDetails.number}
-                      onChange={handleInputChange}
-                      placeholder="1234 5678 9012 3456"
-                      maxLength="19"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
-                      <input
-                        type="text"
-                        name="expiry"
-                        value={cardDetails.expiry}
-                        onChange={handleInputChange}
-                        placeholder="MM/YY"
-                        maxLength="5"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">CVC</label>
-                      <input
-                        type="text"
-                        name="cvc"
-                        value={cardDetails.cvc}
-                        onChange={handleInputChange}
-                        placeholder="123"
-                        maxLength="3"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
+                
+                {/* Payment Method Selection */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Select Payment Method</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {paymentMethods.map((method) => (
+                      <button
+                        key={method.id}
+                        onClick={() => setPaymentMethod(method.id)}
+                        className={`p-4 rounded-lg border-2 transition-all ${
+                          paymentMethod === method.id
+                            ? 'border-indigo-600 bg-indigo-50'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <div className="text-2xl mb-1">{method.icon}</div>
+                          <div className="text-xs font-medium text-gray-700">{method.name}</div>
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
+
+                {/* Card Payment Form */}
+                {paymentMethod === 'card' && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+                      <input
+                        type="text"
+                        name="number"
+                        value={cardDetails.number}
+                        onChange={handleInputChange}
+                        placeholder="1234 5678 9012 3456"
+                        maxLength="19"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                        <input
+                          type="text"
+                          name="expiry"
+                          value={cardDetails.expiry}
+                          onChange={handleInputChange}
+                          placeholder="MM/YY"
+                          maxLength="5"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">CVC</label>
+                        <input
+                          type="text"
+                          name="cvc"
+                          value={cardDetails.cvc}
+                          onChange={handleInputChange}
+                          placeholder="123"
+                          maxLength="3"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Mobile Money Payment Form */}
+                {paymentMethod !== 'card' && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={mobileMoneyDetails.phoneNumber}
+                        onChange={handleMobileMoneyChange}
+                        placeholder="255XXXXXXXXX"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                      <p className="mt-1 text-xs text-gray-500">Enter your mobile money phone number (e.g., 255712345678)</p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Account Name</label>
+                      <input
+                        type="text"
+                        name="accountName"
+                        value={mobileMoneyDetails.accountName}
+                        onChange={handleMobileMoneyChange}
+                        placeholder="John Doe"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                      <p className="mt-1 text-xs text-gray-500">Enter the name registered with your mobile money account</p>
+                    </div>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <p className="text-sm text-blue-800">
+                        <strong>Payment Instructions:</strong>
+                      </p>
+                      <ul className="text-sm text-blue-700 mt-2 list-disc list-inside">
+                        <li>You will receive a payment prompt on your phone</li>
+                        <li>Enter your mobile money PIN to confirm payment</li>
+                        <li>Wait for payment confirmation</li>
+                        <li>You will be redirected to the course after successful payment</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -304,11 +411,11 @@ const Payment = () => {
                       : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                   }`}
                 >
-                  {processing ? 'Processing...' : `Pay $${finalPrice}`}
+                  {processing ? 'Processing...' : `Pay $${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
                 </button>
               )}
               
-              {!course?.is_free && (
+              {!course?.is_free && paymentMethod === 'card' && (
                 <div className="mt-4 text-center text-xs text-gray-500">
                   <p>🔒 Secure payment powered by Stripe</p>
                   <p className="mt-1">Your payment information is encrypted and secure</p>

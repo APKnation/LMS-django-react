@@ -115,6 +115,41 @@ class OrderViewSet(viewsets.ModelViewSet):
         if order.status == 'completed':
             return Response({'error': 'Order already completed'})
 
+        # Handle mobile money payments
+        if order.payment_method != 'card':
+            # For mobile money, simulate payment processing
+            # In production, integrate with actual mobile money APIs
+            from django.utils import timezone
+            order.status = 'completed'
+            order.completed_at = timezone.now()
+            order.save()
+
+            # Create enrollment
+            enrollment, created = Enrollment.objects.get_or_create(
+                student=order.student,
+                course=order.course,
+                defaults={'status': 'active'}
+            )
+
+            # Update revenue analytics
+            RevenueAnalytics.objects.update_or_create(
+                course=order.course,
+                date=timezone.now().date(),
+                defaults={
+                    'sales_count': 1,
+                    'revenue': order.final_price,
+                    'instructor_payout': order.final_price * 0.7  # 70% to instructor
+                }
+            )
+
+            return Response({
+                'success': True,
+                'message': f'Payment completed via {order.get_payment_method_display()}',
+                'order_id': order.id,
+                'payment_method': order.payment_method
+            })
+
+        # Handle card payments with Stripe
         try:
             intent = stripe.PaymentIntent.create(
                 amount=int(order.final_price * 100),
