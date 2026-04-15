@@ -96,6 +96,15 @@ export const coursesAPI = {
   getById: (id) =>
     api.get(`/courses/${id}/`),
   
+  create: (data) =>
+    api.post('/courses/', data),
+  
+  update: (id, data) =>
+    api.put(`/courses/${id}/`, data),
+  
+  delete: (id) =>
+    api.delete(`/courses/${id}/`),
+  
   enroll: (courseId) =>
     api.post(`/courses/${courseId}/enroll/`),
   
@@ -113,6 +122,9 @@ export const coursesAPI = {
   
   getQuizzes: (courseId) =>
     api.get(`/courses/${courseId}/quizzes/`),
+  
+  getMyCourses: () =>
+    api.get('/courses/my_courses/'),
 };
 
 // Progress API

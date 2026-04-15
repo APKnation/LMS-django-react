@@ -18,6 +18,7 @@ import Notes from './pages/Notes';
 import Certificates from './pages/Certificates';
 import Payment from './pages/Payment';
 import PaymentHistory from './pages/PaymentHistory';
+import CourseCreate from './pages/CourseCreate';
 
 function App() {
   return (
@@ -116,6 +117,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PaymentHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/course/create"
+            element={
+              <ProtectedRoute>
+                <CourseCreate />
               </ProtectedRoute>
             }
           />
