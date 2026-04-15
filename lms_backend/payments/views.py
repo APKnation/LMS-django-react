@@ -124,7 +124,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                 enrollment, created = Enrollment.objects.get_or_create(
                     student=order.student,
                     course=order.course,
-                    defaults={'status': 'active'}
+                    defaults={'is_active': True}
                 )
 
                 # Temporarily comment out revenue analytics to debug
