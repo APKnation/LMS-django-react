@@ -113,7 +113,7 @@ const Payment = () => {
     setCardDetails(prev => ({ ...prev, [name]: value }));
   };
 
-  const finalPrice = course ? (course.price - discountAmount).toFixed(2) : '0.00';
+  const finalPrice = course ? (parseFloat(course.price) - discountAmount).toFixed(2) : '0.00';
 
   if (loading) {
     return (
@@ -271,7 +271,7 @@ const Payment = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Course Price</span>
                   <span className="font-medium">
-                    {course?.is_free ? 'FREE' : `$${course ? course.price.toFixed(2) : '0.00'}`}
+                    {course?.is_free ? 'FREE' : `$${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
                   </span>
                 </div>
                 {!course?.is_free && discountAmount > 0 && (
