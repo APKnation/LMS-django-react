@@ -40,6 +40,21 @@ const Payment = () => {
     }
   };
 
+  const handleFreeEnrollment = async (courseId) => {
+    try {
+      await coursesAPI.enroll(courseId);
+      alert('Successfully enrolled in free course!');
+      navigate(`/courses/${courseId}`);
+    } catch (err) {
+      // If already enrolled, redirect anyway
+      if (err.response?.data?.success) {
+        navigate(`/courses/${courseId}`);
+      } else {
+        console.error('Failed to enroll:', err);
+      }
+    }
+  };
+
   const validateCoupon = async () => {
     if (!couponCode.trim()) return;
     
@@ -107,7 +122,7 @@ const Payment = () => {
         <div className="flex items-center justify-center h-96">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading payment details...</p>
+            <p className="mt-4 text-gray-600">Processing enrollment...</p>
           </div>
         </div>
       </div>
@@ -121,8 +136,12 @@ const Payment = () => {
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">Secure Checkout</h1>
-          <p className="text-indigo-200 mt-2">Complete your course enrollment</p>
+          <h1 className="text-3xl font-bold">
+            {course?.is_free ? 'Free Course Enrollment' : 'Secure Checkout'}
+          </h1>
+          <p className="text-indigo-200 mt-2">
+            {course?.is_free ? 'Enroll in this free course' : 'Complete your course enrollment'}
+          </p>
         </div>
       </div>
 
@@ -145,76 +164,103 @@ const Payment = () => {
               )}
             </div>
 
-            {/* Coupon Code */}
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Apply Coupon</h2>
-              <div className="flex space-x-4">
-                <input
-                  type="text"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                  placeholder="Enter coupon code"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-                <button
-                  onClick={validateCoupon}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  Apply
-                </button>
-              </div>
-              {couponValid === true && (
-                <p className="mt-2 text-sm text-green-600">Coupon applied successfully! You saved ${discountAmount.toFixed(2)}</p>
-              )}
-              {couponValid === false && (
-                <p className="mt-2 text-sm text-red-600">Invalid or expired coupon code</p>
-              )}
-            </div>
-
-            {/* Payment Form */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Details</h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+            {/* Coupon Code - Only for paid courses */}
+            {!course?.is_free && (
+              <div className="bg-white rounded-lg shadow p-6 mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Apply Coupon</h2>
+                <div className="flex space-x-4">
                   <input
                     type="text"
-                    name="number"
-                    value={cardDetails.number}
-                    onChange={handleInputChange}
-                    placeholder="1234 5678 9012 3456"
-                    maxLength="19"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                    placeholder="Enter coupon code"
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
+                  <button
+                    onClick={validateCoupon}
+                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                  >
+                    Apply
+                  </button>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                {couponValid === true && (
+                  <p className="mt-2 text-sm text-green-600">Coupon applied successfully! You saved ${discountAmount.toFixed(2)}</p>
+                )}
+                {couponValid === false && (
+                  <p className="mt-2 text-sm text-red-600">Invalid or expired coupon code</p>
+                )}
+              </div>
+            )}
+
+            {/* Free Course Enrollment - Only for free courses */}
+            {course?.is_free && (
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Free Course Enrollment</h2>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                  <div className="flex items-center mb-4">
+                    <svg className="h-8 w-8 text-green-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-lg font-semibold text-green-800">This course is FREE</span>
+                  </div>
+                  <p className="text-gray-600 mb-4">Enroll now to start learning without any payment required.</p>
+                  <button
+                    onClick={() => handleFreeEnrollment(course.id)}
+                    disabled={processing}
+                    className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                  >
+                    {processing ? 'Enrolling...' : 'Enroll Now - FREE'}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Payment Form - Only for paid courses */}
+            {!course?.is_free && (
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Details</h2>
+                <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
                     <input
                       type="text"
-                      name="expiry"
-                      value={cardDetails.expiry}
+                      name="number"
+                      value={cardDetails.number}
                       onChange={handleInputChange}
-                      placeholder="MM/YY"
-                      maxLength="5"
+                      placeholder="1234 5678 9012 3456"
+                      maxLength="19"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">CVC</label>
-                    <input
-                      type="text"
-                      name="cvc"
-                      value={cardDetails.cvc}
-                      onChange={handleInputChange}
-                      placeholder="123"
-                      maxLength="3"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                      <input
+                        type="text"
+                        name="expiry"
+                        value={cardDetails.expiry}
+                        onChange={handleInputChange}
+                        placeholder="MM/YY"
+                        maxLength="5"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">CVC</label>
+                      <input
+                        type="text"
+                        name="cvc"
+                        value={cardDetails.cvc}
+                        onChange={handleInputChange}
+                        placeholder="123"
+                        maxLength="3"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Order Summary */}
@@ -224,9 +270,11 @@ const Payment = () => {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Course Price</span>
-                  <span className="font-medium">${course ? course.price.toFixed(2) : '0.00'}</span>
+                  <span className="font-medium">
+                    {course?.is_free ? 'FREE' : `$${course ? course.price.toFixed(2) : '0.00'}`}
+                  </span>
                 </div>
-                {discountAmount > 0 && (
+                {!course?.is_free && discountAmount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Discount</span>
                     <span className="font-medium">-${discountAmount.toFixed(2)}</span>
@@ -234,7 +282,9 @@ const Payment = () => {
                 )}
                 <div className="border-t pt-3 flex justify-between">
                   <span className="text-lg font-semibold">Total</span>
-                  <span className="text-lg font-bold text-indigo-600">${finalPrice}</span>
+                  <span className="text-lg font-bold text-indigo-600">
+                    {course?.is_free ? 'FREE' : `$${finalPrice}`}
+                  </span>
                 </div>
               </div>
               
@@ -244,22 +294,26 @@ const Payment = () => {
                 </div>
               )}
               
-              <button
-                onClick={createOrder}
-                disabled={processing}
-                className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
-                  processing
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                }`}
-              >
-                {processing ? 'Processing...' : `Pay $${finalPrice}`}
-              </button>
+              {!course?.is_free && (
+                <button
+                  onClick={createOrder}
+                  disabled={processing}
+                  className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
+                    processing
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                  }`}
+                >
+                  {processing ? 'Processing...' : `Pay $${finalPrice}`}
+                </button>
+              )}
               
-              <div className="mt-4 text-center text-xs text-gray-500">
-                <p>🔒 Secure payment powered by Stripe</p>
-                <p className="mt-1">Your payment information is encrypted and secure</p>
-              </div>
+              {!course?.is_free && (
+                <div className="mt-4 text-center text-xs text-gray-500">
+                  <p>🔒 Secure payment powered by Stripe</p>
+                  <p className="mt-1">Your payment information is encrypted and secure</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
