@@ -9,11 +9,11 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
-  const { login } = useAuth();
+
+  const { login, isInstructor } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Get redirect path from location state or default to dashboard
   const from = location.state?.from?.pathname || '/';
 
@@ -30,13 +30,18 @@ const Login = () => {
     setLoading(true);
 
     const result = await login(formData.username, formData.password);
-    
+
     if (result.success) {
-      navigate(from, { replace: true });
+      // Redirect instructors to instructor dashboard
+      if (isInstructor) {
+        navigate('/instructor-dashboard', { replace: true });
+      } else {
+        navigate(from, { replace: true });
+      }
     } else {
       setError(result.error);
     }
-    
+
     setLoading(false);
   };
 

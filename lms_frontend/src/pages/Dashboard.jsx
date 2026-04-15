@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user, isStudent, isInstructor } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalCourses: 0,
     completed: 0,
@@ -14,6 +16,13 @@ const Dashboard = () => {
   const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Redirect instructors to instructor dashboard
+  useEffect(() => {
+    if (isInstructor) {
+      navigate('/instructor-dashboard');
+    }
+  }, [isInstructor, navigate]);
 
   const fetchDashboardData = async () => {
     try {
