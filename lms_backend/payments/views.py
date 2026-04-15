@@ -159,7 +159,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         try:
             intent = stripe.PaymentIntent.create(
                 amount=int(order.final_price * 100),
-                currency='usd',
+                currency='tzs',
                 metadata={
                     'order_id': order.id,
                     'course_id': order.course.id,

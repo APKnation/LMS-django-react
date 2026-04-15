@@ -337,13 +337,13 @@ const Payment = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Course Price</span>
                   <span className="font-medium">
-                    {course?.is_free ? 'FREE' : `$${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
+                    {course?.is_free ? 'FREE' : `TZS ${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
                   </span>
                 </div>
                 <div className="border-t pt-3 flex justify-between">
                   <span className="text-lg font-semibold">Total</span>
                   <span className="text-lg font-bold text-indigo-600">
-                    {course?.is_free ? 'FREE' : `$${finalPrice}`}
+                    {course?.is_free ? 'FREE' : `TZS ${finalPrice}`}
                   </span>
                 </div>
               </div>
@@ -364,7 +364,7 @@ const Payment = () => {
                       : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                   }`}
                 >
-                  {processing ? 'Processing...' : `Pay $${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
+                  {processing ? 'Processing...' : `Pay TZS ${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
                 </button>
               )}
               
