@@ -16,6 +16,8 @@ import Progress from './pages/Progress';
 import Bookmarks from './pages/Bookmarks';
 import Notes from './pages/Notes';
 import Certificates from './pages/Certificates';
+import Payment from './pages/Payment';
+import PaymentHistory from './pages/PaymentHistory';
 
 function App() {
   return (
