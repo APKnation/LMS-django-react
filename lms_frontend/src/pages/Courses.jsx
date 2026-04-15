@@ -228,7 +228,9 @@ const Courses = () => {
 
                   <div className="flex items-center text-sm text-gray-500 mb-4">
                     <span className="w-4 h-4 mr-1 inline-flex items-center justify-center">👤</span>
-                    {course.instructor_name || 'Unknown Instructor'}
+                    <span className="text-purple-600 hover:text-purple-700 cursor-pointer" onClick={() => course.instructor_id && navigate(`/instructor/${course.instructor_id}`)}>
+                      {course.instructor_name || 'Unknown Instructor'}
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
