@@ -242,7 +242,7 @@ const Courses = () => {
                       {course.is_free ? (
                         <span className="text-green-600">FREE</span>
                       ) : (
-                        <span>${course.price || '0.00'}</span>
+                        <span>TZS {course.price || '0.00'}</span>
                       )}
                     </div>
                     <button

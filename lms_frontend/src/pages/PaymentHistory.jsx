@@ -96,7 +96,7 @@ const PaymentHistory = () => {
               </div>
               <div className="ml-5">
                 <p className="text-sm font-medium text-gray-500">Total Spent</p>
-                <p className="text-2xl font-bold text-gray-900">${totalSpent.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-gray-900">TZS {totalSpent.toFixed(2)}</p>
               </div>
             </div>
           </div>
@@ -187,14 +187,14 @@ const PaymentHistory = () => {
                       </div>
                       {order.coupon && (
                         <div className="mt-2 text-sm text-green-600">
-                          Coupon Applied: {order.coupon_code} (-${order.discount_amount})
+                          Coupon Applied: {order.coupon_code} (-TZS {order.discount_amount})
                         </div>
                       )}
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-gray-900">${order.final_price}</p>
+                      <p className="text-2xl font-bold text-gray-900">TZS {order.final_price}</p>
                       {order.discount_amount > 0 && (
-                        <p className="text-sm text-gray-500 line-through">${order.original_price}</p>
+                        <p className="text-sm text-gray-500 line-through">TZS {order.original_price}</p>
                       )}
                     </div>
                   </div>

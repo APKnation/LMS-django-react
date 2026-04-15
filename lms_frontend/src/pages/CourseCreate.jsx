@@ -261,10 +261,10 @@ const CourseCreate = () => {
             {!formData.is_free && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Course Price (USD) *
+                  Course Price (TZS) *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-2 text-gray-500">TZS</span>
                   <input
                     type="number"
                     name="price"
