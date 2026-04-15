@@ -25,6 +25,8 @@ import RevenueAnalytics from './pages/RevenueAnalytics';
 import QuizManagement from './pages/QuizManagement';
 import AssignmentManagement from './pages/AssignmentManagement';
 import Announcements from './pages/Announcements';
+import InstructorDashboard from './pages/InstructorDashboard';
+import StudentManagement from './pages/StudentManagement';
 
 function App() {
   return (
@@ -179,6 +181,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Announcements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructor-dashboard"
+            element={
+              <ProtectedRoute>
+                <InstructorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/students"
+            element={
+              <ProtectedRoute>
+                <StudentManagement />
               </ProtectedRoute>
             }
           />

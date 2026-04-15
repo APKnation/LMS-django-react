@@ -126,6 +126,10 @@ export const coursesAPI = {
   getMyCourses: () =>
     api.get('/courses/my_courses/'),
 
+  // Course Students
+  getCourseStudents: (courseId) =>
+    api.get(`/courses/${courseId}/students/`),
+
   // Coupons
   getCoupons: () =>
     api.get('/coupons/'),
