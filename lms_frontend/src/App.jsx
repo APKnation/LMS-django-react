@@ -26,6 +26,7 @@ import QuizManagement from './pages/QuizManagement';
 import AssignmentManagement from './pages/AssignmentManagement';
 import Announcements from './pages/Announcements';
 import InstructorDashboard from './pages/InstructorDashboard';
+import InstructorCourses from './pages/InstructorCourses';
 import StudentManagement from './pages/StudentManagement';
 
 function App() {
@@ -189,6 +190,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <InstructorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructor-courses"
+            element={
+              <ProtectedRoute>
+                <InstructorCourses />
               </ProtectedRoute>
             }
           />

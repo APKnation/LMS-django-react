@@ -3,10 +3,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { coursesAPI, categoriesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
+import InstructorNavbar from '../components/common/InstructorNavbar';
 import Categories from '../components/Categories';
 
 const Courses = () => {
-  const { isStudent, isInstructor } = useAuth();
+  const { user, isStudent, isInstructor } = useAuth();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -30,7 +31,7 @@ const Courses = () => {
 
       const response = await coursesAPI.getAll(params);
       setCourses(response.data);
-      
+
       // Force re-render by updating timestamp
       setLastUpdate(Date.now());
       setError(null);
@@ -67,18 +68,26 @@ const Courses = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
+      {isInstructor ? <InstructorNavbar /> : <Navbar />}
+
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+      <div className={`text-white ${isInstructor ? 'bg-gradient-to-r from-purple-900 to-indigo-800' : 'bg-gradient-to-r from-indigo-900 to-purple-800'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-3xl lg:text-4xl font-bold mb-4">
-              Explore Courses
+              {isInstructor ? 'Course Catalog' : 'Explore Courses'}
             </h1>
-            <p className="text-xl text-indigo-200">
-              Discover courses that match your interests and career goals
+            <p className={`text-xl ${isInstructor ? 'text-purple-200' : 'text-indigo-200'}`}>
+              {isInstructor ? 'View all courses in the system' : 'Discover courses that match your interests and career goals'}
             </p>
+            {isInstructor && (
+              <button
+                onClick={() => navigate('/instructor-courses')}
+                className="mt-4 px-6 py-2 bg-white text-purple-700 rounded-md hover:bg-gray-100 font-medium"
+              >
+                Manage My Courses
+              </button>
+            )}
           </div>
         </div>
       </div>

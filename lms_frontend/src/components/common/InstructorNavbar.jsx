@@ -48,9 +48,9 @@ const InstructorNavbar = () => {
                 Dashboard
               </Link>
               <Link
-                to="/courses"
+                to="/instructor-courses"
                 className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isActive('/courses')
+                  isActive('/instructor-courses')
                     ? 'bg-purple-100 text-purple-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
@@ -230,10 +230,10 @@ const InstructorNavbar = () => {
                 Dashboard
               </Link>
               <Link
-                to="/courses"
+                to="/instructor-courses"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isActive('/courses')
+                  isActive('/instructor-courses')
                     ? 'bg-purple-100 text-purple-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
