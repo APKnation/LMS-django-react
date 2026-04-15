@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { coursesAPI, categoriesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
 import Categories from '../components/Categories';
 
 const Courses = () => {
   const { isStudent, isInstructor } = useAuth();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState('all');
@@ -59,14 +61,20 @@ const Courses = () => {
 
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
 
-  const handleEnroll = async (courseId) => {
-    try {
-      await coursesAPI.enroll(courseId);
-      alert('Successfully enrolled in course!');
-      fetchCourses(); // Refresh courses to update enrollment count
-    } catch (error) {
-      console.error('Failed to enroll:', error);
-      alert('Failed to enroll in course. Please try again.');
+  const handleEnroll = async (courseId, isFree) => {
+    if (isFree) {
+      // Free course - enroll directly
+      try {
+        await coursesAPI.enroll(courseId);
+        alert('Successfully enrolled in course!');
+        fetchCourses();
+      } catch (error) {
+        console.error('Failed to enroll:', error);
+        alert('Failed to enroll in course. Please try again.');
+      }
+    } else {
+      // Paid course - redirect to payment
+      navigate(`/payment/${courseId}`);
     }
   };
 
