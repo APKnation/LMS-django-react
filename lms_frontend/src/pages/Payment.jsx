@@ -356,7 +356,7 @@ const Payment = () => {
                         name="accountName"
                         value={mobileMoneyDetails.accountName}
                         onChange={handleMobileMoneyChange}
-                        placeholder="John Doe"
+                        placeholder="Enter your name of account"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                       <p className="mt-1 text-xs text-gray-500">Enter the name registered with your mobile money account</p>
