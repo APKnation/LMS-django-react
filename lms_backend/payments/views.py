@@ -127,16 +127,16 @@ class OrderViewSet(viewsets.ModelViewSet):
                     defaults={'status': 'active'}
                 )
 
-                # Update revenue analytics
-                RevenueAnalytics.objects.update_or_create(
-                    course=order.course,
-                    date=timezone.now().date(),
-                    defaults={
-                        'sales_count': 1,
-                        'revenue': order.final_price,
-                        'instructor_payout': order.final_price * 0.7  # 70% to instructor
-                    }
-                )
+                # Temporarily comment out revenue analytics to debug
+                # RevenueAnalytics.objects.update_or_create(
+                #     course=order.course,
+                #     date=timezone.now().date(),
+                #     defaults={
+                #         'sales_count': 1,
+                #         'revenue': order.final_price,
+                #         'instructor_payout': order.final_price * 0.7  # 70% to instructor
+                #     }
+                # )
 
                 return Response({
                     'success': True,
