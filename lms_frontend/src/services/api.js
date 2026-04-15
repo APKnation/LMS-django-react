@@ -127,6 +127,64 @@ export const coursesAPI = {
     api.get('/courses/my_courses/'),
 };
 
+// Quiz API
+export const quizAPI = {
+  // Quiz attempts
+  startAttempt: (quizId) =>
+    api.post(`/quizzes/${quizId}/start/`),
+  
+  submitQuiz: (quizId, answers) =>
+    api.post(`/quizzes/${quizId}/submit/`, { answers }),
+  
+  getAttempts: (quizId) =>
+    api.get(`/quizzes/${quizId}/attempts/`),
+  
+  getAttempt: (attemptId) =>
+    api.get(`/quiz-attempts/${attemptId}/`),
+  
+  getResults: (attemptId) =>
+    api.get(`/quiz-attempts/${attemptId}/results/`),
+  
+  // Questions
+  getQuestions: (quizId) =>
+    api.get(`/quizzes/${quizId}/questions/`),
+  
+  getQuestion: (questionId) =>
+    api.get(`/questions/${questionId}/`),
+};
+
+// Assignment API
+export const assignmentAPI = {
+  // Assignments
+  getAssignments: (courseId) =>
+    api.get(`/courses/${courseId}/assignments/`),
+  
+  getAssignment: (assignmentId) =>
+    api.get(`/assignments/${assignmentId}/`),
+  
+  createAssignment: (courseId, data) =>
+    api.post(`/courses/${courseId}/assignments/`, data),
+  
+  updateAssignment: (assignmentId, data) =>
+    api.put(`/assignments/${assignmentId}/`, data),
+  
+  deleteAssignment: (assignmentId) =>
+    api.delete(`/assignments/${assignmentId}/`),
+  
+  // Submissions
+  submitAssignment: (assignmentId, data) =>
+    api.post(`/assignments/${assignmentId}/submit/`, data),
+  
+  getSubmissions: (assignmentId) =>
+    api.get(`/assignments/${assignmentId}/submissions/`),
+  
+  getMySubmissions: () =>
+    api.get(`/assignments/my_submissions/`),
+  
+  gradeSubmission: (submissionId, data) =>
+    api.post(`/assignment-submissions/${submissionId}/grade/`, data),
+};
+
 // Progress API
 export const progressAPI = {
   // Progress tracking
@@ -179,8 +237,8 @@ export const progressAPI = {
 // Payments API
 export const paymentsAPI = {
   // Orders
-  createOrder: (courseId, couponCode = null) =>
-    api.post('/orders/', { course: courseId, coupon_code: couponCode }),
+  createOrder: (orderData) =>
+    api.post('/orders/', orderData),
   
   checkout: (orderId) =>
     api.post(`/orders/${orderId}/checkout/`),

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { coursesAPI } from '../services/api';
+import { quizAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
 
 const Quiz = () => {
@@ -42,7 +42,7 @@ const Quiz = () => {
   const fetchQuiz = async () => {
     try {
       setLoading(true);
-      const response = await coursesAPI.getQuiz(courseId, quizId);
+      const response = await quizAPI.getQuestions(quizId);
       setQuiz(response.data);
       setTimeLeft(response.data.time_limit * 60); // Convert minutes to seconds
       setError(null);
@@ -66,8 +66,8 @@ const Quiz = () => {
     
     try {
       setSubmitted(true);
-      const response = await coursesAPI.submitQuiz(courseId, quizId, answers);
-      setScore(response.data.score);
+      const response = await quizAPI.submitQuiz(quizId, answers);
+      setScore(response.data);
       setError(null);
     } catch (error) {
       console.error('Failed to submit quiz:', error);
@@ -148,7 +148,7 @@ const Quiz = () => {
               
               <div className="mb-6">
                 <div className={`text-4xl font-bold ${getScoreColor(score.percentage)}`}>
-                  {score.score}/{score.total_questions}
+                  {score.score}/{score.max_possible_score}
                 </div>
                 <div className={`text-lg font-medium ${getScoreColor(score.percentage)}`}>
                   {score.percentage}%
@@ -156,10 +156,14 @@ const Quiz = () => {
                 <p className="text-gray-600 mt-2">{getScoreMessage(score.percentage)}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="text-center">
-                  <p className="text-sm text-gray-500">Correct Answers</p>
-                  <p className="text-xl font-semibold text-emerald-600">{score.correct_answers}</p>
+                  <p className="text-sm text-gray-500">Points Earned</p>
+                  <p className="text-xl font-semibold text-emerald-600">{score.score}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">Max Points</p>
+                  <p className="text-xl font-semibold text-gray-900">{score.max_possible_score}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-sm text-gray-500">Time Taken</p>
@@ -229,9 +233,14 @@ const Quiz = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              {currentQuestionData.question}
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                {currentQuestionData.question}
+              </h2>
+              <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                {currentQuestionData.points} point{currentQuestionData.points !== 1 ? 's' : ''}
+              </span>
+            </div>
 
             {/* Multiple Choice */}
             {currentQuestionData.type === 'multiple_choice' && (
