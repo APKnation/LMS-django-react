@@ -144,7 +144,7 @@ export const coursesAPI = {
   getRevenueSummary: () =>
     api.get('/instructor-payouts/revenue_summary/'),
   getDashboardAnalytics: () =>
-    api.get('/instructor-payouts/dashboard_analytics/'),
+    api.get('/analytics/dashboard/'),
 
   // Announcements
   getAnnouncements: (courseId) =>
