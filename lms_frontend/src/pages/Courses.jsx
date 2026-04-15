@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { coursesAPI, categoriesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
 import Categories from '../components/Categories';
-import EnrollmentModal from '../components/EnrollmentModal';
 
 const Courses = () => {
   const { isStudent, isInstructor } = useAuth();
@@ -16,8 +15,6 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     fetchCourses();
@@ -65,33 +62,7 @@ const Courses = () => {
   const levels = ['all', 'Beginner', 'Intermediate', 'Advanced'];
 
   const handleEnroll = async (courseId) => {
-    const course = courses.find(c => c.id === courseId);
-    if (course) {
-      setSelectedCourse(course);
-      setIsModalOpen(true);
-    }
-  };
-
-  const handleModalEnroll = async (courseId) => {
-    try {
-      await coursesAPI.enroll(courseId);
-      alert('Successfully enrolled in course!');
-      setIsModalOpen(false);
-      fetchCourses();
-    } catch (error) {
-      console.error('Failed to enroll:', error);
-      alert('Failed to enroll in course. Please try again.');
-    }
-  };
-
-  const handleProceedToPayment = (courseId) => {
-    setIsModalOpen(false);
     navigate(`/payment/${courseId}`);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedCourse(null);
   };
 
   return (
@@ -304,15 +275,6 @@ const Courses = () => {
           </div>
         </div>
       </div>
-
-      {/* Enrollment Modal */}
-      <EnrollmentModal
-        course={selectedCourse}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onEnroll={handleModalEnroll}
-        onProceedToPayment={handleProceedToPayment}
-      />
     </div>
   );
 };
