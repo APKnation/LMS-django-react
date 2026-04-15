@@ -82,6 +82,9 @@ class OrderViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         course = serializer.validated_data['course']
         coupon_code = serializer.validated_data.pop('coupon_code', None)
+        payment_method = serializer.validated_data.pop('payment_method', 'card')
+        mobile_money_phone = serializer.validated_data.pop('mobile_money_phone', '')
+        mobile_money_account_name = serializer.validated_data.pop('mobile_money_account_name', '')
 
         original_price = course.price
         discount_amount = 0
@@ -104,7 +107,10 @@ class OrderViewSet(viewsets.ModelViewSet):
             original_price=original_price,
             discount_amount=discount_amount,
             final_price=final_price,
-            coupon=coupon
+            coupon=coupon,
+            payment_method=payment_method,
+            mobile_money_phone=mobile_money_phone,
+            mobile_money_account_name=mobile_money_account_name
         )
         return order
 
