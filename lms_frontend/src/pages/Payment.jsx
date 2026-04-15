@@ -275,11 +275,13 @@ const Payment = () => {
                       >
                         <div className="text-center">
                           {method.image ? (
-                            <img 
-                              src={method.image} 
-                              alt={method.name}
-                              className="h-12 w-auto mx-auto mb-2 object-contain"
-                            />
+                            <div className="relative w-16 h-16 mx-auto mb-2 flex items-center justify-center bg-white rounded-lg p-2">
+                              <img 
+                                src={method.image} 
+                                alt={method.name}
+                                className="max-w-full max-h-full object-contain"
+                              />
+                            </div>
                           ) : (
                             <div className="text-2xl mb-1">{method.icon}</div>
                           )}
