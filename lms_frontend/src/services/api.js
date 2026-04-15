@@ -164,4 +164,41 @@ export const progressAPI = {
     api.get('/certificates/verify/', { params: { certificate_number: certificateNumber } }),
 };
 
+// Payments API
+export const paymentsAPI = {
+  // Orders
+  createOrder: (courseId, couponCode = null) =>
+    api.post('/orders/', { course: courseId, coupon_code: couponCode }),
+  
+  checkout: (orderId) =>
+    api.post(`/orders/${orderId}/checkout/`),
+  
+  confirmPayment: (paymentIntentId) =>
+    api.post('/orders/confirm_payment/', { payment_intent_id: paymentIntentId }),
+  
+  getMyOrders: () =>
+    api.get('/orders/my_orders/'),
+  
+  getOrder: (orderId) =>
+    api.get(`/orders/${orderId}/`),
+  
+  // Coupons
+  validateCoupon: (code, courseId) =>
+    api.post('/coupons/validate/', { code, course_id: courseId }),
+  
+  getCoupons: () =>
+    api.get('/coupons/'),
+  
+  // Instructor Payouts
+  getMyPayouts: () =>
+    api.get('/instructor-payouts/my_payouts/'),
+  
+  getRevenueSummary: () =>
+    api.get('/instructor-payouts/revenue_summary/'),
+  
+  // Analytics
+  getDashboardAnalytics: () =>
+    api.get('/analytics/dashboard/'),
+};
+
 export default api;
