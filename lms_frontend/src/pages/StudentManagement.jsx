@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import InstructorNavbar from '../components/common/InstructorNavbar';
 
 const StudentManagement = () => {
   const { user } = useAuth();
