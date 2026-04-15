@@ -63,7 +63,7 @@ const QuizManagement = () => {
   if (!user?.is_instructor) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        <InstructorNavbar />
         <div className="flex items-center justify-center py-12">
           <p className="text-gray-600">Access denied. Only instructors can manage quizzes.</p>
         </div>

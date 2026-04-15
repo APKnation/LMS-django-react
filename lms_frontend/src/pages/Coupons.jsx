@@ -70,10 +70,10 @@ const Coupons = () => {
     }
   };
 
-  if (!user?.is_staff && !user?.is_instructor) {
+  if (!user?.is_instructor && !user?.is_staff) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        <InstructorNavbar />
         <div className="flex items-center justify-center py-12">
           <p className="text-gray-600">Access denied. Only instructors and staff can manage coupons.</p>
         </div>
