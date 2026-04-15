@@ -99,7 +99,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 class AnnouncementCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
-        fields = ['id', 'course', 'title', 'content', 'is_pinned']
+        fields = ['id', 'title', 'content', 'is_pinned']
         read_only_fields = ['id']
 
 
