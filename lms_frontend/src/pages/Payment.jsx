@@ -288,6 +288,11 @@ const Payment = () => {
                 {/* Mobile Money Payment Form */}
                 {paymentMethod !== 'card' && (
                   <div className="space-y-4">
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <p className="text-sm text-yellow-800">
+                        <strong>⚠️ Demo Mode:</strong> Mobile money payments are currently in demo mode. No actual payment will be processed.
+                      </p>
+                    </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                       <input
@@ -295,7 +300,7 @@ const Payment = () => {
                         name="phoneNumber"
                         value={mobileMoneyDetails.phoneNumber}
                         onChange={handleMobileMoneyChange}
-                        placeholder="255XXXXXXXXX"
+                        placeholder="255712345678"
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                       <p className="mt-1 text-xs text-gray-500">Enter your mobile money phone number (e.g., 255712345678)</p>
@@ -314,66 +319,66 @@ const Payment = () => {
                     </div>
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                       <p className="text-sm text-blue-800">
-                        <strong>Payment Instructions:</strong>
+                        <strong>Demo Payment Instructions:</strong>
                       </p>
                       <ul className="text-sm text-blue-700 mt-2 list-disc list-inside">
-                        <li>You will receive a payment prompt on your phone</li>
-                        <li>Enter your mobile money PIN to confirm payment</li>
-                        <li>Wait for payment confirmation</li>
-                        <li>You will be redirected to the course after successful payment</li>
+                        <li>This is a demo - no actual payment will be processed</li>
+                        <li>Enter your phone number and account name</li>
+                        <li>Click "Pay" to simulate the payment process</li>
+                        <li>You will be automatically enrolled after payment simulation</li>
                       </ul>
                     </div>
                   </div>
                 )}
               </div>
             )}
-          </div>
 
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6 sticky top-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Course Price</span>
-                  <span className="font-medium">
-                    {course?.is_free ? 'FREE' : `TZS ${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
-                  </span>
+            {/* Order Summary */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-lg shadow p-6 sticky top-8">
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Course Price</span>
+                    <span className="font-medium">
+                      {course?.is_free ? 'FREE' : `TZS ${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
+                    </span>
+                  </div>
+                  <div className="border-t pt-3 flex justify-between">
+                    <span className="text-lg font-semibold">Total</span>
+                    <span className="text-lg font-bold text-indigo-600">
+                      {course?.is_free ? 'FREE' : `TZS ${finalPrice}`}
+                    </span>
+                  </div>
                 </div>
-                <div className="border-t pt-3 flex justify-between">
-                  <span className="text-lg font-semibold">Total</span>
-                  <span className="text-lg font-bold text-indigo-600">
-                    {course?.is_free ? 'FREE' : `TZS ${finalPrice}`}
-                  </span>
-                </div>
+                
+                {error && (
+                  <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                    {error}
+                  </div>
+                )}
+                
+                {!course?.is_free && (
+                  <button
+                    onClick={createOrder}
+                    disabled={processing}
+                    className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
+                      processing
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    }`}
+                  >
+                    {processing ? 'Processing...' : `Pay TZS ${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
+                  </button>
+                )}
+                
+                {!course?.is_free && paymentMethod === 'card' && (
+                  <div className="mt-4 text-center text-xs text-gray-500">
+                    <p>🔒 Secure payment powered by Stripe</p>
+                    <p className="mt-1">Your payment information is encrypted and secure</p>
+                  </div>
+                )}
               </div>
-              
-              {error && (
-                <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                  {error}
-                </div>
-              )}
-              
-              {!course?.is_free && (
-                <button
-                  onClick={createOrder}
-                  disabled={processing}
-                  className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
-                    processing
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                  }`}
-                >
-                  {processing ? 'Processing...' : `Pay TZS ${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
-                </button>
-              )}
-              
-              {!course?.is_free && paymentMethod === 'card' && (
-                <div className="mt-4 text-center text-xs text-gray-500">
-                  <p>🔒 Secure payment powered by Stripe</p>
-                  <p className="mt-1">Your payment information is encrypted and secure</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
