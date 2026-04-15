@@ -253,7 +253,7 @@ const Courses = () => {
                           : 'bg-indigo-600 hover:bg-indigo-700'
                       }`}
                     >
-                      {course.is_free ? 'Enroll Now' : 'Buy Now'}
+                      Enroll
                     </button>
                   </div>
                 </div>
