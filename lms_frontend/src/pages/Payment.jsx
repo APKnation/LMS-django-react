@@ -144,12 +144,12 @@ const Payment = () => {
   };
 
   const paymentMethods = [
-    { id: 'card', name: 'Credit/Debit Card', icon: '💳' },
-    { id: 'vodacom', name: 'Vodacom M-Pesa', icon: '📱' },
-    { id: 'airtel', name: 'Airtel Money', icon: '📱' },
-    { id: 'halotel', name: 'Halotel Money', icon: '📱' },
-    { id: 'ttcl', name: 'TTCL Money', icon: '📱' },
-    { id: 'yas', name: 'Yas Money', icon: '📱' }
+    { id: 'card', name: 'Credit/Debit Card', icon: '💳', image: null },
+    { id: 'vodacom', name: 'Vodacom M-Pesa', icon: null, image: '/vodacom.png' },
+    { id: 'airtel', name: 'Airtel Money', icon: null, image: '/airtel.png' },
+    { id: 'halotel', name: 'Halotel Money', icon: null, image: '/halotel.png' },
+    { id: 'ttcl', name: 'TTCL Money', icon: null, image: '/ttcl.png' },
+    { id: 'yas', name: 'Yas Money', icon: '📱', image: null }
   ];
 
   const finalPrice = course ? (parseFloat(course.price) - discountAmount).toFixed(2) : '0.00';
@@ -274,7 +274,15 @@ const Payment = () => {
                         }`}
                       >
                         <div className="text-center">
-                          <div className="text-2xl mb-1">{method.icon}</div>
+                          {method.image ? (
+                            <img 
+                              src={method.image} 
+                              alt={method.name}
+                              className="h-12 w-auto mx-auto mb-2 object-contain"
+                            />
+                          ) : (
+                            <div className="text-2xl mb-1">{method.icon}</div>
+                          )}
                           <div className="text-xs font-medium text-gray-700">{method.name}</div>
                         </div>
                       </button>
