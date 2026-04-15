@@ -149,7 +149,7 @@ const Payment = () => {
     { id: 'airtel', name: 'Airtel Money', icon: null, image: '/airtel.png' },
     { id: 'halotel', name: 'Halotel Money', icon: null, image: '/halotel.png' },
     { id: 'ttcl', name: 'TTCL Money', icon: null, image: '/ttcl.png' },
-    { id: 'yas', name: 'Yas Money', icon: '📱', image: null }
+    { id: 'yas', name: 'Yas Money', icon: null, image: '/yas.png' }
   ];
 
   const finalPrice = course ? (parseFloat(course.price) - discountAmount).toFixed(2) : '0.00';
