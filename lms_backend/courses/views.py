@@ -88,6 +88,28 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['post'])
+    def enroll(self, request, pk=None):
+        from enrollment.models import Enrollment
+        course = self.get_object()
+        
+        # Check if already enrolled
+        if Enrollment.objects.filter(student=request.user, course=course).exists():
+            return Response({'error': 'Already enrolled in this course'}, status=400)
+        
+        # Create enrollment
+        enrollment = Enrollment.objects.create(
+            student=request.user,
+            course=course,
+            status='active'
+        )
+        
+        return Response({
+            'success': True,
+            'message': 'Successfully enrolled in course',
+            'enrollment_id': enrollment.id
+        })
+
     @action(detail=False, methods=['get'])
     def search(self, request):
         query = request.query_params.get('q', '')
