@@ -11,9 +11,6 @@ const Payment = () => {
   
   const [course, setCourse] = useState(null);
   const [order, setOrder] = useState(null);
-  const [couponCode, setCouponCode] = useState('');
-  const [discountAmount, setDiscountAmount] = useState(0);
-  const [couponValid, setCouponValid] = useState(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
@@ -61,26 +58,6 @@ const Payment = () => {
     }
   };
 
-  const validateCoupon = async () => {
-    if (!couponCode.trim()) return;
-    
-    try {
-      const response = await paymentsAPI.validateCoupon(couponCode, courseId);
-      if (response.data.valid) {
-        setCouponValid(true);
-        setDiscountAmount(parseFloat(response.data.discount_amount));
-      } else {
-        setCouponValid(false);
-        setDiscountAmount(0);
-        setError(response.data.error);
-      }
-    } catch (err) {
-      setCouponValid(false);
-      setDiscountAmount(0);
-      setError('Invalid coupon code');
-    }
-  };
-
   const createOrder = async () => {
     try {
       setProcessing(true);
@@ -88,7 +65,6 @@ const Payment = () => {
       
       const orderData = {
         course: courseId,
-        coupon_code: couponCode || null,
         payment_method: paymentMethod,
         mobile_money_phone: paymentMethod !== 'card' ? mobileMoneyDetails.phoneNumber : '',
         mobile_money_account_name: paymentMethod !== 'card' ? mobileMoneyDetails.accountName : ''
@@ -152,7 +128,7 @@ const Payment = () => {
     { id: 'yas', name: 'Yas Money', icon: null, image: '/yas.png' }
   ];
 
-  const finalPrice = course ? (parseFloat(course.price) - discountAmount).toFixed(2) : '0.00';
+  const finalPrice = course ? parseFloat(course.price).toFixed(2) : '0.00';
 
   if (loading) {
     return (
@@ -203,33 +179,6 @@ const Payment = () => {
               )}
             </div>
 
-            {/* Coupon Code - Only for paid courses */}
-            {!course?.is_free && (
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Apply Coupon</h2>
-                <div className="flex space-x-4">
-                  <input
-                    type="text"
-                    value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                    placeholder="Enter coupon code"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                  <button
-                    onClick={validateCoupon}
-                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                  >
-                    Apply
-                  </button>
-                </div>
-                {couponValid === true && (
-                  <p className="mt-2 text-sm text-green-600">Coupon applied successfully! You saved ${discountAmount.toFixed(2)}</p>
-                )}
-                {couponValid === false && (
-                  <p className="mt-2 text-sm text-red-600">Invalid or expired coupon code</p>
-                )}
-              </div>
-            )}
 
             {/* Free Course Enrollment - Only for free courses */}
             {course?.is_free && (
@@ -391,12 +340,6 @@ const Payment = () => {
                     {course?.is_free ? 'FREE' : `$${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
                   </span>
                 </div>
-                {!course?.is_free && discountAmount > 0 && (
-                  <div className="flex justify-between text-green-600">
-                    <span>Discount</span>
-                    <span className="font-medium">-${discountAmount.toFixed(2)}</span>
-                  </div>
-                )}
                 <div className="border-t pt-3 flex justify-between">
                   <span className="text-lg font-semibold">Total</span>
                   <span className="text-lg font-bold text-indigo-600">
