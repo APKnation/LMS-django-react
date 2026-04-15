@@ -92,11 +92,11 @@ class CourseViewSet(viewsets.ModelViewSet):
     def students(self, request, pk=None):
         from enrollment.models import Enrollment
         course = self.get_object()
-        
+
         # Check if user is the instructor of this course
         if course.instructor != request.user and not request.user.is_staff:
             return Response({'error': 'Permission denied'}, status=403)
-        
+
         enrollments = Enrollment.objects.filter(course=course, is_active=True)
         students_data = []
         for enrollment in enrollments:
@@ -109,8 +109,29 @@ class CourseViewSet(viewsets.ModelViewSet):
                 'enrolled_at': enrollment.enrolled_at,
                 'is_active': enrollment.is_active
             })
-        
+
         return Response(students_data)
+
+    @action(detail=True, methods=['get', 'post'], permission_classes=[IsInstructor])
+    def announcements(self, request, pk=None):
+        course = self.get_object()
+
+        # Check if user is the instructor of this course
+        if course.instructor != request.user and not request.user.is_staff:
+            return Response({'error': 'Permission denied'}, status=403)
+
+        if request.method == 'GET':
+            announcements = course.announcements.all().order_by('-created_at')
+            from .serializers import AnnouncementSerializer
+            serializer = AnnouncementSerializer(announcements, many=True)
+            return Response(serializer.data)
+        elif request.method == 'POST':
+            from .serializers import AnnouncementCreateSerializer
+            serializer = AnnouncementCreateSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(course=course, instructor=request.user)
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=400)
 
     @action(detail=True, methods=['post'])
     def enroll(self, request, pk=None):
