@@ -196,10 +196,19 @@ const Courses = () => {
                       </svg>
                     </div>
                   )}
-                  <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4 flex flex-col items-end space-y-2">
                     <span className="px-3 py-1 bg-indigo-600 text-white text-xs font-medium rounded-full">
                       {course.difficulty}
                     </span>
+                    {course.is_free ? (
+                      <span className="px-3 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
+                        FREE
+                      </span>
+                    ) : (
+                      <span className="px-3 py-1 bg-purple-500 text-white text-xs font-medium rounded-full">
+                        PAID
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -243,13 +252,21 @@ const Courses = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="text-2xl font-bold text-indigo-600">
-                      ${course.is_free ? 'FREE' : `$${course.price || '0.00'}`}
+                      {course.is_free ? (
+                        <span className="text-green-600">FREE</span>
+                      ) : (
+                        <span>${course.price || '0.00'}</span>
+                      )}
                     </div>
                     <button
-                      onClick={() => handleEnroll(course.id)}
-                      className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors"
+                      onClick={() => handleEnroll(course.id, course.is_free)}
+                      className={`px-4 py-2 text-white text-sm font-medium rounded-md transition-colors ${
+                        course.is_free 
+                          ? 'bg-green-600 hover:bg-green-700' 
+                          : 'bg-indigo-600 hover:bg-indigo-700'
+                      }`}
                     >
-                      {isStudent ? 'Enroll Now' : isInstructor ? 'View Course' : 'Enroll Now'}
+                      {course.is_free ? 'Enroll Now' : 'Buy Now'}
                     </button>
                   </div>
                 </div>
