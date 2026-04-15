@@ -9,6 +9,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [redirected, setRedirected] = useState(false);
 
   const { login, user, isInstructor } = useAuth();
   const navigate = useNavigate();
@@ -19,15 +20,16 @@ const Login = () => {
 
   // Handle redirect after login based on user role
   useEffect(() => {
-    if (user && location.state?.from?.pathname === '/login') {
-      // User just logged in, redirect based on role
+    if (user && !redirected) {
+      setRedirected(true);
+      // Redirect based on role
       if (isInstructor) {
         navigate('/instructor-dashboard', { replace: true });
       } else {
         navigate(from, { replace: true });
       }
     }
-  }, [user, isInstructor, navigate, from, location.state]);
+  }, [user, isInstructor, navigate, from, redirected]);
 
   const handleChange = (e) => {
     setFormData({
