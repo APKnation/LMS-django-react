@@ -6,6 +6,10 @@ A Learning Management System built with Django REST Framework and React.
 
 ### Student Features
 - **Course Search & Filtering** - Filter by category, instructor, difficulty, price range
+- **Payment System** - Multiple payment methods including:
+  - Credit/Debit Card (Stripe)
+  - Mobile Money (Vodacom M-Pesa, Airtel Money, Halotel Money, TTCL Money, Yas Money)
+- **Quiz Points System** - Earn points for correct answers in quizzes
 - **Bookmark Lessons** - Save lesson progress markers with notes
 - **Notes System** - Take notes on lessons with video timestamps
 - **Discussion/Comments** - Q&A on lessons with instructor responses
@@ -15,6 +19,43 @@ A Learning Management System built with Django REST Framework and React.
 - **Course Analytics** - View student progress stats, completion rates, revenue
 - **Announcements** - Notify enrolled students about updates
 - **Course Management** - Create draft/published courses with categories
+
+## Currency
+
+All monetary values in the system are displayed in **Tanzanian Shillings (TZS)**. This includes:
+- Course prices
+- Payment amounts
+- Revenue analytics
+- Instructor payouts
+
+## Payment Methods
+
+The system supports the following payment methods:
+
+### Card Payments
+- Credit/Debit Card via Stripe
+- Secure payment processing
+- Instant enrollment upon successful payment
+
+### Mobile Money Payments (Tanzania)
+- **Vodacom M-Pesa**
+- **Airtel Money**
+- **Halotel Money**
+- **TTCL Money**
+- **Yas Money**
+
+**Note:** Mobile money payments are currently in demo mode and do not process actual transactions.
+
+## Quiz Points System
+
+Quizzes include a points-based scoring system:
+- Each question has an assigned point value (default: 1 point)
+- Students earn points for correct answers
+- Quiz results display:
+  - Points earned
+  - Maximum possible points
+  - Percentage score
+  - Pass/fail status
 
 ## API Endpoints
 
@@ -195,6 +236,33 @@ A Learning Management System built with Django REST Framework and React.
 | PUT | `/api/comments/{id}/` | Update comment |
 | DELETE | `/api/comments/{id}/` | Delete comment |
 | GET | `/api/comments/lesson_comments/?lesson=1` | Get comments for lesson |
+
+### Orders (`/api/orders/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/orders/` | List all orders |
+| POST | `/api/orders/` | Create order (with payment method) |
+| GET | `/api/orders/{id}/` | Retrieve order |
+| POST | `/api/orders/{id}/checkout/` | Process payment (Stripe or mobile money) |
+| POST | `/api/orders/confirm_payment/` | Confirm Stripe payment |
+| GET | `/api/orders/my_orders/` | Get my orders |
+
+### Coupons (`/api/coupons/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/coupons/` | List all coupons |
+| POST | `/api/coupons/` | Create coupon |
+| GET | `/api/coupons/{id}/` | Retrieve coupon |
+| PUT | `/api/coupons/{id}/` | Update coupon |
+| DELETE | `/api/coupons/{id}/` | Delete coupon |
+| POST | `/api/coupons/validate/` | Validate coupon code |
+
+### Instructor Payouts (`/api/instructor-payouts/`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/instructor-payouts/` | List all payouts |
+| GET | `/api/instructor-payouts/my_payouts/` | Get my payouts |
+| GET | `/api/instructor-payouts/revenue_summary/` | Get revenue summary |
 
 ### Announcements (`/api/announcements/`)
 | Method | Endpoint | Description |
