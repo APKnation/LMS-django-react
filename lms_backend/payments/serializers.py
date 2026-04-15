@@ -28,14 +28,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    coupon_code = serializers.CharField(required=False, allow_blank=True)
     payment_method = serializers.CharField(default='card')
-    mobile_money_phone = serializers.CharField(required=False, allow_blank=True)
-    mobile_money_account_name = serializers.CharField(required=False, allow_blank=True)
+    mobile_money_phone = serializers.CharField(required=False, allow_blank=True, default='')
+    mobile_money_account_name = serializers.CharField(required=False, allow_blank=True, default='')
 
     class Meta:
         model = Order
-        fields = ['id', 'course', 'coupon_code', 'payment_method', 'mobile_money_phone', 'mobile_money_account_name']
+        fields = ['id', 'course', 'payment_method', 'mobile_money_phone', 'mobile_money_account_name']
 
 
 class CheckoutSerializer(serializers.Serializer):

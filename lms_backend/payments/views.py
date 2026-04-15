@@ -81,7 +81,6 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         course = serializer.validated_data['course']
-        coupon_code = serializer.validated_data.pop('coupon_code', None)
         payment_method = serializer.validated_data.pop('payment_method', 'card')
         mobile_money_phone = serializer.validated_data.pop('mobile_money_phone', '')
         mobile_money_account_name = serializer.validated_data.pop('mobile_money_account_name', '')
@@ -89,16 +88,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         original_price = course.price
         discount_amount = 0
         coupon = None
-
-        if coupon_code:
-            try:
-                coupon = Coupon.objects.get(code=coupon_code.upper(), is_active=True)
-                if coupon.is_valid():
-                    discount_amount = coupon.calculate_discount(original_price)
-                    coupon.times_used += 1
-                    coupon.save()
-            except Coupon.DoesNotExist:
-                pass
 
         final_price = original_price - discount_amount
 
