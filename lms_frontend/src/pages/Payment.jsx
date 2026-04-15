@@ -64,7 +64,7 @@ const Payment = () => {
       setError(null);
       
       const orderData = {
-        course: courseId,
+        course: parseInt(courseId),
         payment_method: paymentMethod,
         mobile_money_phone: paymentMethod !== 'card' ? mobileMoneyDetails.phoneNumber : '',
         mobile_money_account_name: paymentMethod !== 'card' ? mobileMoneyDetails.accountName : ''
