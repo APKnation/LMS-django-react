@@ -103,6 +103,22 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/payment/:courseId"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment-history"
+            element={
+              <ProtectedRoute>
+                <PaymentHistory />
+              </ProtectedRoute>
+            }
+          />
 
           {/* 404 Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
