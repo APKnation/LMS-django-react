@@ -19,6 +19,12 @@ import Certificates from './pages/Certificates';
 import Payment from './pages/Payment';
 import PaymentHistory from './pages/PaymentHistory';
 import CourseCreate from './pages/CourseCreate';
+import Coupons from './pages/Coupons';
+import InstructorPayouts from './pages/InstructorPayouts';
+import RevenueAnalytics from './pages/RevenueAnalytics';
+import QuizManagement from './pages/QuizManagement';
+import AssignmentManagement from './pages/AssignmentManagement';
+import Announcements from './pages/Announcements';
 
 function App() {
   return (
@@ -125,6 +131,54 @@ function App() {
             element={
               <ProtectedRoute>
                 <CourseCreate />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coupons"
+            element={
+              <ProtectedRoute>
+                <Coupons />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructor-payouts"
+            element={
+              <ProtectedRoute>
+                <InstructorPayouts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/revenue-analytics"
+            element={
+              <ProtectedRoute>
+                <RevenueAnalytics />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz-management"
+            element={
+              <ProtectedRoute>
+                <QuizManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/assignment-management"
+            element={
+              <ProtectedRoute>
+                <AssignmentManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/announcements"
+            element={
+              <ProtectedRoute>
+                <Announcements />
               </ProtectedRoute>
             }
           />

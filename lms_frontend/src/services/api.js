@@ -125,6 +125,30 @@ export const coursesAPI = {
   
   getMyCourses: () =>
     api.get('/courses/my_courses/'),
+
+  // Coupons
+  getCoupons: () =>
+    api.get('/coupons/'),
+  createCoupon: (data) =>
+    api.post('/coupons/', data),
+  deleteCoupon: (id) =>
+    api.delete(`/coupons/${id}/`),
+
+  // Instructor Payouts
+  getMyPayouts: () =>
+    api.get('/instructor-payouts/my_payouts/'),
+  getRevenueSummary: () =>
+    api.get('/instructor-payouts/revenue_summary/'),
+  getDashboardAnalytics: () =>
+    api.get('/instructor-payouts/dashboard_analytics/'),
+
+  // Announcements
+  getAnnouncements: (courseId) =>
+    api.get(`/courses/${courseId}/announcements/`),
+  createAnnouncement: (courseId, data) =>
+    api.post(`/courses/${courseId}/announcements/`, data),
+  deleteAnnouncement: (id) =>
+    api.delete(`/announcements/${id}/`),
 };
 
 // Quiz API
