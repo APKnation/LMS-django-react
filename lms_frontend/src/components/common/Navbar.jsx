@@ -100,16 +100,6 @@ const Navbar = () => {
                     Progress
                   </Link>
                   <Link
-                    to="/payment-history"
-                    className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      isActive('/payment-history')
-                        ? 'bg-indigo-100 text-indigo-700'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                    }`}
-                  >
-                    Payments
-                  </Link>
-                  <Link
                     to="/profile"
                     className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                       isActive('/profile')
@@ -267,17 +257,6 @@ const Navbar = () => {
                 }`}
               >
                 Progress
-              </Link>
-              <Link
-                to="/payment-history"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isActive('/payment-history')
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
-              >
-                Payments
               </Link>
               <Link
                 to="/profile"
