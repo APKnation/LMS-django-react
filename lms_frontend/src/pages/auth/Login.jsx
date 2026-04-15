@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -10,12 +10,24 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { login, isInstructor } = useAuth();
+  const { login, user, isInstructor } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   // Get redirect path from location state or default to dashboard
   const from = location.state?.from?.pathname || '/';
+
+  // Handle redirect after login based on user role
+  useEffect(() => {
+    if (user && location.state?.from?.pathname === '/login') {
+      // User just logged in, redirect based on role
+      if (isInstructor) {
+        navigate('/instructor-dashboard', { replace: true });
+      } else {
+        navigate(from, { replace: true });
+      }
+    }
+  }, [user, isInstructor, navigate, from, location.state]);
 
   const handleChange = (e) => {
     setFormData({
@@ -32,17 +44,12 @@ const Login = () => {
     const result = await login(formData.username, formData.password);
 
     if (result.success) {
-      // Redirect instructors to instructor dashboard
-      if (isInstructor) {
-        navigate('/instructor-dashboard', { replace: true });
-      } else {
-        navigate(from, { replace: true });
-      }
+      // Redirect will be handled by useEffect when user state updates
+      setLoading(false);
     } else {
       setError(result.error);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
