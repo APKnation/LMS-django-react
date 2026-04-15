@@ -94,8 +94,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = self.get_object()
         
         # Check if already enrolled
-        if Enrollment.objects.filter(student=request.user, course=course).exists():
-            return Response({'error': 'Already enrolled in this course'}, status=400)
+        existing_enrollment = Enrollment.objects.filter(student=request.user, course=course).first()
+        if existing_enrollment:
+            return Response({
+                'success': True,
+                'message': 'Already enrolled in this course',
+                'enrollment_id': existing_enrollment.id
+            })
         
         # Create enrollment
         enrollment = Enrollment.objects.create(
