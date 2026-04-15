@@ -88,6 +88,30 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'], permission_classes=[IsInstructor])
+    def students(self, request, pk=None):
+        from enrollment.models import Enrollment
+        course = self.get_object()
+        
+        # Check if user is the instructor of this course
+        if course.instructor != request.user and not request.user.is_staff:
+            return Response({'error': 'Permission denied'}, status=403)
+        
+        enrollments = Enrollment.objects.filter(course=course, is_active=True)
+        students_data = []
+        for enrollment in enrollments:
+            students_data.append({
+                'id': enrollment.student.id,
+                'username': enrollment.student.username,
+                'email': enrollment.student.email,
+                'first_name': enrollment.student.first_name,
+                'last_name': enrollment.student.last_name,
+                'enrolled_at': enrollment.enrolled_at,
+                'is_active': enrollment.is_active
+            })
+        
+        return Response(students_data)
+
     @action(detail=True, methods=['post'])
     def enroll(self, request, pk=None):
         from enrollment.models import Enrollment
