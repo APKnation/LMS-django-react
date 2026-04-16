@@ -195,8 +195,18 @@ class OrderViewSet(viewsets.ModelViewSet):
                         })
                     else:
                         print(f"ClickPesa Card Payment Error: Status {response.status_code}, Response: {response.text}")
+                        # Extract clean error message from ClickPesa response
+                        error_message = response.text
+                        try:
+                            error_json = response.json()
+                            if 'message' in error_json:
+                                error_message = error_json['message']
+                            elif 'error' in error_json:
+                                error_message = error_json['error']
+                        except:
+                            pass
                         return Response({
-                            'error': f'ClickPesa card payment error: {response.text}'
+                            'error': error_message
                         }, status=500)
 
                 except requests.exceptions.RequestException as e:
@@ -247,8 +257,18 @@ class OrderViewSet(viewsets.ModelViewSet):
                         })
                     else:
                         print(f"ClickPesa Initiate Error: Status {initiate_response.status_code}, Response: {initiate_response.text}")
+                        # Extract clean error message from ClickPesa response
+                        error_message = initiate_response.text
+                        try:
+                            error_json = initiate_response.json()
+                            if 'message' in error_json:
+                                error_message = error_json['message']
+                            elif 'error' in error_json:
+                                error_message = error_json['error']
+                        except:
+                            pass
                         return Response({
-                            'error': f'ClickPesa initiate error: {initiate_response.text}'
+                            'error': error_message
                         }, status=500)
 
                 except requests.exceptions.RequestException as e:
