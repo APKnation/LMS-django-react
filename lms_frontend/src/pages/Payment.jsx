@@ -15,11 +15,6 @@ const Payment = () => {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('card');
-  const [cardDetails, setCardDetails] = useState({
-    number: '',
-    expiry: '',
-    cvc: ''
-  });
   const [mobileMoneyDetails, setMobileMoneyDetails] = useState({
     provider: '',
     phoneNumber: '',
@@ -117,11 +112,6 @@ const Payment = () => {
       setError('Payment confirmation failed');
       console.error(err);
     }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCardDetails(prev => ({ ...prev, [name]: value }));
   };
 
   const handleMobileMoneyChange = (e) => {
@@ -252,46 +242,13 @@ const Payment = () => {
                   </div>
                 </div>
 
-                {/* Card Payment Form */}
+                {/* Card Payment Information */}
                 {paymentMethod === 'card' && (
                   <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
-                      <input
-                        type="text"
-                        name="number"
-                        value={cardDetails.number}
-                        onChange={handleInputChange}
-                        placeholder="1234 5678 9012 3456"
-                        maxLength="19"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
-                        <input
-                          type="text"
-                          name="expiry"
-                          value={cardDetails.expiry}
-                          onChange={handleInputChange}
-                          placeholder="MM/YY"
-                          maxLength="5"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">CVC</label>
-                        <input
-                          type="text"
-                          name="cvc"
-                          value={cardDetails.cvc}
-                          onChange={handleInputChange}
-                          placeholder="123"
-                          maxLength="3"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                      </div>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <p className="text-sm text-blue-800">
+                        <strong>💳 Card Payment:</strong> You will be redirected to ClickPesa's secure payment page to complete your payment.
+                      </p>
                     </div>
                   </div>
                 )}
@@ -299,9 +256,9 @@ const Payment = () => {
                 {/* Mobile Money Payment Form */}
                 {paymentMethod !== 'card' && (
                   <div className="space-y-4">
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <p className="text-sm text-yellow-800">
-                        <strong>⚠️ Demo Mode:</strong> Mobile money payments are currently in demo mode. No actual payment will be processed.
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <p className="text-sm text-blue-800">
+                        <strong>💳 Mobile Money Payment:</strong> You will be redirected to complete payment on your phone.
                       </p>
                     </div>
                     <div>
@@ -327,17 +284,6 @@ const Payment = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
                       <p className="mt-1 text-xs text-gray-500">Enter the name registered with your mobile money account</p>
-                    </div>
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-sm text-blue-800">
-                        <strong>Demo Payment Instructions:</strong>
-                      </p>
-                      <ul className="text-sm text-blue-700 mt-2 list-disc list-inside">
-                        <li>This is a demo - no actual payment will be processed</li>
-                        <li>Enter your phone number and account name</li>
-                        <li>Click "Pay" to simulate the payment process</li>
-                        <li>You will be automatically enrolled after payment simulation</li>
-                      </ul>
                     </div>
                   </div>
                 )}
@@ -385,7 +331,7 @@ const Payment = () => {
                 
                 {!course?.is_free && paymentMethod === 'card' && (
                   <div className="mt-4 text-center text-xs text-gray-500">
-                    <p>🔒 Secure payment powered by Stripe</p>
+                    <p>🔒 Secure payment powered by ClickPesa</p>
                     <p className="mt-1">Your payment information is encrypted and secure</p>
                   </div>
                 )}
