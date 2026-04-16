@@ -271,8 +271,8 @@ export const paymentsAPI = {
   checkout: (orderId) =>
     api.post(`/orders/${orderId}/checkout/`),
   
-  confirmPayment: (paymentIntentId) =>
-    api.post('/orders/confirm_payment/', { payment_intent_id: paymentIntentId }),
+  confirmPayment: (paymentId) =>
+    api.post('/orders/confirm_payment/', { payment_id: paymentId }),
   
   getMyOrders: () =>
     api.get('/orders/my_orders/'),

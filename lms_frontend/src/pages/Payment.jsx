@@ -72,25 +72,30 @@ const Payment = () => {
       
       const response = await paymentsAPI.createOrder(orderData);
       setOrder(response.data);
-      
+
       // Initiate checkout
       const checkoutResponse = await paymentsAPI.checkout(response.data.id);
-      
+
       // Handle mobile money payments
       if (paymentMethod !== 'card') {
-        if (checkoutResponse.data.success) {
-          alert('Payment successful! You are now enrolled in the course.');
+        if (checkoutResponse.data.payment_id) {
+          alert('Payment initiated! Please complete payment on your phone.');
+          // In production, you would poll for payment status
+          // For now, navigate to course page
           navigate(`/courses/${courseId}`);
         } else {
           setError('Payment failed. Please try again.');
         }
       } else {
-        // Handle card payments with Stripe
-        // In a real app, you would use Stripe Elements here
-        // For now, simulate payment completion
-        await simulatePayment(checkoutResponse.data.order.stripe_payment_intent_id);
+        // Handle card payments with ClickPesa
+        if (checkoutResponse.data.payment_url) {
+          // Redirect to ClickPesa payment page
+          window.location.href = checkoutResponse.data.payment_url;
+        } else {
+          setError('Payment initialization failed');
+        }
       }
-      
+
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to process payment');
       console.error(err);
@@ -99,10 +104,15 @@ const Payment = () => {
     }
   };
 
-  const simulatePayment = async (paymentIntentId) => {
+  const handlePaymentConfirmation = async (paymentId) => {
     try {
-      await paymentsAPI.confirmPayment(paymentIntentId);
-      navigate(`/courses/${courseId}`);
+      const response = await paymentsAPI.confirmPayment(paymentId);
+      if (response.data.success) {
+        alert('Payment successful! You are now enrolled in the course.');
+        navigate(`/courses/${courseId}`);
+      } else {
+        setError('Payment confirmation failed');
+      }
     } catch (err) {
       setError('Payment confirmation failed');
       console.error(err);
