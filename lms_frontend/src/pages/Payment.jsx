@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { paymentsAPI, coursesAPI } from '../services/api';
 import Navbar from '../components/common/Navbar';
+import Swal from 'sweetalert2';
 
 const Payment = () => {
   const { courseId } = useParams();
@@ -100,9 +101,16 @@ const Payment = () => {
     } catch (err) {
       console.error('Payment error:', err);
       console.error('Error response:', err.response?.data);
-      // Display the actual error message from ClickPesa
+      // Display the actual error message from ClickPesa using SweetAlert
       const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to process payment';
       setError(errorMessage);
+      Swal.fire({
+        icon: 'error',
+        title: 'Payment Error',
+        text: errorMessage,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
     } finally {
       setProcessing(false);
     }
