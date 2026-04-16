@@ -1,4 +1,4 @@
-import stripe
+import requests
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum, Count
@@ -13,7 +13,9 @@ from .serializers import (
     CouponSerializer, CouponCreateSerializer, InstructorPayoutSerializer
 )
 
-stripe.api_key = getattr(settings, 'STRIPE_SECRET_KEY', '')
+CLICKPESA_API_KEY = getattr(settings, 'CLICKPESA_API_KEY', '')
+CLICKPESA_CLIENT_ID = getattr(settings, 'CLICKPESA_CLIENT_ID', '')
+CLICKPESA_API_URL = getattr(settings, 'CLICKPESA_API_URL', 'https://api.clickpesa.com/v1')
 
 
 class IsInstructor(permissions.BasePermission):
@@ -116,95 +118,156 @@ class OrderViewSet(viewsets.ModelViewSet):
             if order.status == 'completed':
                 return Response({'error': 'Order already completed'}, status=400)
 
-            # Handle mobile money payments
-            if order.payment_method != 'card':
-                # For mobile money, simulate payment processing
-                # In production, integrate with actual mobile money APIs
-                from django.utils import timezone
-                order.status = 'completed'
-                order.completed_at = timezone.now()
-                order.save()
-
-                # Create enrollment
-                enrollment, created = Enrollment.objects.get_or_create(
-                    student=order.student,
-                    course=order.course,
-                    defaults={'is_active': True}
-                )
-
-                # Temporarily comment out revenue analytics to debug
-                # RevenueAnalytics.objects.update_or_create(
-                #     course=order.course,
-                #     date=timezone.now().date(),
-                #     defaults={
-                #         'sales_count': 1,
-                #         'revenue': order.final_price,
-                #         'instructor_payout': order.final_price * 0.7  # 70% to instructor
-                #     }
-                # )
-
-                return Response({
-                    'success': True,
-                    'message': f'Payment completed via {order.get_payment_method_display()}',
-                    'order_id': order.id,
-                    'payment_method': order.payment_method
-                })
-
-            # Handle card payments with Stripe
-            try:
-                intent = stripe.PaymentIntent.create(
-                    amount=int(order.final_price * 100),
-                    currency='tzs',
-                    metadata={
-                        'order_id': order.id,
-                        'course_id': order.course.id,
-                        'student_id': request.user.id
+            # Handle card payments with ClickPesa
+            if order.payment_method == 'card':
+                try:
+                    # Create payment with ClickPesa
+                    headers = {
+                        'Authorization': f'Bearer {CLICKPESA_API_KEY}',
+                        'Content-Type': 'application/json',
+                        'X-Client-Id': CLICKPESA_CLIENT_ID
                     }
-                )
 
-                order.stripe_payment_intent_id = intent.id
-                order.save()
+                    payment_data = {
+                        'amount': float(order.final_price),
+                        'currency': 'TZS',
+                        'description': f'Payment for course: {order.course.title}',
+                        'metadata': {
+                            'order_id': order.id,
+                            'course_id': order.course.id,
+                            'student_id': request.user.id,
+                            'student_email': request.user.email
+                        },
+                        'redirect_url': f'http://localhost:3000/payment/confirmation/{order.id}',
+                        'cancel_url': f'http://localhost:3000/payment/cancel/{order.id}'
+                    }
 
-                return Response({
-                    'client_secret': intent.client_secret,
-                    'order': OrderSerializer(order).data
-                })
-            except Exception as e:
-                return Response({'error': f'Stripe error: {str(e)}'}, status=500)
+                    response = requests.post(
+                        f'{CLICKPESA_API_URL}/payments',
+                        json=payment_data,
+                        headers=headers
+                    )
+
+                    if response.status_code == 200 or response.status_code == 201:
+                        payment_info = response.json()
+                        order.clickpesa_payment_id = payment_info.get('id')
+                        order.save()
+
+                        return Response({
+                            'payment_url': payment_info.get('payment_url'),
+                            'payment_id': payment_info.get('id'),
+                            'order': OrderSerializer(order).data
+                        })
+                    else:
+                        return Response({
+                            'error': f'ClickPesa error: {response.text}'
+                        }, status=500)
+
+                except Exception as e:
+                    return Response({'error': f'Payment processing error: {str(e)}'}, status=500)
+
+            # Handle mobile money payments with ClickPesa
+            elif order.payment_method in ['mpesa', 'tigopesa', 'airtel']:
+                try:
+                    headers = {
+                        'Authorization': f'Bearer {CLICKPESA_API_KEY}',
+                        'Content-Type': 'application/json',
+                        'X-Client-Id': CLICKPESA_CLIENT_ID
+                    }
+
+                    mobile_money_data = {
+                        'amount': float(order.final_price),
+                        'currency': 'TZS',
+                        'provider': order.payment_method.upper(),
+                        'phone_number': order.mobile_money_phone,
+                        'account_name': order.mobile_money_account_name,
+                        'description': f'Mobile money payment for course: {order.course.title}',
+                        'metadata': {
+                            'order_id': order.id,
+                            'course_id': order.course.id,
+                            'student_id': request.user.id
+                        }
+                    }
+
+                    response = requests.post(
+                        f'{CLICKPESA_API_URL}/mobile-money/payments',
+                        json=mobile_money_data,
+                        headers=headers
+                    )
+
+                    if response.status_code == 200 or response.status_code == 201:
+                        payment_info = response.json()
+                        order.clickpesa_payment_id = payment_info.get('id')
+                        order.save()
+
+                        return Response({
+                            'payment_id': payment_info.get('id'),
+                            'status': payment_info.get('status'),
+                            'message': 'Mobile money payment initiated. Please complete payment on your phone.',
+                            'order': OrderSerializer(order).data
+                        })
+                    else:
+                        return Response({
+                            'error': f'ClickPesa mobile money error: {response.text}'
+                        }, status=500)
+
+                except Exception as e:
+                    return Response({'error': f'Mobile money processing error: {str(e)}'}, status=500)
+
+            else:
+                return Response({'error': 'Invalid payment method'}, status=400)
 
         except Exception as e:
             return Response({'error': f'Checkout error: {str(e)}'}, status=500)
 
     @action(detail=False, methods=['post'])
     def confirm_payment(self, request):
-        intent_id = request.data.get('payment_intent_id')
+        payment_id = request.data.get('payment_id')
 
         try:
-            intent = stripe.PaymentIntent.retrieve(intent_id)
-            order = Order.objects.get(stripe_payment_intent_id=intent_id)
+            headers = {
+                'Authorization': f'Bearer {CLICKPESA_API_KEY}',
+                'Content-Type': 'application/json',
+                'X-Client-Id': CLICKPESA_CLIENT_ID
+            }
 
-            if intent.status == 'succeeded':
-                order.status = 'completed'
-                order.completed_at = timezone.now()
-                order.save()
+            # Check payment status with ClickPesa
+            response = requests.get(
+                f'{CLICKPESA_API_URL}/payments/{payment_id}',
+                headers=headers
+            )
 
-                Enrollment.objects.get_or_create(
-                    student=order.student,
-                    course=order.course,
-                    defaults={'status': 'active'}
-                )
+            if response.status_code == 200:
+                payment_info = response.json()
+                order = Order.objects.get(clickpesa_payment_id=payment_id)
 
-                self._update_revenue_analytics(order)
+                if payment_info.get('status') == 'completed' or payment_info.get('status') == 'success':
+                    order.status = 'completed'
+                    order.completed_at = timezone.now()
+                    order.save()
 
-                return Response({'success': True, 'order': OrderSerializer(order).data})
+                    enrollment, created = Enrollment.objects.get_or_create(
+                        student=order.student,
+                        course=order.course,
+                        defaults={'is_active': True}
+                    )
+
+                    self._update_revenue_analytics(order)
+
+                    return Response({'success': True, 'order': OrderSerializer(order).data})
+                elif payment_info.get('status') == 'failed' or payment_info.get('status') == 'cancelled':
+                    order.status = 'failed'
+                    order.save()
+                    return Response({'success': False, 'status': payment_info.get('status')})
+                else:
+                    return Response({'success': False, 'status': payment_info.get('status'), 'message': 'Payment still processing'})
             else:
-                order.status = 'failed'
-                order.save()
-                return Response({'success': False, 'status': intent.status})
-        except stripe.error.StripeError as e:
-            return Response({'error': str(e)}, status=400)
+                return Response({'error': f'ClickPesa error: {response.text}'}, status=500)
+
         except Order.DoesNotExist:
             return Response({'error': 'Order not found'}, status=404)
+        except Exception as e:
+            return Response({'error': f'Payment confirmation error: {str(e)}'}, status=500)
 
     def _update_revenue_analytics(self, order):
         from datetime import date

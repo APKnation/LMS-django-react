@@ -156,3 +156,8 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=60),
 }
+
+# ClickPesa Payment Gateway Configuration
+CLICKPESA_API_KEY = 'SK0nvNxfT6IHZFZHAVQLCvOJ0CJbDdjLdyyOHy1DGJ'
+CLICKPESA_CLIENT_ID = 'IDWVDvzpZIhR249cZa8TbxFUBxedYUL2'
+CLICKPESA_API_URL = 'https://api.clickpesa.com/v1'
