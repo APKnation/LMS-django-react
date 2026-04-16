@@ -78,7 +78,6 @@ const Payment = () => {
       // Handle mobile money payments
       if (paymentMethod !== 'card') {
         if (checkoutResponse.data.payment_id) {
-          alert('Payment initiated! Please complete payment on your phone.');
           // In production, you would poll for payment status
           // For now, navigate to course page
           navigate(`/courses/${courseId}`);
@@ -111,7 +110,6 @@ const Payment = () => {
     try {
       const response = await paymentsAPI.confirmPayment(paymentId);
       if (response.data.success) {
-        alert('Payment successful! You are now enrolled in the course.');
         navigate(`/courses/${courseId}`);
       } else {
         setError('Payment confirmation failed');

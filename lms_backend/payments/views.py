@@ -209,40 +209,16 @@ class OrderViewSet(viewsets.ModelViewSet):
                     if not token:
                         return Response({'error': 'Failed to generate authentication token'}, status=500)
 
-                    # First preview the USSD-PUSH request to validate
-                    preview_headers = {
+                    # Initiate the USSD-PUSH payment directly (skip preview due to 401 errors)
+                    headers = {
                         'Authorization': f'Bearer {token}',
                         'Content-Type': 'application/json'
                     }
 
-                    preview_data = {
-                        'amount': str(order.final_price),
-                        'currency': 'TZS',
-                        'orderReference': f'ORDER-{order.id}',
-                        'phoneNumber': order.mobile_money_phone,
-                        'fetchSenderDetails': False
-                    }
-
-                    preview_response = requests.post(
-                        f'{CLICKPESA_API_URL}/third-parties/payments/preview-ussd-push-request',
-                        json=preview_data,
-                        headers=preview_headers,
-                        timeout=30
-                    )
-
-                    if preview_response.status_code != 200:
-                        print(f"ClickPesa Preview Error: Status {preview_response.status_code}, Response: {preview_response.text}")
-                        return Response({
-                            'error': f'ClickPesa preview error: {preview_response.text}'
-                        }, status=500)
-
-                    preview_info = preview_response.json()
-
-                    # Initiate the USSD-PUSH payment
                     initiate_data = {
                         'amount': str(order.final_price),
                         'currency': 'TZS',
-                        'orderReference': f'ORDER-{order.id}',
+                        'orderReference': f'ORDER{order.id}',
                         'phoneNumber': order.mobile_money_phone,
                         'fetchSenderDetails': False
                     }
@@ -250,7 +226,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     initiate_response = requests.post(
                         f'{CLICKPESA_API_URL}/third-parties/payments/initiate-ussd-push-request',
                         json=initiate_data,
-                        headers=preview_headers,
+                        headers=headers,
                         timeout=30
                     )
 
