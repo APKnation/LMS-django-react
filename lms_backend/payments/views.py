@@ -40,8 +40,12 @@ def get_clickpesa_token():
         
         if response.status_code == 200:
             token_data = response.json()
-            print(f"Token generated successfully: {token_data.get('token', 'No token found')}")
-            return token_data.get('token')
+            token = token_data.get('token', '')
+            # ClickPesa returns token with "Bearer " prefix, remove it to avoid duplicate
+            if token.startswith('Bearer '):
+                token = token[7:]  # Remove "Bearer " prefix
+            print(f"Token generated successfully: {token[:20]}... (truncated)")
+            return token
         else:
             print(f"Token generation failed with status {response.status_code}")
             return None
