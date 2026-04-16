@@ -77,9 +77,12 @@ const InstructorNavbar = () => {
                 <div className="hidden sm:flex items-center space-x-4">
                   <Link
                     to="/profile"
-                    className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md hover:opacity-80 transition-opacity flex-shrink-0"
+                    className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
                   >
-                    {user?.first_name?.[0] || user?.username?.[0] || 'I'}
+                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md flex-shrink-0">
+                      {user?.first_name?.[0] || user?.username?.[0] || 'I'}
+                    </div>
+                    <span className="text-sm font-semibold text-white">Profile</span>
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -149,9 +152,12 @@ const InstructorNavbar = () => {
                 <Link
                   to="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg hover:opacity-80 transition-opacity flex-shrink-0"
+                  className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
                 >
-                  {user?.first_name?.[0] || user?.username?.[0] || 'I'}
+                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg flex-shrink-0">
+                    {user?.first_name?.[0] || user?.username?.[0] || 'I'}
+                  </div>
+                  <span className="text-base font-semibold text-white">Profile</span>
                 </Link>
               </div>
               {navItems.map((item) => (
