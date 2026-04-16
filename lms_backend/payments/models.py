@@ -47,8 +47,10 @@ class Order(models.Model):
     
     PAYMENT_METHOD_CHOICES = [
         ('card', 'Credit/Debit Card'),
+        ('mpesa', 'M-Pesa'),
         ('vodacom', 'Vodacom M-Pesa'),
         ('airtel', 'Airtel Money'),
+        ('tigopesa', 'Tigo Pesa'),
         ('halotel', 'Halotel Money'),
         ('ttcl', 'TTCL Money'),
         ('yas', 'Yas Money'),

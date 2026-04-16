@@ -121,7 +121,9 @@ const Payment = () => {
 
   const paymentMethods = [
     { id: 'card', name: 'Credit/Debit Card', icon: '💳', image: null },
+    { id: 'mpesa', name: 'M-Pesa', icon: null, image: '/vodacom.png' },
     { id: 'vodacom', name: 'Vodacom M-Pesa', icon: null, image: '/vodacom.png' },
+    { id: 'tigopesa', name: 'Tigo Pesa', icon: null, image: '/tigopesa.png' },
     { id: 'airtel', name: 'Airtel Money', icon: null, image: '/airtel.png' },
     { id: 'halotel', name: 'Halotel Money', icon: null, image: '/halotel.png' },
     { id: 'ttcl', name: 'TTCL Money', icon: null, image: '/ttcl.png' },

@@ -167,7 +167,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     return Response({'error': f'Payment processing error: {str(e)}'}, status=500)
 
             # Handle mobile money payments with ClickPesa
-            elif order.payment_method in ['mpesa', 'tigopesa', 'airtel']:
+            elif order.payment_method in ['mpesa', 'vodacom', 'tigopesa', 'airtel', 'halotel', 'ttcl', 'yas']:
                 try:
                     headers = {
                         'Authorization': f'Bearer {CLICKPESA_API_KEY}',
