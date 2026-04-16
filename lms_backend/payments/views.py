@@ -202,7 +202,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     return Response({'error': f'Payment processing error: {str(e)}'}, status=500)
 
             # Handle mobile money payments with ClickPesa
-            elif order.payment_method in ['mpesa', 'vodacom', 'tigopesa', 'airtel', 'halotel', 'ttcl', 'yas']:
+            elif order.payment_method in ['mpesa', 'vodacom', 'tigopesa', 'airtel', 'halotel', 'ttcl']:
                 try:
                     # Generate JWT token for authentication
                     token = get_clickpesa_token()
