@@ -25,15 +25,26 @@ def get_clickpesa_token():
             'api-key': CLICKPESA_API_KEY,
             'client-id': CLICKPESA_CLIENT_ID
         }
+        print(f"Generating ClickPesa token with URL: {CLICKPESA_API_URL}/third-parties/generate-token")
+        print(f"API Key: {CLICKPESA_API_KEY[:10]}... (truncated)")
+        print(f"Client ID: {CLICKPESA_CLIENT_ID}")
+        
         response = requests.post(
             f'{CLICKPESA_API_URL}/third-parties/generate-token',
             headers=headers,
             timeout=30
         )
+        
+        print(f"Token generation response status: {response.status_code}")
+        print(f"Token generation response body: {response.text}")
+        
         if response.status_code == 200:
             token_data = response.json()
+            print(f"Token generated successfully: {token_data.get('token', 'No token found')}")
             return token_data.get('token')
-        return None
+        else:
+            print(f"Token generation failed with status {response.status_code}")
+            return None
     except Exception as e:
         print(f"Error generating ClickPesa token: {str(e)}")
         return None
