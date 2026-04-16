@@ -148,7 +148,6 @@ const Payment = () => {
 
   const paymentMethods = [
     { id: 'card', name: 'Credit/Debit Card', icon: '💳', image: null },
-    { id: 'mpesa', name: 'M-Pesa', icon: null, image: '/vodacom.png' },
     { id: 'vodacom', name: 'Vodacom', icon: null, image: '/vodacom.png' },
     { id: 'tigopesa', name: 'Tigo Pesa', icon: null, image: '/yas.png' },
     { id: 'airtel', name: 'Airtel Money', icon: null, image: '/airtel.png' },
