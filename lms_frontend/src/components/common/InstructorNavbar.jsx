@@ -74,19 +74,19 @@ const InstructorNavbar = () => {
             {isAuthenticated ? (
               <>
                 {/* Desktop user menu */}
-                <div className="hidden sm:flex items-center space-x-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md">
+                <div className="hidden sm:flex items-center space-x-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md flex-shrink-0">
                       {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                     </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-white">{user?.first_name || user?.username}</span>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-semibold text-white truncate">{user?.first_name || user?.username}</span>
                       <span className="text-xs text-purple-200">Instructor</span>
                     </div>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-red-400/30"
+                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-red-400/30 flex-shrink-0"
                   >
                     Logout
                   </button>
