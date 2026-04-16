@@ -102,7 +102,18 @@ const Payment = () => {
       console.error('Payment error:', err);
       console.error('Error response:', err.response?.data);
       // Display the actual error message from ClickPesa using SweetAlert
-      const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to process payment';
+      let errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to process payment';
+      
+      // If error message is in JSON format, extract the message text
+      if (typeof errorMessage === 'string' && errorMessage.includes('{')) {
+        try {
+          const errorObj = JSON.parse(errorMessage);
+          errorMessage = errorObj.message || errorObj.error || errorMessage;
+        } catch (e) {
+          // If parsing fails, use original message
+        }
+      }
+      
       setError(errorMessage);
       Swal.fire({
         icon: 'error',
