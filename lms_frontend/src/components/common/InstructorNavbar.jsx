@@ -23,16 +23,16 @@ const InstructorNavbar = () => {
   };
 
   const navItems = [
-    { path: '/instructor-dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/instructor-courses', label: 'My Courses', icon: '📚' },
-    { path: '/students', label: 'Students', icon: '👥' },
-    { path: '/revenue-analytics', label: 'Revenue', icon: '💰' },
-    { path: '/quiz-management', label: 'Quizzes', icon: '📝' },
-    { path: '/assignment-management', label: 'Assignments', icon: '📋' },
-    { path: '/announcements', label: 'Announcements', icon: '📢' },
-    { path: '/coupons', label: 'Coupons', icon: '🎟️' },
-    { path: '/instructor-payouts', label: 'Payouts', icon: '💸' },
-    { path: '/profile', label: 'Profile', icon: '👤' },
+    { path: '/instructor-dashboard', label: 'Dashboard' },
+    { path: '/instructor-courses', label: 'My Courses' },
+    { path: '/students', label: 'Students' },
+    { path: '/revenue-analytics', label: 'Revenue' },
+    { path: '/quiz-management', label: 'Quizzes' },
+    { path: '/assignment-management', label: 'Assignments' },
+    { path: '/announcements', label: 'Announcements' },
+    { path: '/coupons', label: 'Coupons' },
+    { path: '/instructor-payouts', label: 'Payouts' },
+    { path: '/profile', label: 'Profile' },
   ];
 
   return (
@@ -63,7 +63,6 @@ const InstructorNavbar = () => {
                       : 'text-purple-100 hover:bg-purple-700/50 hover:text-white'
                   }`}
                 >
-                  <span className="mr-2 text-lg">{item.icon}</span>
                   {item.label}
                 </Link>
               ))}
@@ -171,7 +170,6 @@ const InstructorNavbar = () => {
                       : 'text-purple-100 hover:bg-purple-700/50'
                   }`}
                 >
-                  <span className="mr-3 text-xl">{item.icon}</span>
                   {item.label}
                 </Link>
               ))}
