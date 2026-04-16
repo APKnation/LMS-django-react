@@ -21,13 +21,18 @@ class IsInstructor(permissions.BasePermission):
         return request.user.is_authenticated and request.user.is_instructor
 
 
+class IsInstructorOrAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and (request.user.is_instructor or request.user.is_staff)
+
+
 class CouponViewSet(viewsets.ModelViewSet):
     queryset = Coupon.objects.all()
     serializer_class = CouponSerializer
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsInstructor() | permissions.IsAdminUser()]
+            return [IsInstructorOrAdmin()]
         return [permissions.IsAuthenticatedOrReadOnly()]
 
     def get_serializer_class(self):
