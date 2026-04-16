@@ -145,7 +145,7 @@ const InstructorNavbar = () => {
         <div className="px-4 py-6 space-y-2">
           {isAuthenticated ? (
             <>
-              <div className="mb-6 pb-4 border-b border-purple-600/50 flex items-center space-x-3">
+              <div className="mb-6 pb-4 border-b border-purple-600/50">
                 <Link
                   to="/profile"
                   onClick={() => setMobileMenuOpen(false)}
@@ -153,7 +153,6 @@ const InstructorNavbar = () => {
                 >
                   {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                 </Link>
-                <span className="text-sm text-purple-200">Profile</span>
               </div>
               {navItems.map((item) => (
                 <Link
