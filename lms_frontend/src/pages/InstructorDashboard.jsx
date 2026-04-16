@@ -57,49 +57,41 @@ const InstructorDashboard = () => {
     {
       title: 'Create New Course',
       description: 'Start creating a new course',
-      icon: '📚',
       path: '/course/create'
     },
     {
       title: 'Manage Courses',
       description: 'View and edit your courses',
-      icon: '📖',
-      path: '/courses'
+      path: '/instructor-courses'
     },
     {
       title: 'Revenue Analytics',
       description: 'View your revenue and sales',
-      icon: '💰',
       path: '/revenue-analytics'
     },
     {
       title: 'Student Management',
       description: 'Manage enrolled students',
-      icon: '👥',
       path: '/students'
     },
     {
       title: 'Quiz Management',
       description: 'Create and manage quizzes',
-      icon: '📝',
       path: '/quiz-management'
     },
     {
       title: 'Assignments',
       description: 'Manage course assignments',
-      icon: '📋',
       path: '/assignment-management'
     },
     {
       title: 'Announcements',
       description: 'Send course announcements',
-      icon: '📢',
       path: '/announcements'
     },
     {
       title: 'Coupons',
       description: 'Manage discount coupons',
-      icon: '🎫',
       path: '/coupons'
     }
   ];
@@ -195,7 +187,6 @@ const InstructorDashboard = () => {
                     onClick={() => navigate(action.path)}
                     className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left"
                   >
-                    <div className="text-3xl mb-2">{action.icon}</div>
                     <h3 className="font-semibold text-gray-900">{action.title}</h3>
                     <p className="text-sm text-gray-600">{action.description}</p>
                   </button>
