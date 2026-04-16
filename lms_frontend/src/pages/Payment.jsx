@@ -57,19 +57,23 @@ const Payment = () => {
     try {
       setProcessing(true);
       setError(null);
-      
+
       const orderData = {
         course: parseInt(courseId),
         payment_method: paymentMethod,
         mobile_money_phone: paymentMethod !== 'card' ? mobileMoneyDetails.phoneNumber : '',
         mobile_money_account_name: paymentMethod !== 'card' ? mobileMoneyDetails.accountName : ''
       };
-      
+
+      console.log('Creating order with data:', orderData);
       const response = await paymentsAPI.createOrder(orderData);
+      console.log('Order created:', response.data);
       setOrder(response.data);
 
       // Initiate checkout
+      console.log('Initiating checkout for order:', response.data.id);
       const checkoutResponse = await paymentsAPI.checkout(response.data.id);
+      console.log('Checkout response:', checkoutResponse.data);
 
       // Handle mobile money payments
       if (paymentMethod !== 'card') {
@@ -79,21 +83,25 @@ const Payment = () => {
           // For now, navigate to course page
           navigate(`/courses/${courseId}`);
         } else {
+          console.error('Mobile money payment failed:', checkoutResponse.data);
           setError('Payment failed. Please try again.');
         }
       } else {
         // Handle card payments with ClickPesa
         if (checkoutResponse.data.payment_url) {
           // Redirect to ClickPesa payment page
+          console.log('Redirecting to payment URL:', checkoutResponse.data.payment_url);
           window.location.href = checkoutResponse.data.payment_url;
         } else {
+          console.error('Card payment failed:', checkoutResponse.data);
           setError('Payment initialization failed');
         }
       }
 
     } catch (err) {
+      console.error('Payment error:', err);
+      console.error('Error response:', err.response?.data);
       setError(err.response?.data?.error || 'Failed to process payment');
-      console.error(err);
     } finally {
       setProcessing(false);
     }
