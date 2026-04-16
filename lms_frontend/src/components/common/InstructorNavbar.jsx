@@ -75,8 +75,8 @@ const InstructorNavbar = () => {
               <>
                 {/* Desktop user menu */}
                 <div className="hidden sm:flex items-center space-x-4">
-                  <div className="flex items-center space-x-2 bg-purple-700/50 px-4 py-2 rounded-lg border border-purple-400/30">
-                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md">
                       {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                     </div>
                     <div className="flex flex-col">
@@ -86,7 +86,7 @@ const InstructorNavbar = () => {
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-red-400/30"
+                    className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-red-400/30"
                   >
                     Logout
                   </button>
