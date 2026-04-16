@@ -15,7 +15,28 @@ from .serializers import (
 
 CLICKPESA_API_KEY = getattr(settings, 'CLICKPESA_API_KEY', '')
 CLICKPESA_CLIENT_ID = getattr(settings, 'CLICKPESA_CLIENT_ID', '')
-CLICKPESA_API_URL = getattr(settings, 'CLICKPESA_API_URL', 'https://api.clickpesa.com/v1')
+CLICKPESA_API_URL = getattr(settings, 'CLICKPESA_API_URL', 'https://api.clickpesa.com')
+
+
+def get_clickpesa_token():
+    """Generate JWT token for ClickPesa API authentication"""
+    try:
+        headers = {
+            'api-key': CLICKPESA_API_KEY,
+            'client-id': CLICKPESA_CLIENT_ID
+        }
+        response = requests.post(
+            f'{CLICKPESA_API_URL}/third-parties/generate-token',
+            headers=headers,
+            timeout=30
+        )
+        if response.status_code == 200:
+            token_data = response.json()
+            return token_data.get('token')
+        return None
+    except Exception as e:
+        print(f"Error generating ClickPesa token: {str(e)}")
+        return None
 
 
 class IsInstructor(permissions.BasePermission):
@@ -121,29 +142,27 @@ class OrderViewSet(viewsets.ModelViewSet):
             # Handle card payments with ClickPesa
             if order.payment_method == 'card':
                 try:
-                    # Create payment with ClickPesa
+                    # Generate JWT token for authentication
+                    token = get_clickpesa_token()
+                    if not token:
+                        return Response({'error': 'Failed to generate authentication token'}, status=500)
+
+                    # Create payment with ClickPesa using correct endpoint
                     headers = {
-                        'Authorization': f'Bearer {CLICKPESA_API_KEY}',
-                        'Content-Type': 'application/json',
-                        'X-Client-Id': CLICKPESA_CLIENT_ID
+                        'Authorization': f'Bearer {token}',
+                        'Content-Type': 'application/json'
                     }
 
                     payment_data = {
-                        'amount': float(order.final_price),
+                        'amount': str(order.final_price),
                         'currency': 'TZS',
-                        'description': f'Payment for course: {order.course.title}',
-                        'metadata': {
-                            'order_id': order.id,
-                            'course_id': order.course.id,
-                            'student_id': request.user.id,
-                            'student_email': request.user.email
-                        },
-                        'redirect_url': f'http://localhost:3000/payment/confirmation/{order.id}',
-                        'cancel_url': f'http://localhost:3000/payment/cancel/{order.id}'
+                        'orderReference': f'ORDER-{order.id}',
+                        'redirectUrl': f'http://localhost:3000/payment/confirmation/{order.id}',
+                        'cancelUrl': f'http://localhost:3000/payment/cancel/{order.id}'
                     }
 
                     response = requests.post(
-                        f'{CLICKPESA_API_URL}/payments',
+                        f'{CLICKPESA_API_URL}/third-parties/payments/card-payment',
                         json=payment_data,
                         headers=headers,
                         timeout=30
@@ -151,23 +170,21 @@ class OrderViewSet(viewsets.ModelViewSet):
 
                     if response.status_code == 200 or response.status_code == 201:
                         payment_info = response.json()
-                        order.clickpesa_payment_id = payment_info.get('id')
+                        order.clickpesa_payment_id = payment_info.get('reference') or payment_info.get('id')
                         order.save()
 
                         return Response({
-                            'payment_url': payment_info.get('payment_url'),
-                            'payment_id': payment_info.get('id'),
+                            'payment_url': payment_info.get('paymentUrl') or payment_info.get('payment_url'),
+                            'payment_id': order.clickpesa_payment_id,
                             'order': OrderSerializer(order).data
                         })
                     else:
-                        # Log the error for debugging
-                        print(f"ClickPesa API Error: Status {response.status_code}, Response: {response.text}")
+                        print(f"ClickPesa Card Payment Error: Status {response.status_code}, Response: {response.text}")
                         return Response({
-                            'error': f'ClickPesa API error: {response.text}'
+                            'error': f'ClickPesa card payment error: {response.text}'
                         }, status=500)
 
                 except requests.exceptions.RequestException as e:
-                    # Log the error for debugging
                     print(f"ClickPesa Request Error: {str(e)}")
                     return Response({'error': f'ClickPesa connection error: {str(e)}'}, status=500)
                 except Exception as e:
@@ -176,53 +193,74 @@ class OrderViewSet(viewsets.ModelViewSet):
             # Handle mobile money payments with ClickPesa
             elif order.payment_method in ['mpesa', 'vodacom', 'tigopesa', 'airtel', 'halotel', 'ttcl', 'yas']:
                 try:
-                    headers = {
-                        'Authorization': f'Bearer {CLICKPESA_API_KEY}',
-                        'Content-Type': 'application/json',
-                        'X-Client-Id': CLICKPESA_CLIENT_ID
+                    # Generate JWT token for authentication
+                    token = get_clickpesa_token()
+                    if not token:
+                        return Response({'error': 'Failed to generate authentication token'}, status=500)
+
+                    # First preview the USSD-PUSH request to validate
+                    preview_headers = {
+                        'Authorization': f'Bearer {token}',
+                        'Content-Type': 'application/json'
                     }
 
-                    mobile_money_data = {
-                        'amount': float(order.final_price),
+                    preview_data = {
+                        'amount': str(order.final_price),
                         'currency': 'TZS',
-                        'provider': order.payment_method.upper(),
-                        'phone_number': order.mobile_money_phone,
-                        'account_name': order.mobile_money_account_name,
-                        'description': f'Mobile money payment for course: {order.course.title}',
-                        'metadata': {
-                            'order_id': order.id,
-                            'course_id': order.course.id,
-                            'student_id': request.user.id
-                        }
+                        'orderReference': f'ORDER-{order.id}',
+                        'phoneNumber': order.mobile_money_phone,
+                        'fetchSenderDetails': False
                     }
 
-                    response = requests.post(
-                        f'{CLICKPESA_API_URL}/mobile-money/payments',
-                        json=mobile_money_data,
-                        headers=headers,
+                    preview_response = requests.post(
+                        f'{CLICKPESA_API_URL}/third-parties/payments/preview-ussd-push-request',
+                        json=preview_data,
+                        headers=preview_headers,
                         timeout=30
                     )
 
-                    if response.status_code == 200 or response.status_code == 201:
-                        payment_info = response.json()
-                        order.clickpesa_payment_id = payment_info.get('id')
+                    if preview_response.status_code != 200:
+                        print(f"ClickPesa Preview Error: Status {preview_response.status_code}, Response: {preview_response.text}")
+                        return Response({
+                            'error': f'ClickPesa preview error: {preview_response.text}'
+                        }, status=500)
+
+                    preview_info = preview_response.json()
+
+                    # Initiate the USSD-PUSH payment
+                    initiate_data = {
+                        'amount': str(order.final_price),
+                        'currency': 'TZS',
+                        'orderReference': f'ORDER-{order.id}',
+                        'phoneNumber': order.mobile_money_phone,
+                        'fetchSenderDetails': False
+                    }
+
+                    initiate_response = requests.post(
+                        f'{CLICKPESA_API_URL}/third-parties/payments/initiate-ussd-push-request',
+                        json=initiate_data,
+                        headers=preview_headers,
+                        timeout=30
+                    )
+
+                    if initiate_response.status_code == 200 or initiate_response.status_code == 201:
+                        payment_info = initiate_response.json()
+                        order.clickpesa_payment_id = payment_info.get('reference') or payment_info.get('id')
                         order.save()
 
                         return Response({
-                            'payment_id': payment_info.get('id'),
-                            'status': payment_info.get('status'),
+                            'payment_id': order.clickpesa_payment_id,
+                            'status': 'pending',
                             'message': 'Mobile money payment initiated. Please complete payment on your phone.',
                             'order': OrderSerializer(order).data
                         })
                     else:
-                        # Log the error for debugging
-                        print(f"ClickPesa API Error: Status {response.status_code}, Response: {response.text}")
+                        print(f"ClickPesa Initiate Error: Status {initiate_response.status_code}, Response: {initiate_response.text}")
                         return Response({
-                            'error': f'ClickPesa mobile money error: {response.text}'
+                            'error': f'ClickPesa initiate error: {initiate_response.text}'
                         }, status=500)
 
                 except requests.exceptions.RequestException as e:
-                    # Log the error for debugging
                     print(f"ClickPesa Request Error: {str(e)}")
                     return Response({'error': f'ClickPesa connection error: {str(e)}'}, status=500)
                 except Exception as e:

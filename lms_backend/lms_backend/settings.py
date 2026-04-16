@@ -160,4 +160,4 @@ SIMPLE_JWT = {
 # ClickPesa Payment Gateway Configuration
 CLICKPESA_API_KEY = 'SK0nvNxfT6IHZFZHAVQLCvOJ0CJbDdjLdyyOHy1DGJ'
 CLICKPESA_CLIENT_ID = 'IDWVDvzpZIhR249cZa8TbxFUBxedYUL2'
-CLICKPESA_API_URL = 'https://api.clickpesa.com/v1'
+CLICKPESA_API_URL = 'https://api.clickpesa.com'
