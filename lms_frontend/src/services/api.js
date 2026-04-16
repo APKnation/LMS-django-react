@@ -283,10 +283,13 @@ export const paymentsAPI = {
   // Coupons
   validateCoupon: (code, courseId) =>
     api.post('/coupons/validate/', { code, course_id: courseId }),
-  
   getCoupons: () =>
     api.get('/coupons/'),
-  
+  createCoupon: (data) =>
+    api.post('/coupons/', data),
+  deleteCoupon: (id) =>
+    api.delete(`/coupons/${id}/`),
+
   // Instructor Payouts
   getMyPayouts: () =>
     api.get('/instructor-payouts/my_payouts/'),
