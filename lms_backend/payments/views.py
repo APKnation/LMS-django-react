@@ -27,7 +27,7 @@ class CouponViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [permissions.IsAdminUser()]
+            return [IsInstructor() | permissions.IsAdminUser()]
         return [permissions.IsAuthenticatedOrReadOnly()]
 
     def get_serializer_class(self):
