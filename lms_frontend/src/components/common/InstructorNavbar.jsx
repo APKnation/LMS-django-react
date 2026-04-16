@@ -75,7 +75,10 @@ const InstructorNavbar = () => {
               <>
                 {/* Desktop user menu */}
                 <div className="hidden sm:flex items-center space-x-6">
-                  <div className="flex items-center space-x-4">
+                  <Link
+                    to="/profile"
+                    className="flex items-center space-x-4 hover:opacity-80 transition-opacity"
+                  >
                     <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md flex-shrink-0">
                       {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                     </div>
@@ -83,7 +86,7 @@ const InstructorNavbar = () => {
                       <span className="text-sm font-semibold text-white truncate">{user?.first_name || user?.username}</span>
                       <span className="text-xs text-purple-200">Instructor</span>
                     </div>
-                  </div>
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-red-400/30 flex-shrink-0"
@@ -149,7 +152,11 @@ const InstructorNavbar = () => {
           {isAuthenticated ? (
             <>
               <div className="mb-6 pb-4 border-b border-purple-600/50">
-                <div className="flex items-center space-x-3">
+                <Link
+                  to="/profile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+                >
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
                     {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                   </div>
@@ -157,7 +164,7 @@ const InstructorNavbar = () => {
                     <span className="text-base font-semibold text-white">{user?.first_name || user?.username}</span>
                     <span className="text-sm text-purple-200">Instructor</span>
                   </div>
-                </div>
+                </Link>
               </div>
               {navItems.map((item) => (
                 <Link
