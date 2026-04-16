@@ -77,7 +77,7 @@ const InstructorNavbar = () => {
                 <div className="hidden sm:flex items-center space-x-4">
                   <Link
                     to="/profile"
-                    className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md hover:opacity-80 transition-opacity flex-shrink-0"
+                    className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md hover:opacity-80 transition-opacity flex-shrink-0"
                   >
                     {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                   </Link>
@@ -149,7 +149,7 @@ const InstructorNavbar = () => {
                 <Link
                   to="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg hover:opacity-80 transition-opacity flex-shrink-0"
+                  className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg hover:opacity-80 transition-opacity flex-shrink-0"
                 >
                   {user?.first_name?.[0] || user?.username?.[0] || 'I'}
                 </Link>
