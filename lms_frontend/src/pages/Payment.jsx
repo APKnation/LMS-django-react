@@ -100,7 +100,9 @@ const Payment = () => {
     } catch (err) {
       console.error('Payment error:', err);
       console.error('Error response:', err.response?.data);
-      setError(err.response?.data?.error || 'Failed to process payment');
+      // Display the actual error message from ClickPesa
+      const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to process payment';
+      setError(errorMessage);
     } finally {
       setProcessing(false);
     }
