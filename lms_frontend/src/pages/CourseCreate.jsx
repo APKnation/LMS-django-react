@@ -424,6 +424,7 @@ const CourseCreate = () => {
                   </div>
                 </div>
               </div>
+            </div>
 
             {/* Action Buttons */}
             <div className="flex justify-end space-x-4 pt-8 border-t border-gray-200">

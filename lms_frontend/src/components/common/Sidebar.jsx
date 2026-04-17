@@ -43,7 +43,7 @@ const Sidebar = () => {
     { to: '/announcements', label: 'Announcements' },
     { to: '/assignment-management', label: 'Assignments' },
     { to: '/quiz-management', label: 'Quiz Management' },
-    { to: '/student-management', label: 'Students' },
+    { to: '/students', label: 'Students' },
     { to: '/payment-history', label: 'Payments' },
     { to: '/profile', label: 'Profile' },
   ];
