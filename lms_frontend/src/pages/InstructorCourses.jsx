@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { coursesAPI } from '../services/api';
-import InstructorNavbar from '../components/common/InstructorNavbar';
+import Sidebar from '../components/common/Sidebar';
 
 const InstructorCourses = () => {
   const { user, isInstructor } = useAuth();
@@ -41,28 +41,31 @@ const InstructorCourses = () => {
 
   if (!isInstructor) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <InstructorNavbar />
-        <div className="flex items-center justify-center py-12">
-          <p className="text-gray-600">Access denied. Only instructors can view this page.</p>
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <p className="text-gray-600">Access denied. Only instructors can view this page.</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <InstructorNavbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Courses</h1>
-          <button
-            onClick={handleCreateCourse}
-            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
-          >
-            Create New Course
-          </button>
-        </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className="flex-1 lg:ml-64">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">My Courses</h1>
+            <button
+              onClick={handleCreateCourse}
+              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+            >
+              Create New Course
+            </button>
+          </div>
 
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
@@ -123,6 +126,7 @@ const InstructorCourses = () => {
             ))}
           </div>
         )}
+        </div>
       </div>
     </div>
   );
