@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { assignmentAPI, coursesAPI } from '../services/api';
-import InstructorNavbar from '../components/common/InstructorNavbar';
+import Sidebar from '../components/common/Sidebar';
 
 const AssignmentManagement = () => {
   const { user } = useAuth();
@@ -90,43 +90,46 @@ const AssignmentManagement = () => {
 
   if (!user?.is_instructor) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <InstructorNavbar />
-        <div className="flex items-center justify-center py-12">
-          <p className="text-gray-600">Access denied. Only instructors can manage assignments.</p>
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <p className="text-gray-600">Access denied. Only instructors can manage assignments.</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <InstructorNavbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Assignment Management</h1>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className="flex-1 lg:ml-64">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">Assignment Management</h1>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-            {error}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+              {error}
+            </div>
+          )}
+
+          {/* Course Selection */}
+          <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
+            <select
+              value={selectedCourse}
+              onChange={(e) => setSelectedCourse(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Choose a course...</option>
+              {courses.map((course) => (
+                <option key={course.id} value={course.id}>
+                  {course.title}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
-
-        {/* Course Selection */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
-          <select
-            value={selectedCourse}
-            onChange={(e) => setSelectedCourse(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Choose a course...</option>
-            {courses.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.title}
-              </option>
-            ))}
-          </select>
-        </div>
 
         {selectedCourse && (
           <>
@@ -276,6 +279,7 @@ const AssignmentManagement = () => {
             </div>
           </>
         )}
+        </div>
       </div>
     </div>
   );
