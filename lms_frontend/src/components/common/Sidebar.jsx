@@ -129,7 +129,7 @@ const Sidebar = () => {
               </div>
             ) : (
               <div className="space-y-2">
-                {navLinks.slice(0, 1).map((link) => (
+                {studentNavLinks.slice(0, 1).map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
