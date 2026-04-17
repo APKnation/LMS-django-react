@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Enrollments = () => {
   const { user } = useAuth();
@@ -66,25 +66,26 @@ const Enrollments = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4">
-              My Enrollments
-            </h1>
-            <p className="text-xl text-indigo-200">
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="text-center">
+              <h1 className="text-3xl lg:text-4xl font-bold mb-4">
+                My Enrollments
+              </h1>
+              <p className="text-xl text-indigo-200">
               Track your learning progress and achievements
             </p>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
         <div className="mb-8">
           <div className="border-b border-gray-200">
@@ -267,6 +268,8 @@ const Enrollments = () => {
             )}
           </div>
         )}
+        </div>
+      </div>
       </div>
     </div>
   );
