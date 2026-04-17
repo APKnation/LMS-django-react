@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, isInstructor } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,13 +22,29 @@ const Sidebar = () => {
     return location.pathname.startsWith(path);
   };
 
-  const navLinks = [
+  const studentNavLinks = [
     { to: '/', label: 'Home' },
     { to: '/dashboard', label: 'Dashboard' },
     { to: '/courses', label: 'Courses' },
     { to: '/enrollments', label: 'Enrollments' },
     { to: '/quizzes', label: 'Quizzes' },
     { to: '/progress', label: 'Progress' },
+    { to: '/certificates', label: 'Certificates' },
+    { to: '/bookmarks', label: 'Bookmarks' },
+    { to: '/notes', label: 'Notes' },
+    { to: '/profile', label: 'Profile' },
+  ];
+
+  const instructorNavLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/instructor-dashboard', label: 'Dashboard' },
+    { to: '/instructor-courses', label: 'My Courses' },
+    { to: '/course/create', label: 'Create Course' },
+    { to: '/announcements', label: 'Announcements' },
+    { to: '/assignment-management', label: 'Assignments' },
+    { to: '/quiz-management', label: 'Quiz Management' },
+    { to: '/student-management', label: 'Students' },
+    { to: '/payment-history', label: 'Payments' },
     { to: '/profile', label: 'Profile' },
   ];
 
@@ -74,19 +90,30 @@ const Sidebar = () => {
           <nav className="flex-1 p-4 overflow-y-auto">
             {isAuthenticated ? (
               <div className="space-y-2">
-                <div className="p-3 mb-4 bg-indigo-50 rounded-lg">
-                  <p className="text-sm font-medium text-indigo-900">
+                <div className={`p-3 mb-4 rounded-lg ${
+                  isInstructor ? 'bg-purple-50' : 'bg-indigo-50'
+                }`}>
+                  <p className={`text-sm font-medium ${
+                    isInstructor ? 'text-purple-900' : 'text-indigo-900'
+                  }`}>
                     Welcome, {user?.first_name || user?.username}
                   </p>
+                  <p className={`text-xs mt-1 ${
+                    isInstructor ? 'text-purple-700' : 'text-indigo-700'
+                  }`}>
+                    {isInstructor ? 'Instructor' : 'Student'}
+                  </p>
                 </div>
-                {navLinks.map((link) => (
+                {(isInstructor ? instructorNavLinks : studentNavLinks).map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
                     onClick={() => setSidebarOpen(false)}
                     className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       isActive(link.to)
-                        ? 'bg-indigo-100 text-indigo-700'
+                        ? isInstructor 
+                          ? 'bg-purple-100 text-purple-700'
+                          : 'bg-indigo-100 text-indigo-700'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                   >
