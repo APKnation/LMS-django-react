@@ -81,18 +81,24 @@ const CourseCreate = () => {
     
     try {
       const data = new FormData();
-      data.append('title', formData.title);
-      data.append('description', formData.description);
+      data.append('title', formData.title.trim());
+      data.append('description', formData.description.trim());
       data.append('difficulty', formData.difficulty);
       data.append('status', formData.status);
       data.append('is_free', formData.is_free);
-      data.append('price', formData.is_free ? '0.00' : formData.price);
       
+      // Only append price if not free
+      if (!formData.is_free) {
+        data.append('price', formData.price || '0.00');
+      }
+      
+      // Handle category properly - send ID if available, otherwise send empty
       if (formData.category) {
         data.append('category', formData.category);
       }
       
-      if (formData.thumbnail) {
+      // Handle thumbnail properly
+      if (formData.thumbnail && formData.thumbnail instanceof File) {
         data.append('thumbnail', formData.thumbnail);
       }
       
@@ -100,8 +106,30 @@ const CourseCreate = () => {
       alert('Course created successfully!');
       navigate('/courses');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to create course. Please try again.');
       console.error('Failed to create course:', err);
+      
+      // Better error handling for different types of errors
+      if (err.response?.status === 400) {
+        const errorData = err.response.data;
+        if (typeof errorData === 'object') {
+          // Handle field-specific errors
+          const errorMessages = Object.entries(errorData)
+            .map(([field, message]) => `${field}: ${message}`)
+            .join(', ');
+          setError(`Validation failed: ${errorMessages}`);
+        } else {
+          setError(errorData.detail || 'Failed to create course. Please check your input and try again.');
+        }
+      } else if (err.response?.status === 401) {
+        setError('Your session has expired. Please log in again.');
+        setTimeout(() => navigate('/login'), 2000);
+      } else if (err.response?.status === 403) {
+        setError('You do not have permission to create courses.');
+      } else if (err.response?.status >= 500) {
+        setError('Server error. Please try again later.');
+      } else {
+        setError('Failed to create course. Please check your connection and try again.');
+      }
     } finally {
       setLoading(false);
     }
