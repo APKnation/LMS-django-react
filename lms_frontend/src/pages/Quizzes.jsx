@@ -270,6 +270,7 @@ const Quizzes = () => {
           </div>
         )}
       </div>
+      </div>
     </div>
   );
 };

@@ -333,6 +333,7 @@ const Quiz = () => {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 };
