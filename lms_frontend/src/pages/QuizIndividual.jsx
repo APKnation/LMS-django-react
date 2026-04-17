@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const QuizIndividual = () => {
   const { courseId, quizId } = useParams();
@@ -23,35 +23,38 @@ const QuizIndividual = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
         
-        {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-xl lg:text-2xl font-bold">Quiz</h1>
-                <p className="text-indigo-200 mt-1">Course {courseId} - Quiz {quizId}</p>
-              </div>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => navigate('/quizzes')}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                >
-                  Back to Quizzes
-                </button>
+        {/* Main Content Area */}
+        <div className="flex-1 lg:ml-64">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-xl lg:text-2xl font-bold">Quiz</h1>
+                  <p className="text-indigo-200 mt-1">Course {courseId} - Quiz {quizId}</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => navigate('/quizzes')}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                  >
+                    Back to Quizzes
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-              <p className="mt-4 text-gray-600">Loading quiz...</p>
+          {/* Main Content */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                <p className="mt-4 text-gray-600">Loading quiz...</p>
+              </div>
             </div>
           </div>
         </div>
@@ -61,22 +64,24 @@ const QuizIndividual = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
         
-        {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-xl lg:text-2xl font-bold">Quiz</h1>
-                <p className="text-indigo-200 mt-1">Course {courseId} - Quiz {quizId}</p>
-              </div>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => navigate('/quizzes')}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-                >
+        {/* Main Content Area */}
+        <div className="flex-1 lg:ml-64">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-xl lg:text-2xl font-bold">Quiz</h1>
+                  <p className="text-indigo-200 mt-1">Course {courseId} - Quiz {quizId}</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => navigate('/quizzes')}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                  >
                   Back to Quizzes
                 </button>
               </div>
@@ -105,6 +110,7 @@ const QuizIndividual = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   }
