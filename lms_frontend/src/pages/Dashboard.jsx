@@ -145,72 +145,103 @@ const Dashboard = () => {
           <div className="lg:col-span-2 space-y-8">
             {/* Stats Overview */}
             <section>
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Overview</h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Learning Overview</h2>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-gray-600">Live Stats</span>
+                </div>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
-                <div className="bg-white rounded-lg shadow p-6 border-l-4 border-indigo-500">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-indigo-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
+                <div className="group relative bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-4">
+                      <div className="flex-shrink-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-3 shadow-lg">
+                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Total</p>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{stats.totalCourses}</p>
+                      </div>
                     </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500">Total Courses</dt>
-                        <dd className="text-2xl font-bold text-gray-900">{stats.totalCourses}</dd>
-                      </dl>
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500">Enrolled Courses</dt>
-                        <dd className="text-2xl font-bold text-gray-900">{stats.enrolledCourses}</dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-lg shadow p-6 border-l-4 border-emerald-500">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-emerald-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500">Completed</dt>
-                        <dd className="text-2xl font-bold text-gray-900">{stats.completed}</dd>
-                      </dl>
+                    <div className="pt-4 border-t border-gray-100">
+                      <p className="text-sm text-gray-600">Enrolled: <span className="font-semibold text-indigo-600">{stats.enrolledCourses}</span></p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-yellow-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                <div className="group relative bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-4">
+                      <div className="flex-shrink-0 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-3 shadow-lg">
+                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Completed</p>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{stats.completed}</p>
+                      </div>
                     </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500">In Progress</dt>
-                        <dd className="text-2xl font-bold text-gray-900">{stats.inProgress}</dd>
-                      </dl>
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center">
+                        <svg className="w-4 h-4 text-emerald-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm text-gray-600">Great Progress!</span>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-purple-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                <div className="group relative bg-gradient-to-br from-amber-50 to-white border border-amber-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-4">
+                      <div className="flex-shrink-0 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-3 shadow-lg">
+                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-semibold text-gray-600 uppercase tracking-wider">In Progress</p>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">{stats.inProgress}</p>
+                      </div>
                     </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500">Certificates</dt>
-                        <dd className="text-2xl font-bold text-gray-900">{stats.certificates}</dd>
-                      </dl>
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse mr-2"></div>
+                        <span className="text-sm text-gray-600">Keep Going!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group relative bg-gradient-to-br from-purple-50 to-white border border-purple-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-4">
+                      <div className="flex-shrink-0 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-3 shadow-lg">
+                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Certificates</p>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{stats.certificates}</p>
+                      </div>
+                    </div>
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center">
+                        <svg className="w-4 h-4 text-purple-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span className="text-sm text-gray-600">Achievement Unlocked!</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -218,28 +249,37 @@ const Dashboard = () => {
             </section>
 
             {/* Recent Activity */}
-            <section className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent Activity</h2>
+            <section className="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Recent Activity</h2>
+                <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+                  View All →
+                </button>
+              </div>
               
               {/* Loading State */}
               {loading && (
                 <div className="text-center py-12">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-                  <p className="mt-4 text-gray-600">Loading recent activity...</p>
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full mb-4">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                  </div>
+                  <p className="text-gray-600 font-medium">Loading recent activity...</p>
                 </div>
               )}
 
               {/* Error State */}
               {error && (
                 <div className="text-center py-12">
-                  <svg className="mx-auto h-12 w-12 text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                  </svg>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Activity</h3>
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                    <svg className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Error Loading Activity</h3>
                   <p className="text-gray-500 mb-4">{error}</p>
                   <button
                     onClick={fetchDashboardData}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                    className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-medium shadow-lg"
                   >
                     Try Again
                   </button>
@@ -250,44 +290,53 @@ const Dashboard = () => {
               {!loading && !error && (
                 <>
                   {recentActivity.length === 0 ? (
-                    <div className="text-center py-12">
-                      <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012 2h2A2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                      </svg>
-                      <h3 className="mt-2 text-sm font-medium text-gray-900">No recent activity</h3>
-                      <p className="mt-1 text-sm text-gray-500">Your recent learning activities will appear here once you start taking courses.</p>
+                    <div className="text-center py-16">
+                      <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-6">
+                        <svg className="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012 2h2A2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No recent activity</h3>
+                      <p className="text-gray-600 max-w-sm mx-auto">Your recent learning activities will appear here once you start taking courses and engaging with content.</p>
+                      <button className="mt-6 px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-medium shadow-lg">
+                        Explore Courses
+                      </button>
                     </div>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       {recentActivity.map((activity, index) => (
-                        <div key={activity.id} className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
-                          <div className="flex-shrink-0">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                              activity.type === 'course_enrollment' ? 'bg-indigo-100 text-indigo-600' : 'bg-emerald-100 text-emerald-600'
-                            }`}>
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                              </svg>
-                            </div>
-                          </div>
-                          <div className="ml-4 flex-1">
-                            <div>
-                              <h4 className="text-sm font-medium text-gray-900">{activity.title}</h4>
-                              <p className="text-sm text-gray-500">{activity.description}</p>
-                            </div>
-                            <div className="flex items-center text-xs text-gray-500 mt-1">
-                              <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              {new Date(activity.date).toLocaleDateString()}
-                              <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${
-                                activity.status === 'completed' ? 'bg-emerald-100 text-emerald-800' : 
-                                activity.status === 'in_progress' ? 'bg-blue-100 text-blue-800' : 
-                                'bg-gray-100 text-gray-800'
+                        <div key={activity.id} className="group relative bg-white border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all duration-300 hover:border-indigo-200">
+                          <div className="flex items-start">
+                            <div className="flex-shrink-0">
+                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm ${
+                                activity.type === 'course_enrollment' ? 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white' : 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white'
                               }`}>
-                                {activity.status === 'completed' ? 'Completed' : 
-                                 activity.status === 'in_progress' ? 'In Progress' : 'Not Started'}
-                              </span>
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                              </div>
+                            </div>
+                            <div className="ml-4 flex-1">
+                              <div>
+                                <h4 className="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">{activity.title}</h4>
+                                <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
+                              </div>
+                              <div className="flex items-center justify-between mt-3">
+                                <div className="flex items-center text-xs text-gray-500">
+                                  <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                  {new Date(activity.date).toLocaleDateString()}
+                                </div>
+                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                  activity.status === 'completed' ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white' : 
+                                  activity.status === 'in_progress' ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white' : 
+                                  'bg-gray-100 text-gray-700'
+                                }`}>
+                                  {activity.status === 'completed' ? 'Completed' : 
+                                   activity.status === 'in_progress' ? 'In Progress' : 'Not Started'}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -301,51 +350,70 @@ const Dashboard = () => {
 
           {/* Right Column - Quick Actions */}
           <div className="space-y-8">
-            {/* User Info */}
-            <section className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">User Info</h2>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-gray-500">Name</p>
-                  <p className="text-base font-medium text-gray-900">{user?.first_name} {user?.last_name}</p>
+            {/* User Profile Card */}
+            <section className="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Profile</h2>
+                <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+                  Edit →
+                </button>
+              </div>
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                    {user?.first_name?.[0]}{user?.last_name?.[0]}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">{user?.first_name} {user?.last_name}</h3>
+                    <p className="text-sm text-gray-600">{user?.email}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Role</p>
-                  <p className="text-base font-medium text-gray-900">
-                    {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-base font-medium text-gray-900">{user?.email}</p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">Role</span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      isStudent ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white' : 
+                      isInstructor ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white' : 
+                      'bg-gray-100 text-gray-700'
+                    }`}>
+                      {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm text-gray-600">Member Since</span>
+                    <span className="text-sm font-medium text-gray-900">{new Date(user?.date_joined).toLocaleDateString()}</span>
+                  </div>
                 </div>
               </div>
             </section>
 
             {/* Quick Actions */}
-            <section className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
+            <section className="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Quick Actions</h2>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              </div>
               <div className="space-y-3">
                 {isInstructor && (
                   <button 
                     onClick={() => window.location.href = '/course/create'}
-                    className="w-full flex items-center px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors"
+                    className="group w-full flex items-center px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
                   >
-                    <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                     Create Course
                   </button>
                 )}
-                <button className="w-full flex items-center px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors">
-                  <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                <button className="group w-full flex items-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <svg className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                   Browse Courses
                 </button>
-                <button className="w-full flex items-center px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
-                  <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                <button className="group w-full flex items-center px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <svg className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                   My Certificates
                 </button>
