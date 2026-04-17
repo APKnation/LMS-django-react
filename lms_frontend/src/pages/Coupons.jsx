@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { paymentsAPI } from '../services/api';
-import InstructorNavbar from '../components/common/InstructorNavbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Coupons = () => {
   const { user } = useAuth();
@@ -72,51 +72,54 @@ const Coupons = () => {
 
   if (!user?.is_instructor && !user?.is_staff) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <InstructorNavbar />
-        <div className="flex items-center justify-center py-12">
-          <p className="text-gray-600">Access denied. Only instructors and staff can manage coupons.</p>
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <p className="text-gray-600">Access denied. Only instructors and staff can manage coupons.</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <InstructorNavbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Coupons</h1>
-          <button
-            onClick={() => setShowCreateForm(!showCreateForm)}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-          >
-            {showCreateForm ? 'Cancel' : 'Create Coupon'}
-          </button>
-        </div>
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-            {error}
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className="flex-1 lg:ml-64">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Coupons</h1>
+            <button
+              onClick={() => setShowCreateForm(!showCreateForm)}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            >
+              {showCreateForm ? 'Cancel' : 'Create Coupon'}
+            </button>
           </div>
-        )}
 
-        {showCreateForm && (
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Create New Coupon</h2>
-            <form onSubmit={handleCreateCoupon} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Code</label>
-                  <input
-                    type="text"
-                    value={formData.code}
-                    onChange={(e) => setFormData({...formData, code: e.target.value.toUpperCase()})}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    required
-                  />
-                </div>
-                <div>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+              {error}
+            </div>
+          )}
+
+          {showCreateForm && (
+            <div className="bg-white rounded-lg shadow p-6 mb-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Create New Coupon</h2>
+              <form onSubmit={handleCreateCoupon} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Code</label>
+                    <input
+                      type="text"
+                      value={formData.code}
+                      onChange={(e) => setFormData({...formData, code: e.target.value.toUpperCase()})}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Discount Type</label>
                   <select
                     value={formData.discount_type}
@@ -244,6 +247,7 @@ const Coupons = () => {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
