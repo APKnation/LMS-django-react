@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { progressAPI, coursesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Progress = () => {
   const { user, isStudent } = useAuth();
@@ -59,11 +59,13 @@ const Progress = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg">
-            {error}
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg">
+              {error}
+            </div>
           </div>
         </div>
       </div>
@@ -71,19 +73,21 @@ const Progress = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">My Progress</h1>
-          <p className="text-indigo-200 mt-2">Track your learning journey</p>
-        </div>
-      </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 className="text-3xl font-bold">My Progress</h1>
+            <p className="text-indigo-200 mt-2">Track your learning journey</p>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Overview Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6 border-l-4 border-indigo-500">
@@ -236,6 +240,7 @@ const Progress = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

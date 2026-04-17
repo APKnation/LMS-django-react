@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 import { useNavigate } from 'react-router-dom';
 
 const Quizzes = () => {
@@ -87,25 +87,27 @@ const Quizzes = () => {
   // Remove mock data - quizzes will be fetched from API
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4">
-              My Quizzes
-            </h1>
-            <p className="text-xl text-indigo-200">
-              Test your knowledge and track your progress
-            </p>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="text-center">
+              <h1 className="text-3xl lg:text-4xl font-bold mb-4">
+                My Quizzes
+              </h1>
+              <p className="text-xl text-indigo-200">
+                Test your knowledge and track your progress
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Filter Tabs */}
         <div className="mb-8">
           <div className="border-b border-gray-200">
@@ -267,6 +269,8 @@ const Quizzes = () => {
             )}
           </div>
         )}
+        </div>
+      </div>
       </div>
     </div>
   );
