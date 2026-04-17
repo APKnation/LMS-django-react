@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Profile = () => {
   const { user, isStudent, isInstructor, updateUser } = useAuth();
@@ -43,28 +43,30 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Profile Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl lg:text-3xl font-bold">Profile</h1>
-              <p className="text-indigo-200 mt-1">Manage your personal information</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="px-3 py-1 bg-indigo-700 rounded-full text-sm">
-                {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
-              </span>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Profile Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl lg:text-3xl font-bold">Profile</h1>
+                <p className="text-indigo-200 mt-1">Manage your personal information</p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <span className="px-3 py-1 bg-indigo-700 rounded-full text-sm">
+                  {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Left Column - Profile Form */}
@@ -238,6 +240,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
