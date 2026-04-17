@@ -208,6 +208,7 @@ const PaymentHistory = () => {
           )}
         </div>
       </div>
+      </div>
     </div>
   );
 };
