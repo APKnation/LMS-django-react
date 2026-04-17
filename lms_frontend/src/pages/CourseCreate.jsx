@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { coursesAPI, categoriesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const CourseCreate = () => {
   const { user, isInstructor } = useAuth();
@@ -112,19 +112,21 @@ const CourseCreate = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">Create New Course</h1>
-          <p className="text-indigo-200 mt-2">Fill in the details to create a new course</p>
-        </div>
-      </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
 
-      {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 className="text-3xl font-bold">Create New Course</h1>
+            <p className="text-indigo-200 mt-2">Fill in the details to create a new course</p>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow p-8">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
@@ -328,6 +330,7 @@ const CourseCreate = () => {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );
