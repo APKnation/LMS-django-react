@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { paymentsAPI, coursesAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 import Swal from 'sweetalert2';
 
 const Payment = () => {
@@ -172,23 +172,25 @@ const Payment = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">
-            {course?.is_free ? 'Free Course Enrollment' : 'Secure Checkout'}
-          </h1>
-          <p className="text-indigo-200 mt-2">
-            {course?.is_free ? 'Enroll in this free course' : 'Complete your course enrollment'}
-          </p>
-        </div>
-      </div>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 className="text-3xl font-bold">
+              {course?.is_free ? 'Free Course Enrollment' : 'Secure Checkout'}
+            </h1>
+            <p className="text-indigo-200 mt-2">
+              {course?.is_free ? 'Enroll in this free course' : 'Complete your course enrollment'}
+            </p>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Course Details */}
           <div className="lg:col-span-2">
@@ -359,6 +361,7 @@ const Payment = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
