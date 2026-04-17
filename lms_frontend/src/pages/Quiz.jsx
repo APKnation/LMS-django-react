@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { quizAPI } from '../services/api';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Quiz = () => {
   const { courseId, quizId } = useParams();
@@ -96,12 +96,14 @@ const Quiz = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-            <p className="mt-4 text-gray-600">Loading quiz...</p>
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <p className="mt-4 text-gray-600">Loading quiz...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -110,13 +112,14 @@ const Quiz = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <svg className="mx-auto h-12 w-12 text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <svg className="mx-auto h-12 w-12 text-red-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
             <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Quiz</h3>
             <p className="text-gray-500 mb-4">{error}</p>
             <button
@@ -133,47 +136,48 @@ const Quiz = () => {
 
   if (submitted && score !== null) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="flex items-center justify-center py-12">
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-            <div className="text-center">
-              <div className="mb-6">
-                <svg className="mx-auto h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Quiz Completed!</h2>
-              
-              <div className="mb-6">
-                <div className={`text-4xl font-bold ${getScoreColor(score.percentage)}`}>
-                  {score.score}/{score.max_possible_score}
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        <div className="flex-1 lg:ml-64">
+          <div className="flex items-center justify-center py-12">
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+              <div className="text-center">
+                <div className="mb-6">
+                  <svg className="mx-auto h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <div className={`text-lg font-medium ${getScoreColor(score.percentage)}`}>
-                  {score.percentage}%
+                
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Quiz Completed!</h2>
+                
+                <div className="mb-6">
+                  <div className={`text-4xl font-bold ${getScoreColor(score.percentage)}`}>
+                    {score.score}/{score.max_possible_score}
+                  </div>
+                  <div className={`text-lg font-medium ${getScoreColor(score.percentage)}`}>
+                    {score.percentage}%
+                  </div>
+                  <p className="text-gray-600 mt-2">{getScoreMessage(score.percentage)}</p>
                 </div>
-                <p className="text-gray-600 mt-2">{getScoreMessage(score.percentage)}</p>
-              </div>
 
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">Points Earned</p>
-                  <p className="text-xl font-semibold text-emerald-600">{score.score}</p>
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">Points Earned</p>
+                    <p className="text-xl font-semibold text-emerald-600">{score.score}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">Max Points</p>
+                    <p className="text-xl font-semibold text-gray-900">{score.max_possible_score}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-500">Time Taken</p>
+                    <p className="text-xl font-semibold text-gray-900">{formatTime(score.time_taken)}</p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">Max Points</p>
-                  <p className="text-xl font-semibold text-gray-900">{score.max_possible_score}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">Time Taken</p>
-                  <p className="text-xl font-semibold text-gray-900">{formatTime(score.time_taken)}</p>
-                </div>
-              </div>
 
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => navigate(`/courses/${courseId}`)}
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => navigate(`/courses/${courseId}`)}
                   className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
                 >
                   Back to Course
@@ -198,41 +202,43 @@ const Quiz = () => {
   const progress = ((currentQuestion + 1) / quiz.questions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl lg:text-2xl font-bold">{quiz.title}</h1>
-              <p className="text-indigo-200">Question {currentQuestion + 1} of {quiz.questions.length}</p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-center">
-                <p className="text-sm text-indigo-200">Time Left</p>
-                <p className={`text-lg font-mono font-bold ${timeLeft < 60 ? 'text-red-300' : 'text-white'}`}>
-                  {formatTime(timeLeft)}
-                </p>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-xl lg:text-2xl font-bold">{quiz.title}</h1>
+                <p className="text-indigo-200">Question {currentQuestion + 1} of {quiz.questions.length}</p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="text-center">
+                  <p className="text-sm text-indigo-200">Time Left</p>
+                  <p className={`text-lg font-mono font-bold ${timeLeft < 60 ? 'text-red-300' : 'text-white'}`}>
+                    {formatTime(timeLeft)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Progress Bar */}
-      <div className="bg-gray-200 h-1">
-        <div 
-          className="bg-indigo-600 h-1 transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
+        {/* Progress Bar */}
+        <div className="bg-gray-200 h-1">
+          <div 
+            className="bg-indigo-600 h-1 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
 
-      {/* Quiz Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="mb-6">
+        {/* Quiz Content */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-900">
                 {currentQuestionData.question}
@@ -325,6 +331,7 @@ const Quiz = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
