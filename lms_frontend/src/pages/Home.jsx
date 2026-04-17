@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
+import Sidebar from '../components/common/Sidebar';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 lg:ml-64">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
               Learning Management System
@@ -191,6 +193,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
