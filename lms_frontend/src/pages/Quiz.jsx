@@ -240,68 +240,68 @@ const Quiz = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">
-                {currentQuestionData.question}
-              </h2>
-              <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                {currentQuestionData.points} point{currentQuestionData.points !== 1 ? 's' : ''}
-              </span>
-            </div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  {currentQuestionData.question}
+                </h2>
+                <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                  {currentQuestionData.points} point{currentQuestionData.points !== 1 ? 's' : ''}
+                </span>
+              </div>
 
-            {/* Multiple Choice */}
-            {currentQuestionData.type === 'multiple_choice' && (
-              <div className="space-y-3">
-                {currentQuestionData.options.map((option, index) => (
-                  <label
-                    key={index}
-                    className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                  >
+              {/* Multiple Choice */}
+              {currentQuestionData.type === 'multiple_choice' && (
+                <div className="space-y-3">
+                  {currentQuestionData.options.map((option, index) => (
+                    <label
+                      key={index}
+                      className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                    >
+                      <input
+                        type="radio"
+                        name={`question-${currentQuestion}`}
+                        value={option}
+                        checked={answers[currentQuestion] === option}
+                        onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
+                        className="mr-3"
+                        disabled={submitted}
+                      />
+                      <span className="text-gray-700">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+
+              {/* True/False */}
+              {currentQuestionData.type === 'true_false' && (
+                <div className="space-y-3">
+                  <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                     <input
                       type="radio"
                       name={`question-${currentQuestion}`}
-                      value={option}
-                      checked={answers[currentQuestion] === option}
+                      value="true"
+                      checked={answers[currentQuestion] === 'true'}
                       onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
                       className="mr-3"
                       disabled={submitted}
                     />
-                    <span className="text-gray-700">{option}</span>
+                    <span className="text-gray-700">True</span>
                   </label>
-                ))}
-              </div>
-            )}
-
-            {/* True/False */}
-            {currentQuestionData.type === 'true_false' && (
-              <div className="space-y-3">
-                <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestion}`}
-                    value="true"
-                    checked={answers[currentQuestion] === 'true'}
-                    onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
-                    className="mr-3"
-                    disabled={submitted}
-                  />
-                  <span className="text-gray-700">True</span>
-                </label>
-                <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestion}`}
-                    value="false"
-                    checked={answers[currentQuestion] === 'false'}
-                    onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
-                    className="mr-3"
-                    disabled={submitted}
-                  />
-                  <span className="text-gray-700">False</span>
-                </label>
-              </div>
-            )}
-          </div>
+                  <label className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input
+                      type="radio"
+                      name={`question-${currentQuestion}`}
+                      value="false"
+                      checked={answers[currentQuestion] === 'false'}
+                      onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
+                      className="mr-3"
+                      disabled={submitted}
+                    />
+                    <span className="text-gray-700">False</span>
+                  </label>
+                </div>
+              )}
+            </div>
 
           {/* Navigation */}
           <div className="flex justify-between">
