@@ -315,16 +315,11 @@ const Courses = () => {
                             <span className="text-sm text-gray-500 line-through ml-2">TZS {course.original_price}</span>
                           )}
                         </div>
-                      )
                       )}
                     </div>
                     <button
                       onClick={() => handleEnroll(course.id)}
-                      className={`group px-6 py-3 text-white text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                        course.is_free 
-                          ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700' 
-                          : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700'
-                      }`}
+                      className={`group px-6 py-3 text-white text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg ${course.is_free ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700' : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700'}`}
                     >
                       <span className="flex items-center">
                         {course.is_free ? (
