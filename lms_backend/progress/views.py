@@ -117,6 +117,16 @@ class CertificateViewSet(viewsets.ModelViewSet):
     def generate(self, request):
         course_id = request.data.get('course')
         
+        if not course_id:
+            return Response({'error': 'Course ID is required.'}, status=400)
+        
+        # Validate course exists
+        from courses.models import Course
+        try:
+            course = Course.objects.get(id=course_id)
+        except Course.DoesNotExist:
+            return Response({'error': 'Course not found.'}, status=404)
+        
         # Check if certificate already exists
         existing = Certificate.objects.filter(student=request.user, course_id=course_id).first()
         if existing:
