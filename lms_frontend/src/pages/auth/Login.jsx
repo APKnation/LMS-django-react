@@ -16,7 +16,7 @@ const Login = () => {
   const location = useLocation();
 
   // Get redirect path from location state or default to dashboard
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/dashboard';
 
   // Handle redirect after login based on user role
   useEffect(() => {
