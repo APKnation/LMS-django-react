@@ -1,200 +1,156 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Sidebar from '../components/common/Sidebar';
 
 const Home = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="min-h-screen bg-gray-50">
 
-      {/* Main Content Area */}
-      <div className="flex-1 lg:ml-64">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Learning Management System
+        {/* HERO */}
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-800 animate-gradient-x"></div>
+
+          {/* Glow effect */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 opacity-30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500 opacity-30 rounded-full blur-3xl"></div>
+
+          <div className="relative max-w-7xl mx-auto px-6 py-28 text-center text-white">
+            <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+              Next-Gen Learning <br />
+              <span className="text-indigo-300">Management System</span>
             </h1>
-            <p className="text-xl lg:text-2xl text-indigo-200 mb-8">
-              Empowering education through technology
+
+            <p className="text-xl lg:text-2xl text-indigo-200 mb-10 max-w-3xl mx-auto">
+              Learn smarter, faster, and better with a platform built for the future of education.
             </p>
-            <div className="space-x-4">
+
+            <Link
+              to="/login"
+              className="px-10 py-4 bg-white text-indigo-700 font-semibold rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-300"
+            >
+              🚀 Get Started
+            </Link>
+          </div>
+        </div>
+
+        {/* STATS */}
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[
+              { value: "10K+", label: "Active Students", color: "text-indigo-600" },
+              { value: "500+", label: "Courses", color: "text-emerald-600" },
+              { value: "98%", label: "Success Rate", color: "text-purple-600" }
+            ].map((stat, i) => (
+              <div key={i} className="bg-white/70 backdrop-blur-xl border border-gray-200 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div className={`text-5xl font-extrabold mb-2 ${stat.color}`}>
+                  {stat.value}
+                </div>
+                <p className="text-gray-600">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* FEATURES */}
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Why Choose Our LMS?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Designed to deliver the best learning experience for students and instructors.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              {
+                title: "Rich Content",
+                desc: "Access videos, PDFs, quizzes, and more",
+                color: "from-indigo-500 to-indigo-700"
+              },
+              {
+                title: "Track Progress",
+                desc: "Monitor your journey with analytics",
+                color: "from-emerald-500 to-emerald-700"
+              },
+              {
+                title: "Certification",
+                desc: "Get recognized for your achievements",
+                color: "from-purple-500 to-purple-700"
+              }
+            ].map((f, i) => (
+              <div key={i} className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${f.color} flex items-center justify-center text-white text-2xl mb-6 group-hover:scale-110 transition`}>
+                  ⚡
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+                <p className="text-gray-600">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* TESTIMONIALS */}
+        <div className="bg-gradient-to-r from-gray-100 to-gray-200 py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-4xl font-bold text-center mb-16">
+              What Our Students Say
+            </h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition hover:-translate-y-2">
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={`https://picsum.photos/seed/student${i}/60`}
+                      className="w-14 h-14 rounded-full border-2 border-indigo-500"
+                      alt=""
+                    />
+                    <div className="ml-4">
+                      <h4 className="font-semibold">Student {i}</h4>
+                      <p className="text-sm text-gray-500">LMS User</p>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 italic mb-4">
+                    “Amazing platform! The experience is smooth and engaging.”
+                  </p>
+
+                  <div className="text-yellow-400 text-lg">★★★★★</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="relative py-24 bg-gradient-to-r from-indigo-700 to-purple-700 text-white text-center overflow-hidden">
+          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+          <div className="relative">
+            <h2 className="text-4xl font-bold mb-4">
+              Ready to Level Up Your Learning?
+            </h2>
+
+            <p className="text-lg mb-10">
+              Join thousands of learners today.
+            </p>
+
+            <div className="space-x-6">
               <Link
-                to="/login"
-                className="inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
+                to="/register"
+                className="px-10 py-4 bg-white text-indigo-700 font-semibold rounded-xl shadow-lg hover:scale-105 transition"
               >
-                Get Started
+                Sign Up
+              </Link>
+
+              <Link
+                to="/courses"
+                className="px-10 py-4 border-2 border-white rounded-xl hover:bg-white hover:text-indigo-700 transition"
+              >
+                Browse Courses
               </Link>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Trusted by Thousands
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="text-4xl font-bold text-indigo-600 mb-2">10,000+</div>
-              <p className="text-gray-600">Active Students</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="text-4xl font-bold text-emerald-600 mb-2">500+</div>
-              <p className="text-gray-600">Courses Available</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="text-4xl font-bold text-purple-600 mb-2">98%</div>
-              <p className="text-gray-600">Success Rate</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Features Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Why Choose Our LMS?
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Comprehensive learning platform designed for students and instructors
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="flex-shrink-0 bg-indigo-500 rounded-lg p-3 mx-auto w-16 h-16 flex items-center justify-center mb-4">
-              <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Rich Course Content</h3>
-            <p className="text-gray-600">Access comprehensive learning materials and resources</p>
-          </div>
-
-          <div className="text-center">
-            <div className="flex-shrink-0 bg-emerald-500 rounded-lg p-3 mx-auto w-16 h-16 flex items-center justify-center mb-4">
-              <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Track Progress</h3>
-            <p className="text-gray-600">Monitor your learning journey and achievements</p>
-          </div>
-
-          <div className="text-center">
-            <div className="flex-shrink-0 bg-purple-500 rounded-lg p-3 mx-auto w-16 h-16 flex items-center justify-center mb-4">
-              <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Get Certified</h3>
-            <p className="text-gray-600">Earn certificates upon course completion</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              What Our Students Say
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://picsum.photos/seed/student1/50/50.jpg" 
-                  alt="Student" 
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="ml-4">
-                  <h4 className="font-medium text-gray-900">John Doe</h4>
-                  <p className="text-sm text-gray-500">Computer Science Student</p>
-                </div>
-              </div>
-              <p className="text-gray-600 italic">
-                "This LMS has transformed my learning experience. The courses are well-structured and the instructors are amazing!"
-              </p>
-              <div className="flex items-center mt-4">
-                <span className="text-yellow-400">★★★★★</span>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://picsum.photos/seed/student2/50/50.jpg" 
-                  alt="Student" 
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="ml-4">
-                  <h4 className="font-medium text-gray-900">Jane Smith</h4>
-                  <p className="text-sm text-gray-500">Business Student</p>
-                </div>
-              </div>
-              <p className="text-gray-600 italic">
-                "I love the flexibility of learning at my own pace. The progress tracking keeps me motivated!"
-              </p>
-              <div className="flex items-center mt-4">
-                <span className="text-yellow-400">★★★★★</span>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center mb-4">
-                <img 
-                  src="https://picsum.photos/seed/student3/50/50.jpg" 
-                  alt="Student" 
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="ml-4">
-                  <h4 className="font-medium text-gray-900">Mike Johnson</h4>
-                  <p className="text-sm text-gray-500">Instructor</p>
-                </div>
-              </div>
-              <p className="text-gray-600 italic">
-                "As an instructor, this platform makes it easy to create and manage courses. Highly recommended!"
-              </p>
-              <div className="flex items-center mt-4">
-                <span className="text-yellow-400">★★★★★</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="bg-indigo-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Start Your Learning Journey?
-          </h2>
-          <p className="text-xl mb-8">
-            Join thousands of students already learning with our platform
-          </p>
-          <div className="space-x-4">
-            <Link
-              to="/register"
-              className="inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              Sign Up Now
-            </Link>
-            <Link
-              to="/courses"
-              className="inline-block px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-indigo-600 transition-colors"
-            >
-              Browse Courses
-            </Link>
-          </div>
-        </div>
-      </div>
-      </div>
     </div>
   );
 };
