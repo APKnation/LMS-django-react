@@ -193,7 +193,7 @@ const Certificates = () => {
                     </div>
                     
                     <button
-                      onClick={() => handleGenerateCertificate(enrollment.course.id || enrollment.course)}
+                      onClick={() => handleGenerateCertificate(enrollment.course?.id || enrollment.course_id || enrollment.course)}
                       className="w-full py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
                     >
                       Generate Certificate
