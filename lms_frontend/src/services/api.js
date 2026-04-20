@@ -68,6 +68,28 @@ export const authAPI = {
   
   getMe: () =>
     api.get('/users/me/'),
+  
+  getStudents: () =>
+    api.get('/users/students/'),
+  
+  getInstructors: () =>
+    api.get('/users/instructors/'),
+  
+  // Admin user management
+  approveInstructor: (userId) =>
+    api.post(`/users/${userId}/approve_instructor/`),
+  
+  banUser: (userId) =>
+    api.post(`/users/${userId}/ban_user/`),
+  
+  unbanUser: (userId) =>
+    api.post(`/users/${userId}/unban_user/`),
+  
+  updateUserRole: (userId, role) =>
+    api.post(`/users/${userId}/update_role/`, { role }),
+  
+  deleteUser: (userId) =>
+    api.delete(`/users/${userId}/delete_user/`),
 };
 
 // Categories API
