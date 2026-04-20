@@ -305,14 +305,52 @@ const AdminDashboard = () => {
                         )}
                       </td>
                       <td className="px-6 py-4">
-                        {u.is_instructor && !u.is_instructor_approved && (
-                          <button
-                            onClick={() => handleApproveInstructor(u.id)}
-                            className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors"
+                        <div className="flex items-center space-x-2">
+                          {u.is_instructor && !u.is_instructor_approved && (
+                            <button
+                              onClick={() => handleApproveInstructor(u.id)}
+                              className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition-colors"
+                            >
+                              Approve
+                            </button>
+                          )}
+                          {u.is_active ? (
+                            <button
+                              onClick={() => handleBanUser(u.id)}
+                              className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-700 transition-colors"
+                              title="Ban User"
+                            >
+                              Ban
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleUnbanUser(u.id)}
+                              className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-green-700 transition-colors"
+                              title="Unban User"
+                            >
+                              Unban
+                            </button>
+                          )}
+                          <select
+                            value={u.is_staff ? 'admin' : u.is_instructor ? 'instructor' : 'student'}
+                            onChange={(e) => handleUpdateRole(u.id, e.target.value)}
+                            className="bg-gray-100 border border-gray-300 rounded-lg px-2 py-1.5 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            disabled={u.id === user?.id}
                           >
-                            Approve
-                          </button>
-                        )}
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="admin">Admin</option>
+                          </select>
+                          {u.id !== user?.id && (
+                            <button
+                              onClick={() => handleDeleteUser(u.id)}
+                              className="bg-gray-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-gray-700 transition-colors"
+                              title="Delete User"
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
