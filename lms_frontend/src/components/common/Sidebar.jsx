@@ -51,6 +51,7 @@ const Sidebar = () => {
   const adminNavLinks = [
     { to: '/', label: 'Home' },
     { to: '/admin-dashboard', label: 'Admin Dashboard' },
+    { to: '/admin-courses', label: 'Courses' },
     { to: '/profile', label: 'Profile' },
   ];
 
