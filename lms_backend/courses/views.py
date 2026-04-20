@@ -22,6 +22,11 @@ class IsInstructor(permissions.BasePermission):
         return request.user.is_authenticated and request.user.is_instructor
 
 
+class IsAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.is_staff
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
