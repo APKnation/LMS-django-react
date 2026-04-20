@@ -105,6 +105,7 @@ export const AuthProvider = ({ children }) => {
     updateUser,
     isStudent: user?.is_student || false,
     isInstructor: user?.is_instructor || false,
+    isStaff: user?.is_staff || false,
   };
 
   return (

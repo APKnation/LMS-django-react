@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
-  const { user, isAuthenticated, logout, isInstructor } = useAuth();
+  const { user, isAuthenticated, logout, isInstructor, isStaff } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -45,6 +45,12 @@ const Sidebar = () => {
     { to: '/quiz-management', label: 'Quiz Management' },
     { to: '/students', label: 'Students' },
     { to: '/payment-history', label: 'Payments' },
+    { to: '/profile', label: 'Profile' },
+  ];
+
+  const adminNavLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/admin-dashboard', label: 'Admin Dashboard' },
     { to: '/profile', label: 'Profile' },
   ];
 
@@ -91,29 +97,31 @@ const Sidebar = () => {
             {isAuthenticated ? (
               <div className="space-y-2">
                 <div className={`p-3 mb-4 rounded-lg ${
-                  isInstructor ? 'bg-purple-50' : 'bg-indigo-50'
+                  isStaff ? 'bg-red-50' : isInstructor ? 'bg-purple-50' : 'bg-indigo-50'
                 }`}>
                   <p className={`text-sm font-medium ${
-                    isInstructor ? 'text-purple-900' : 'text-indigo-900'
+                    isStaff ? 'text-red-900' : isInstructor ? 'text-purple-900' : 'text-indigo-900'
                   }`}>
                     Welcome, {user?.first_name || user?.username}
                   </p>
                   <p className={`text-xs mt-1 ${
-                    isInstructor ? 'text-purple-700' : 'text-indigo-700'
+                    isStaff ? 'text-red-700' : isInstructor ? 'text-purple-700' : 'text-indigo-700'
                   }`}>
-                    {isInstructor ? 'Instructor' : 'Student'}
+                    {isStaff ? 'Admin' : isInstructor ? 'Instructor' : 'Student'}
                   </p>
                 </div>
-                {(isInstructor ? instructorNavLinks : studentNavLinks).map((link) => (
+                {(isStaff ? adminNavLinks : isInstructor ? instructorNavLinks : studentNavLinks).map((link) => (
                   <Link
                     key={link.to}
                     to={link.to}
                     onClick={() => setSidebarOpen(false)}
                     className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       isActive(link.to)
-                        ? isInstructor 
-                          ? 'bg-purple-100 text-purple-700'
-                          : 'bg-indigo-100 text-indigo-700'
+                        ? isStaff
+                          ? 'bg-red-100 text-red-700'
+                          : isInstructor 
+                            ? 'bg-purple-100 text-purple-700'
+                            : 'bg-indigo-100 text-indigo-700'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                   >
