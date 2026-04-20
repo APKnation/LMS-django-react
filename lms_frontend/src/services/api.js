@@ -238,31 +238,42 @@ export const assignmentAPI = {
   // Assignments
   getAssignments: (courseId) =>
     api.get(`/courses/${courseId}/assignments/`),
-  
+
   getAssignment: (assignmentId) =>
     api.get(`/assignments/${assignmentId}/`),
-  
+
   createAssignment: (courseId, data) =>
     api.post(`/courses/${courseId}/assignments/`, data),
-  
+
   updateAssignment: (assignmentId, data) =>
     api.put(`/assignments/${assignmentId}/`, data),
-  
+
   deleteAssignment: (assignmentId) =>
     api.delete(`/assignments/${assignmentId}/`),
-  
+
   // Submissions
   submitAssignment: (assignmentId, data) =>
     api.post(`/assignments/${assignmentId}/submit/`, data),
-  
+
   getSubmissions: (assignmentId) =>
     api.get(`/assignments/${assignmentId}/submissions/`),
-  
+
   getMySubmissions: () =>
     api.get(`/assignments/my_submissions/`),
-  
+
   gradeSubmission: (submissionId, data) =>
     api.post(`/assignment-submissions/${submissionId}/grade/`, data),
+};
+
+// Enrollment API (Admin)
+export const enrollmentAPI = {
+  // Admin endpoints
+  adminListEnrollments: () =>
+    api.get('/enrollments/admin_list/'),
+  adminDeleteEnrollment: (enrollmentId) =>
+    api.delete(`/enrollments/${enrollmentId}/admin_delete/`),
+  cancelEnrollment: (enrollmentId) =>
+    api.post(`/enrollments/${enrollmentId}/cancel_enrollment/`),
 };
 
 // Progress API
