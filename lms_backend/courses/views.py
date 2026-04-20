@@ -32,6 +32,18 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    def get_permissions(self):
+        if self.action in ['admin_delete']:
+            return [IsAdmin()]
+        return [permissions.IsAuthenticatedOrReadOnly()]
+
+    @action(detail=True, methods=['delete'], permission_classes=[IsAdmin])
+    def admin_delete(self, request, pk=None):
+        """Admin endpoint to delete any category"""
+        category = self.get_object()
+        category.delete()
+        return Response({'success': True}, status=204)
+
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.filter(status='published')
@@ -217,6 +229,33 @@ class CourseViewSet(viewsets.ModelViewSet):
             'revenue': float(course.price * total_enrollments) if not course.is_free else 0
         }
         return Response(data)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAdmin])
+    def admin_list(self, request):
+        """Admin endpoint to list all courses including unpublished"""
+        courses = Course.objects.all()
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['delete'], permission_classes=[IsAdmin])
+    def admin_delete(self, request, pk=None):
+        """Admin endpoint to delete any course"""
+        course = self.get_object()
+        course.delete()
+        return Response({'success': True}, status=204)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAdmin])
+    def change_status(self, request, pk=None):
+        """Admin endpoint to change course status"""
+        course = self.get_object()
+        new_status = request.data.get('status')
+        valid_statuses = ['draft', 'published', 'archived']
+        if new_status not in valid_statuses:
+            return Response({'error': f'Invalid status. Must be one of: {valid_statuses}'}, status=400)
+        course.status = new_status
+        course.save()
+        serializer = self.get_serializer(course)
+        return Response(serializer.data)
 
 
 class LessonViewSet(viewsets.ModelViewSet):
