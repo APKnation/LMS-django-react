@@ -114,37 +114,37 @@ export const categoriesAPI = {
 export const coursesAPI = {
   getAll: (params = {}) =>
     api.get('/courses/', { params }),
-  
+
   getById: (id) =>
     api.get(`/courses/${id}/`),
-  
+
   create: (data) =>
     api.post('/courses/', data),
-  
+
   update: (id, data) =>
     api.put(`/courses/${id}/`, data),
-  
+
   delete: (id) =>
     api.delete(`/courses/${id}/`),
-  
+
   enroll: (courseId) =>
     api.post(`/courses/${courseId}/enroll/`),
-  
+
   getEnrolled: () =>
     api.get('/enrollments/'),
-  
+
   search: (query) =>
     api.get('/courses/search/', { params: { q: query } }),
-  
+
   getQuiz: (courseId, quizId) =>
     api.get(`/courses/${courseId}/quizzes/${quizId}/`),
-  
+
   submitQuiz: (courseId, quizId, answers) =>
     api.post(`/courses/${courseId}/quizzes/${quizId}/submit/`, { answers }),
-  
+
   getQuizzes: (courseId) =>
     api.get(`/courses/${courseId}/quizzes/`),
-  
+
   getMyCourses: () =>
     api.get('/courses/my_courses/'),
 
@@ -175,6 +175,36 @@ export const coursesAPI = {
     api.post(`/courses/${courseId}/announcements/`, data),
   deleteAnnouncement: (id) =>
     api.delete(`/announcements/${id}/`),
+
+  // Admin endpoints
+  adminListCourses: () =>
+    api.get('/courses/admin_list/'),
+  adminDeleteCourse: (courseId) =>
+    api.delete(`/courses/${courseId}/admin_delete/`),
+  changeCourseStatus: (courseId, status) =>
+    api.post(`/courses/${courseId}/change_status/`, { status }),
+};
+
+// Categories API
+export const categoriesAPI = {
+  getAll: () =>
+    api.get('/categories/'),
+
+  getById: (id) =>
+    api.get(`/categories/${id}/`),
+
+  create: (data) =>
+    api.post('/categories/', data),
+
+  update: (id, data) =>
+    api.put(`/categories/${id}/`, data),
+
+  delete: (id) =>
+    api.delete(`/categories/${id}/`),
+
+  // Admin endpoints
+  adminDeleteCategory: (categoryId) =>
+    api.delete(`/categories/${categoryId}/admin_delete/`),
 };
 
 // Quiz API
