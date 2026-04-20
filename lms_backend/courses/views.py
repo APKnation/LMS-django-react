@@ -43,18 +43,22 @@ class CourseViewSet(viewsets.ModelViewSet):
     ordering = ['-created_at']
 
     def get_queryset(self):
-        queryset = Course.objects.filter(status='published')
-        
+        # Admins can see all courses, others only published
+        if self.request.user.is_staff:
+            queryset = Course.objects.all()
+        else:
+            queryset = Course.objects.filter(status='published')
+
         # Filter by instructor username
         instructor = self.request.query_params.get('instructor_name')
         if instructor:
             queryset = queryset.filter(instructor__username__icontains=instructor)
-        
+
         # Filter by category name
         category_name = self.request.query_params.get('category_name')
         if category_name:
             queryset = queryset.filter(category__name__icontains=category_name)
-        
+
         # Filter by price range
         min_price = self.request.query_params.get('min_price')
         max_price = self.request.query_params.get('max_price')
@@ -62,12 +66,14 @@ class CourseViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(price__gte=min_price)
         if max_price:
             queryset = queryset.filter(price__lte=max_price)
-        
+
         return queryset
 
     def get_permissions(self):
         if self.action == 'create':
             return [IsInstructor()]
+        if self.action in ['admin_list', 'admin_delete', 'change_status']:
+            return [IsAdmin()]
         return [permissions.IsAuthenticatedOrReadOnly()]
 
     def get_serializer_class(self):
