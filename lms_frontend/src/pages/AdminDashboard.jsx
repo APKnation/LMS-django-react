@@ -14,9 +14,12 @@ const AdminDashboard = () => {
     pendingInstructors: 0,
   });
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     if (user?.is_staff) {
@@ -24,6 +27,43 @@ const AdminDashboard = () => {
       fetchUsers();
     }
   }, [user]);
+
+  useEffect(() => {
+    let filtered = users;
+
+    // Apply role filter
+    if (roleFilter !== 'all') {
+      filtered = filtered.filter(u => {
+        if (roleFilter === 'admin') return u.is_staff;
+        if (roleFilter === 'instructor') return u.is_instructor;
+        if (roleFilter === 'student') return u.is_student;
+        return true;
+      });
+    }
+
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(u => {
+        if (statusFilter === 'active') return u.is_active;
+        if (statusFilter === 'inactive') return !u.is_active;
+        if (statusFilter === 'pending') return u.is_instructor && !u.is_instructor_approved;
+        return true;
+      });
+    }
+
+    // Apply search filter
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(u =>
+        u.username?.toLowerCase().includes(term) ||
+        u.email?.toLowerCase().includes(term) ||
+        u.first_name?.toLowerCase().includes(term) ||
+        u.last_name?.toLowerCase().includes(term)
+      );
+    }
+
+    setFilteredUsers(filtered);
+  }, [users, searchTerm, roleFilter, statusFilter]);
 
   const fetchStats = async () => {
     try {
@@ -253,12 +293,41 @@ const AdminDashboard = () => {
           {/* User Management Table */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center mb-4">
                 <svg className="w-8 h-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 User Management
               </h2>
+              <div className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="text"
+                  placeholder="Search users by name, email, or username..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <select
+                  value={roleFilter}
+                  onChange={(e) => setRoleFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="all">All Roles</option>
+                  <option value="admin">Admins</option>
+                  <option value="instructor">Instructors</option>
+                  <option value="student">Students</option>
+                </select>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="all">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="pending">Pending Approval</option>
+                </select>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -272,7 +341,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {users.map((u) => (
+                  {filteredUsers.map((u) => (
                     <tr key={u.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center">
