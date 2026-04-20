@@ -31,6 +31,7 @@ import StudentManagement from './pages/StudentManagement';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminCourses from './pages/AdminCourses';
 import AdminCategories from './pages/AdminCategories';
+import AdminEnrollments from './pages/AdminEnrollments';
 
 function App() {
   return (
@@ -233,6 +234,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminCategories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-enrollments"
+            element={
+              <ProtectedRoute>
+                <AdminEnrollments />
               </ProtectedRoute>
             }
           />

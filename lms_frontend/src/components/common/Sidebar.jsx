@@ -53,6 +53,7 @@ const Sidebar = () => {
     { to: '/admin-dashboard', label: 'Admin Dashboard' },
     { to: '/admin-courses', label: 'Courses' },
     { to: '/admin-categories', label: 'Categories' },
+    { to: '/admin-enrollments', label: 'Enrollments' },
     { to: '/profile', label: 'Profile' },
   ];
 
