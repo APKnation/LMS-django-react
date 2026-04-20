@@ -62,10 +62,59 @@ const AdminDashboard = () => {
 
   const handleApproveInstructor = async (userId) => {
     try {
-      // TODO: Add API call to approve instructor
-      alert('Instructor approval feature - API endpoint needed');
+      await authAPI.approveInstructor(userId);
+      await fetchUsers();
+      await fetchStats();
     } catch (err) {
       console.error('Failed to approve instructor:', err);
+      setError('Failed to approve instructor');
+    }
+  };
+
+  const handleBanUser = async (userId) => {
+    try {
+      await authAPI.banUser(userId);
+      await fetchUsers();
+      await fetchStats();
+    } catch (err) {
+      console.error('Failed to ban user:', err);
+      setError('Failed to ban user');
+    }
+  };
+
+  const handleUnbanUser = async (userId) => {
+    try {
+      await authAPI.unbanUser(userId);
+      await fetchUsers();
+      await fetchStats();
+    } catch (err) {
+      console.error('Failed to unban user:', err);
+      setError('Failed to unban user');
+    }
+  };
+
+  const handleUpdateRole = async (userId, role) => {
+    try {
+      await authAPI.updateUserRole(userId, role);
+      await fetchUsers();
+      await fetchStats();
+    } catch (err) {
+      console.error('Failed to update role:', err);
+      setError('Failed to update role');
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      return;
+    }
+    try {
+      await authAPI.deleteUser(userId);
+      await fetchUsers();
+      await fetchStats();
+    } catch (err) {
+      console.error('Failed to delete user:', err);
+      setError('Failed to delete user');
     }
   };
 
