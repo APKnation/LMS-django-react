@@ -6,14 +6,38 @@ import Sidebar from '../components/common/Sidebar';
 const AdminCourses = () => {
   const { user } = useAuth();
   const [courses, setCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     if (user?.is_staff) {
       fetchCourses();
     }
   }, [user]);
+
+  useEffect(() => {
+    let filtered = courses;
+
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(c => c.status === statusFilter);
+    }
+
+    // Apply search filter
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(c =>
+        c.title?.toLowerCase().includes(term) ||
+        c.description?.toLowerCase().includes(term) ||
+        c.category?.toLowerCase().includes(term)
+      );
+    }
+
+    setFilteredCourses(filtered);
+  }, [courses, searchTerm, statusFilter]);
 
   const fetchCourses = async () => {
     try {
@@ -109,13 +133,32 @@ const AdminCourses = () => {
           {/* Course Management Table */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center mb-4">
                 <svg className="w-8 h-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
                 All Courses
               </h2>
-              <p className="text-gray-500 mt-1">{courses.length} total courses</p>
+              <div className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="text"
+                  placeholder="Search courses by title, description, or category..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="all">All Status</option>
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </div>
+              <p className="text-gray-500 mt-3">{filteredCourses.length} of {courses.length} courses shown</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -130,7 +173,7 @@ const AdminCourses = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {courses.map((course) => (
+                  {filteredCourses.map((course) => (
                     <tr key={course.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div>

@@ -6,14 +6,42 @@ import Sidebar from '../components/common/Sidebar';
 const AdminEnrollments = () => {
   const { user } = useAuth();
   const [enrollments, setEnrollments] = useState([]);
+  const [filteredEnrollments, setFilteredEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     if (user?.is_staff) {
       fetchEnrollments();
     }
   }, [user]);
+
+  useEffect(() => {
+    let filtered = enrollments;
+
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(e => {
+        if (statusFilter === 'active') return e.is_active && e.status === 'active';
+        if (statusFilter === 'cancelled') return e.status === 'cancelled';
+        return true;
+      });
+    }
+
+    // Apply search filter
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(e =>
+        e.student_details?.username?.toLowerCase().includes(term) ||
+        e.student_details?.email?.toLowerCase().includes(term) ||
+        e.course_details?.title?.toLowerCase().includes(term)
+      );
+    }
+
+    setFilteredEnrollments(filtered);
+  }, [enrollments, searchTerm, statusFilter]);
 
   const fetchEnrollments = async () => {
     try {
@@ -109,13 +137,31 @@ const AdminEnrollments = () => {
           {/* Enrollment Management Table */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center mb-4">
                 <svg className="w-8 h-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
                 All Enrollments
               </h2>
-              <p className="text-gray-500 mt-1">{enrollments.length} total enrollments</p>
+              <div className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="text"
+                  placeholder="Search by student name, email, or course title..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="all">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <p className="text-gray-500 mt-3">{filteredEnrollments.length} of {enrollments.length} enrollments shown</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -129,7 +175,7 @@ const AdminEnrollments = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {enrollments.map((enrollment) => (
+                  {filteredEnrollments.map((enrollment) => (
                     <tr key={enrollment.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div>
