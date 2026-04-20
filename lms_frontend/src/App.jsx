@@ -28,6 +28,7 @@ import Announcements from './pages/Announcements';
 import InstructorDashboard from './pages/InstructorDashboard';
 import InstructorCourses from './pages/InstructorCourses';
 import StudentManagement from './pages/StudentManagement';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
@@ -206,6 +207,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <StudentManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             }
           />
