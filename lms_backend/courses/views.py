@@ -185,21 +185,21 @@ class CourseViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'], permission_classes=[IsInstructor])
     def analytics(self, request, pk=None):
         course = self.get_object()
-        
+
         # Only allow instructor of the course to view analytics
         if course.instructor != request.user:
             return Response({'error': 'Permission denied'}, status=403)
-        
+
         total_lessons = course.lessons.count()
         total_enrollments = Enrollment.objects.filter(course=course).count()
-        
+
         # Completion stats
         progress_data = Progress.objects.filter(lesson__course=course)
         completed_lessons = progress_data.filter(completed=True).count()
-        
+
         # Students who completed all lessons
         students_with_progress = progress_data.values('student').distinct().count()
-        
+
         # Average completion rate per student
         if total_enrollments > 0 and total_lessons > 0:
             avg_completion_rate = (completed_lessons / (total_enrollments * total_lessons)) * 100
