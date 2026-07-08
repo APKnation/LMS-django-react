@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { coursesAPI, categoriesAPI } from '../services/api';
 import Sidebar from '../components/common/Sidebar';
 import Categories from '../components/Categories';
+import Footer from '../components/common/Footer';
 
 const Courses = () => {
   const { user, isStudent, isInstructor } = useAuth();
@@ -366,9 +367,11 @@ const Courses = () => {
           </div>
         )}
           </div>
+          </div>
         </div>
       </div>
-      </div>
+
+      <Footer />
     </div>
   );
 };
