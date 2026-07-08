@@ -10,6 +10,20 @@ const Home = () => {
         <div className="relative overflow-hidden bg-canvas-dark">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/student1.png')" }}></div>
           <div className="absolute inset-0 bg-canvas-dark/80"></div>
+
+          {/* Screenshot cards */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="hidden lg:block absolute top-24 left-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
+              <img src="/Screenshot from 2026-07-09 02-33-46.png" alt="" className="w-full h-full object-cover opacity-90" />
+            </div>
+            <div className="hidden lg:block absolute top-24 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
+              <img src="/Screenshot from 2026-07-09 02-33-53.png" alt="" className="w-full h-full object-cover opacity-90" />
+            </div>
+            <div className="hidden lg:block absolute bottom-12 left-1/2 -translate-x-1/2 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
+              <img src="/Screenshot from 2026-07-09 02-34-38.png" alt="" className="w-full h-full object-cover opacity-90" />
+            </div>
+          </div>
+
           <div className="relative max-w-7xl mx-auto px-6 py-28 text-center">
             <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
               Next-Gen Learning <br />
