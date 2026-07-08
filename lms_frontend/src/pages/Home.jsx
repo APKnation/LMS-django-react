@@ -7,6 +7,8 @@ const Home = () => {
 
         {/* HERO */}
         <div className="relative overflow-hidden bg-canvas-dark">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/student1.png')" }}></div>
+          <div className="absolute inset-0 bg-canvas-dark/80"></div>
           <div className="relative max-w-7xl mx-auto px-6 py-28 text-center">
             <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
               Next-Gen Learning <br />
