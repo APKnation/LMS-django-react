@@ -386,7 +386,7 @@ const CourseCreate = () => {
                   Course Price (TZS) *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3.5 text-indigo-600 font-semibold">TZS</span>
+                  <span className="absolute left-4 top-3.5 text-primary font-semibold">TZS</span>
                   <input
                     type="number"
                     name="price"
@@ -395,11 +395,11 @@ const CourseCreate = () => {
                     placeholder="0.00"
                     min="0"
                     step="0.01"
-                    className="w-full pl-16 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    className="w-full pl-16 pr-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
                     required={!formData.is_free}
                   />
                 </div>
-                <p className="mt-2 text-xs text-indigo-600">Set competitive pricing for your course content</p>
+                <p className="mt-2 text-xs text-primary">Set competitive pricing for your course content</p>
               </div>
             )}
 
@@ -422,12 +422,12 @@ const CourseCreate = () => {
                 {thumbnailPreview && (
                   <div className="mt-4">
                     <div className="relative group">
-                      <img
-                        src={thumbnailPreview}
-                        alt="Thumbnail preview"
-                        className="w-full h-48 object-cover rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 rounded-xl flex items-center justify-center">
+                       <img
+                         src={thumbnailPreview}
+                         alt="Thumbnail preview"
+                         className="w-full h-48 object-cover rounded-xl"
+                       />
+                       <div className="absolute inset-0 rounded-xl flex items-center justify-center">
                         <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0 2.828 0 012.828 0 012.828 0 011.656l-4.586 4.586a2 2 0 01-2.828 2.828 0 012.828 0 01-1.656l4.586 4.586a2 2 0 01.828 2.828 0 01.828 2.828z" />
                         </svg>
@@ -450,13 +450,13 @@ const CourseCreate = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end space-x-4 pt-8 border-t border-gray-200">
+            <div className="flex justify-end space-x-4 pt-8 border-t border-hairline-on-dark">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="group px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-all duration-200 font-medium"
+                className="group px-6 py-3 border border-hairline-on-dark rounded-lg text-on-dark hover:bg-surface-elevated-dark transition-all duration-200 font-medium"
               >
-                <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l-7-7m7 7l7-7" />
                 </svg>
                 Cancel
@@ -464,7 +464,7 @@ const CourseCreate = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg transform hover:scale-105 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed disabled:transform-none"
+                className="group px-8 py-3 bg-primary text-on-primary rounded-lg hover:bg-primary-active transition-all duration-300 font-medium disabled:bg-primary-disabled disabled:text-muted disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -476,7 +476,7 @@ const CourseCreate = () => {
                   </>
                 ) : (
                   <>
-                    <svg className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                     Create Course
