@@ -140,32 +140,32 @@ const Announcements = () => {
             </div>
 
             {showCreateForm && (
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Create New Announcement</h2>
+              <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
+                <h2 className="text-title-md text-on-dark mb-4">Create New Announcement</h2>
                 <form onSubmit={handleCreateAnnouncement} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Title</label>
                     <input
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Content</label>
                     <textarea
                       value={formData.content}
                       onChange={(e) => setFormData({...formData, content: e.target.value})}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                       rows="4"
                       required
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                    className="w-full px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active"
                   >
                     Send Announcement
                   </button>
