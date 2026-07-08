@@ -21,7 +21,6 @@ const AdminEnrollments = () => {
   useEffect(() => {
     let filtered = enrollments;
 
-    // Apply status filter
     if (statusFilter !== 'all') {
       filtered = filtered.filter(e => {
         if (statusFilter === 'active') return e.is_active && e.status === 'active';
@@ -30,7 +29,6 @@ const AdminEnrollments = () => {
       });
     }
 
-    // Apply search filter
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(e =>
@@ -82,11 +80,11 @@ const AdminEnrollments = () => {
 
   if (!user?.is_staff) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Admin only.</p>
+            <p className="text-muted">Access denied. Admin only.</p>
           </div>
         </div>
       </div>
@@ -95,13 +93,13 @@ const AdminEnrollments = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-600 border-t-transparent mx-auto"></div>
-              <p className="mt-6 text-lg text-gray-600 font-medium">Loading enrollments...</p>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-info border-t-transparent mx-auto"></div>
+              <p className="mt-6 text-lg text-muted font-medium">Loading enrollments...</p>
             </div>
           </div>
         </div>
@@ -110,21 +108,19 @@ const AdminEnrollments = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-red-900 via-orange-900 to-red-800 text-white shadow-xl">
+        <div className="bg-surface-elevated-dark text-on-dark border-b border-hairline-on-dark">
           <div className="max-w-7xl mx-auto px-6 py-10">
             <h1 className="text-4xl font-extrabold mb-2">Admin Enrollment Management</h1>
-            <p className="text-red-200 text-lg">Manage all student enrollments</p>
+            <p className="text-muted text-lg">Manage all student enrollments</p>
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="max-w-7xl mx-auto px-6 py-10">
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-r-lg mb-8 shadow-md">
+            <div className="bg-surface-card-dark border-l-4 border-trading-down text-trading-down px-6 py-4 rounded-r-lg mb-8">
               <div className="flex items-center">
                 <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -134,11 +130,10 @@ const AdminEnrollments = () => {
             </div>
           )}
 
-          {/* Enrollment Management Table */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center mb-4">
-                <svg className="w-8 h-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-surface-card-dark rounded-xl overflow-hidden border border-hairline-on-dark">
+            <div className="p-6 border-b border-hairline-on-dark">
+              <h2 className="text-2xl font-bold text-on-dark flex items-center mb-4">
+                <svg className="w-8 h-8 mr-3 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
                 All Enrollments
@@ -149,73 +144,73 @@ const AdminEnrollments = () => {
                   placeholder="Search by student name, email, or course title..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-4 py-2 border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info bg-surface-card-dark text-on-dark"
                 />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-4 py-2 border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info bg-surface-card-dark text-on-dark"
                 >
                   <option value="all">All Status</option>
                   <option value="active">Active</option>
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
-              <p className="text-gray-500 mt-3">{filteredEnrollments.length} of {enrollments.length} enrollments shown</p>
+              <p className="text-muted mt-3">{filteredEnrollments.length} of {enrollments.length} enrollments shown</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-surface-elevated-dark">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Student</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Course</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Enrolled Date</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Student</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Course</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Enrolled Date</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-hairline-on-dark">
                   {filteredEnrollments.map((enrollment) => (
-                    <tr key={enrollment.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={enrollment.id} className="hover:bg-surface-elevated-dark">
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-semibold text-gray-900">{enrollment.student_details?.username || enrollment.student}</p>
-                          <p className="text-sm text-gray-500">{enrollment.student_details?.email || ''}</p>
+                          <p className="font-semibold text-on-dark">{enrollment.student_details?.username || enrollment.student}</p>
+                          <p className="text-sm text-muted">{enrollment.student_details?.email || ''}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-semibold text-gray-900">{enrollment.course_details?.title || enrollment.course}</p>
-                          <p className="text-sm text-gray-500">{enrollment.course_details?.instructor || ''}</p>
+                          <p className="font-semibold text-on-dark">{enrollment.course_details?.title || enrollment.course}</p>
+                          <p className="text-sm text-muted">{enrollment.course_details?.instructor || ''}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-gray-600">
+                      <td className="px-6 py-4 text-muted">
                         {new Date(enrollment.enrolled_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
                           enrollment.is_active && enrollment.status === 'active'
-                            ? 'bg-green-100 text-green-700'
+                            ? 'text-trading-up'
                             : enrollment.status === 'cancelled'
-                            ? 'bg-red-100 text-red-700'
-                            : 'bg-yellow-100 text-yellow-700'
+                            ? 'text-trading-down'
+                            : 'text-primary'
                         }`}>
                           {enrollment.is_active && enrollment.status === 'active' ? 'Active' : enrollment.status || 'Inactive'}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center gap-2">
                           {enrollment.is_active && (
                             <button
                               onClick={() => handleCancelEnrollment(enrollment.id)}
-                              className="bg-yellow-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-yellow-700 transition-colors"
+                              className="bg-primary text-on-primary px-3 py-1.5 rounded-lg text-xs font-semibold"
                             >
                               Cancel
                             </button>
                           )}
                           <button
                             onClick={() => handleDeleteEnrollment(enrollment.id)}
-                            className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-700 transition-colors"
+                            className="bg-trading-down text-on-primary px-3 py-1.5 rounded-lg text-xs font-semibold"
                           >
                             Delete
                           </button>

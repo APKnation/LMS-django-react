@@ -22,7 +22,6 @@ const AdminCategories = () => {
   useEffect(() => {
     let filtered = categories;
 
-    // Apply search filter
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(c =>
@@ -86,11 +85,11 @@ const AdminCategories = () => {
 
   if (!user?.is_staff) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Admin only.</p>
+            <p className="text-muted">Access denied. Admin only.</p>
           </div>
         </div>
       </div>
@@ -99,13 +98,13 @@ const AdminCategories = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-600 border-t-transparent mx-auto"></div>
-              <p className="mt-6 text-lg text-gray-600 font-medium">Loading categories...</p>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-info border-t-transparent mx-auto"></div>
+              <p className="mt-6 text-lg text-muted font-medium">Loading categories...</p>
             </div>
           </div>
         </div>
@@ -114,29 +113,27 @@ const AdminCategories = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-red-900 via-orange-900 to-red-800 text-white shadow-xl">
+        <div className="bg-surface-elevated-dark text-on-dark border-b border-hairline-on-dark">
           <div className="max-w-7xl mx-auto px-6 py-10 flex items-center justify-between">
             <div>
               <h1 className="text-4xl font-extrabold mb-2">Admin Category Management</h1>
-              <p className="text-red-200 text-lg">Manage course categories</p>
+              <p className="text-muted text-lg">Manage course categories</p>
             </div>
             <button
               onClick={() => setShowCreateForm(!showCreateForm)}
-              className="bg-white text-red-900 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-md"
+              className="bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold"
             >
               {showCreateForm ? 'Cancel' : 'Create Category'}
             </button>
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="max-w-7xl mx-auto px-6 py-10">
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-r-lg mb-8 shadow-md">
+            <div className="bg-surface-card-dark border-l-4 border-trading-down text-trading-down px-6 py-4 rounded-r-lg mb-8">
               <div className="flex items-center">
                 <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -146,36 +143,35 @@ const AdminCategories = () => {
             </div>
           )}
 
-          {/* Create Category Form */}
           {showCreateForm && (
-            <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Create New Category</h2>
+            <div className="bg-surface-card-dark rounded-xl p-6 mb-8 border border-hairline-on-dark">
+              <h2 className="text-xl font-bold text-on-dark mb-4">Create New Category</h2>
               <form onSubmit={handleCreateCategory}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Name</label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2 border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info bg-surface-card-dark text-on-dark"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Description</label>
                     <input
                       type="text"
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2 border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info bg-surface-card-dark text-on-dark"
                     />
                   </div>
                 </div>
                 <div className="mt-4">
                   <button
                     type="submit"
-                    className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+                    className="bg-trading-down text-on-primary px-6 py-2 rounded-lg font-semibold"
                   >
                     Create Category
                   </button>
@@ -184,11 +180,10 @@ const AdminCategories = () => {
             </div>
           )}
 
-          {/* Category Management Table */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center mb-4">
-                <svg className="w-8 h-8 mr-3 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-surface-card-dark rounded-xl overflow-hidden border border-hairline-on-dark">
+            <div className="p-6 border-b border-hairline-on-dark">
+              <h2 className="text-2xl font-bold text-on-dark flex items-center mb-4">
+                <svg className="w-8 h-8 mr-3 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                 </svg>
                 All Categories
@@ -198,28 +193,28 @@ const AdminCategories = () => {
                 placeholder="Search categories by name or description..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info bg-surface-card-dark text-on-dark mb-3"
               />
-              <p className="text-gray-500 mt-3">{filteredCategories.length} of {categories.length} categories shown</p>
+              <p className="text-muted mt-3">{filteredCategories.length} of {categories.length} categories shown</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-surface-elevated-dark">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Description</th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-hairline-on-dark">
                   {filteredCategories.map((category) => (
-                    <tr key={category.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={category.id} className="hover:bg-surface-elevated-dark">
                       <td className="px-6 py-4">
                         <input
                           type="text"
                           defaultValue={category.name}
                           onBlur={(e) => handleUpdateCategory(category.id, { name: e.target.value })}
-                          className="font-semibold text-gray-900 bg-transparent border-b border-transparent hover:border-gray-300 focus:border-red-500 focus:outline-none w-full"
+                          className="font-semibold text-on-dark bg-transparent border-b border-transparent hover:border-hairline-on-dark focus:border-info focus:outline-none w-full"
                         />
                       </td>
                       <td className="px-6 py-4">
@@ -227,13 +222,13 @@ const AdminCategories = () => {
                           type="text"
                           defaultValue={category.description || ''}
                           onBlur={(e) => handleUpdateCategory(category.id, { description: e.target.value })}
-                          className="text-gray-600 bg-transparent border-b border-transparent hover:border-gray-300 focus:border-red-500 focus:outline-none w-full"
+                          className="text-muted bg-transparent border-b border-transparent hover:border-hairline-on-dark focus:border-info focus:outline-none w-full"
                         />
                       </td>
                       <td className="px-6 py-4">
                         <button
                           onClick={() => handleDeleteCategory(category.id)}
-                          className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-700 transition-colors"
+                          className="bg-trading-down text-on-primary px-3 py-1.5 rounded-lg text-xs font-semibold"
                         >
                           Delete
                         </button>
