@@ -9,8 +9,10 @@ const ProtectedRoute = ({ children, requireInstructor = false }) => {
   // Show loading state while checking authentication
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-[#0b0e11]">
+        <div className="text-[#eaecef] text-sm" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+          Loading...
+        </div>
       </div>
     );
   }
@@ -23,9 +25,11 @@ const ProtectedRoute = ({ children, requireInstructor = false }) => {
   // Check if instructor access is required
   if (requireInstructor && !isInstructor) {
     return (
-      <div className="unauthorized-container">
-        <h2>Access Denied</h2>
-        <p>You need to be an instructor to access this page.</p>
+      <div className="flex items-center justify-center min-h-screen bg-[#0b0e11] px-4">
+        <div className="max-w-md w-full bg-[#1e2329] border border-[#2b3139] rounded-md p-6 text-center" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+          <h2 className="text-xl font-semibold text-white mb-2">Access Denied</h2>
+          <p className="text-sm text-[#707a8a]">You need to be an instructor to access this page.</p>
+        </div>
       </div>
     );
   }
