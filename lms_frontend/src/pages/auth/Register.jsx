@@ -15,7 +15,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ const Register = () => {
     const { password2, ...registerData } = formData;
 
     const result = await register(registerData);
-    
+
     if (result.success) {
       if (formData.is_instructor) {
         alert('Registration successful! Your instructor account is pending approval from administrators.');
@@ -73,39 +73,39 @@ const Register = () => {
       navigate('/');
     } else {
       // Format error messages from API
-      const errorMsg = typeof result.error === 'object' 
+      const errorMsg = typeof result.error === 'object'
         ? Object.entries(result.error)
             .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
             .join('; ')
         : result.error;
       setError(errorMsg);
     }
-    
+
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6 lg:p-12">
-      <div className="w-full max-w-md sm:max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px]">
+    <div className="min-h-screen flex items-center justify-center bg-[#0b0e11] p-4 sm:p-6 lg:p-12" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+      <div className="w-full max-w-md sm:max-w-6xl bg-[#1e2329] rounded-md overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px] border border-[#2b3139]">
         {/* Left Side - Welcome Section */}
-        <div className="lg:w-2/5 bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white p-8 sm:p-10 lg:p-16">
+        <div className="lg:w-2/5 bg-[#fcd535] flex items-center justify-center text-[#181a20] p-8 sm:p-10 lg:p-16">
           <div className="text-center">
-            <p className="text-lg sm:text-xl lg:text-2xl tracking-widest mb-4 lg:mb-6">JOIN</p>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 lg:mb-8">LMS</h1>
-            <p className="text-xl lg:text-3xl opacity-90">Learning Management System</p>
-            <p className="mt-4 lg:mt-6 text-sm lg:text-base opacity-80">Create your account and start learning today</p>
+            <p className="text-lg sm:text-xl lg:text-2xl tracking-widest mb-4 lg:mb-6 font-semibold">JOIN</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 lg:mb-8" style={{ fontFamily: '"JetBrains Mono", monospace' }}>LMS</h1>
+            <p className="text-xl lg:text-3xl font-semibold">Learning Management System</p>
+            <p className="mt-4 lg:mt-6 text-sm lg:text-base text-[#181a20] opacity-80">Create your account and start learning today</p>
           </div>
         </div>
 
         {/* Right Side - Register Form */}
-        <div className="w-full lg:w-3/5 flex items-center justify-center bg-white p-8 lg:p-16">
+        <div className="w-full lg:w-3/5 flex items-center justify-center bg-[#0b0e11] p-8 lg:p-16">
           <div className="w-full max-w-lg space-y-6">
             <div className="text-center">
-              <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 tracking-wide">REGISTER FOR LMS</h2>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-white tracking-wide">REGISTER FOR LMS</h2>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg text-base lg:text-lg">
+              <div className="bg-[#2b3139] border border-[#f6465d] text-[#f6465d] px-6 py-4 rounded-md text-base lg:text-lg">
                 {error}
               </div>
             )}
@@ -117,7 +117,7 @@ const Register = () => {
                 value={formData.first_name}
                 onChange={handleChange}
                 placeholder="First Name"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
               <input
@@ -126,7 +126,7 @@ const Register = () => {
                 value={formData.last_name}
                 onChange={handleChange}
                 placeholder="Last Name"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
               <input
@@ -136,7 +136,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Username *"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
               <input
@@ -146,7 +146,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Email *"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
               <input
@@ -156,7 +156,7 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Password *"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
               <input
@@ -166,48 +166,48 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Confirm Password *"
-                className="w-full px-6 py-4 lg:py-5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-base lg:text-lg"
+                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
               />
 
-              <div className="bg-gray-50 p-4 lg:p-5 rounded-lg">
-                <p className="text-sm lg:text-base text-gray-600 mb-3 font-medium">Register as:</p>
+              <div className="bg-[#1e2329] p-4 lg:p-5 rounded-md border border-[#2b3139]">
+                <p className="text-sm lg:text-base text-[#eaecef] mb-3 font-medium">Register as:</p>
                 <div className="space-y-3">
-                  <label className="flex items-start cursor-pointer p-3 bg-white rounded-lg border-2 border-indigo-200 hover:border-indigo-400 transition-colors">
+                  <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
                     <input
                       type="radio"
                       name="userType"
                       checked={formData.is_student}
                       onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
-                      className="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500 mt-1"
+                      className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
                     />
                     <div className="ml-3">
-                      <span className="text-sm lg:text-base font-semibold text-gray-900">Student</span>
-                      <p className="text-xs text-gray-500 mt-1">Enroll in courses, track progress, earn certificates</p>
+                      <span className="text-sm lg:text-base font-semibold text-white">Student</span>
+                      <p className="text-xs text-[#707a8a] mt-1">Enroll in courses, track progress, earn certificates</p>
                     </div>
                   </label>
-                  <label className="flex items-start cursor-pointer p-3 bg-white rounded-lg border-2 border-gray-200 hover:border-purple-400 transition-colors">
+                  <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
                     <input
                       type="radio"
                       name="userType"
                       checked={formData.is_instructor}
                       onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
-                      className="w-5 h-5 text-purple-600 border-gray-300 focus:ring-purple-500 mt-1"
+                      className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
                     />
                     <div className="ml-3">
-                      <span className="text-sm lg:text-base font-semibold text-gray-900">Instructor</span>
-                      <p className="text-xs text-gray-500 mt-1">Create courses, manage students, track analytics</p>
+                      <span className="text-sm lg:text-base font-semibold text-white">Instructor</span>
+                      <p className="text-xs text-[#707a8a] mt-1">Create courses, manage students, track analytics</p>
                     </div>
                   </label>
                 </div>
-                
+
                 {formData.is_instructor && (
-                  <div className="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                  <div className="mt-4 p-3 bg-[#2b3139] rounded-md border border-[#2b3139]">
                     <div className="flex items-start">
-                      <svg className="w-5 h-5 text-purple-600 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-5 h-5 text-[#fcd535] mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <div className="text-xs text-purple-800">
-                        <p className="font-semibold mb-1">Instructor Registration</p>
+                      <div className="text-xs text-[#eaecef]">
+                        <p className="font-semibold mb-1 text-[#fcd535]">Instructor Registration</p>
                         <p>Instructor accounts require approval from administrators. You'll be able to create courses once approved.</p>
                       </div>
                     </div>
@@ -218,16 +218,16 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 lg:py-5 bg-gradient-to-r from-indigo-900 to-purple-800 text-white font-semibold rounded-lg hover:from-indigo-800 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-base lg:text-lg"
+                className="w-full py-4 lg:py-5 bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base lg:text-lg"
               >
                 {loading ? 'Creating account...' : 'REGISTER'}
               </button>
             </form>
 
             <div className="text-center mt-6">
-              <p className="text-sm lg:text-base text-gray-500">
+              <p className="text-sm lg:text-base text-[#707a8a]">
                 Already have an account?{' '}
-                <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold transition-colors">
+                <Link to="/login" className="text-[#fcd535] hover:text-[#f0b90b] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#3b82f6] rounded-sm">
                   Sign in here
                 </Link>
               </p>
