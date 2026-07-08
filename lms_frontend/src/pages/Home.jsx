@@ -4,8 +4,8 @@ import Footer from '../components/common/Footer';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-canvas-dark text-on-dark">
-
+    <div className="min-h-screen flex flex-col bg-canvas-dark text-on-dark">
+      <div className="flex-1">
         {/* HERO */}
         <div className="relative overflow-hidden bg-canvas-dark">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/student1.png')" }}></div>
@@ -184,6 +184,7 @@ const Home = () => {
         </div>
 
         <Footer />
+      </div>
     </div>
   );
 };

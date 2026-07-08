@@ -67,11 +67,12 @@ const Courses = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-canvas-dark text-on-dark">
-      <Sidebar />
+    <div className="min-h-screen flex flex-col bg-canvas-dark text-on-dark">
+      <div className="flex flex-1">
+        <Sidebar />
 
-      {/* Main Content Area */}
-      <div className="flex-1 lg:ml-64">
+        {/* Main Content Area */}
+        <div className="flex-1 lg:ml-64">
         {/* Header */}
         <div className="relative overflow-hidden border-b border-hairline-on-dark bg-canvas-dark">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-info/10" />
@@ -400,6 +401,7 @@ const Courses = () => {
       </div>
 
       <Footer />
+      </div>
     </div>
   );
 };

@@ -86,8 +86,9 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0b0e11] p-4 sm:p-6 lg:p-12" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
-      <div className="w-full max-w-md sm:max-w-6xl bg-[#1e2329] rounded-md overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px] border border-[#2b3139]">
+    <div className="min-h-screen flex flex-col bg-[#0b0e11]" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12">
+        <div className="w-full max-w-md sm:max-w-6xl bg-[#1e2329] rounded-md overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px] border border-[#2b3139]">
         {/* Left Side - Welcome Section */}
         <div className="lg:w-2/5 bg-[#fcd535] flex items-center justify-center text-[#181a20] p-8 sm:p-10 lg:p-16">
           <div className="text-center">
@@ -234,6 +235,7 @@ const Register = () => {
               </p>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
