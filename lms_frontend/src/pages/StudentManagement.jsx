@@ -50,11 +50,11 @@ const StudentManagement = () => {
 
   if (!user?.is_instructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Only instructors can manage students.</p>
+            <p className="text-muted">Access denied. Only instructors can manage students.</p>
           </div>
         </div>
       </div>
@@ -62,14 +62,14 @@ const StudentManagement = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Student Management</h1>
+          <h1 className="text-display-sm font-bold text-on-dark mb-8">Student Management</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
