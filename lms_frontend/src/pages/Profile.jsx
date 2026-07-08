@@ -43,21 +43,21 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark text-on-dark">
       <Sidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 lg:ml-64">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+        <div className="bg-canvas-dark border-b border-hairline-on-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl lg:text-3xl font-bold">Profile</h1>
-                <p className="text-indigo-200 mt-1">Manage your personal information</p>
+                <h1 className="text-2xl lg:text-3xl font-bold text-on-dark">Profile</h1>
+                <p className="text-muted mt-1">Manage your personal information</p>
               </div>
               <div className="flex items-center space-x-4">
-                <span className="px-3 py-1 bg-indigo-700 rounded-full text-sm">
+                <span className="px-3 py-1 bg-primary text-on-primary rounded-full text-sm">
                   {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
                 </span>
               </div>
@@ -68,18 +68,18 @@ const Profile = () => {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Left Column - Profile Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">Personal Information</h2>
+            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl">
+              <div className="px-6 py-4 border-b border-hairline-on-dark">
+                <h2 className="text-lg font-medium text-on-dark">Personal Information</h2>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="p-6 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted mb-2">
                       First Name
                     </label>
                     <input
@@ -88,12 +88,12 @@ const Profile = () => {
                       value={formData.first_name}
                       onChange={handleChange}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                      className="w-full px-3 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-md focus:outline-none focus:ring-2 focus:ring-info disabled:bg-surface-elevated-dark"
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-muted mb-2">
                       Last Name
                     </label>
                     <input
@@ -102,13 +102,13 @@ const Profile = () => {
                       value={formData.last_name}
                       onChange={handleChange}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                      className="w-full px-3 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-md focus:outline-none focus:ring-2 focus:ring-info disabled:bg-surface-elevated-dark"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-muted mb-2">
                     Email Address
                   </label>
                   <input
@@ -117,12 +117,12 @@ const Profile = () => {
                     value={formData.email}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-md focus:outline-none focus:ring-2 focus:ring-info disabled:bg-surface-elevated-dark"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-muted mb-2">
                     Phone Number
                   </label>
                   <input
@@ -131,12 +131,12 @@ const Profile = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-md focus:outline-none focus:ring-2 focus:ring-info disabled:bg-surface-elevated-dark"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-muted mb-2">
                     Bio
                   </label>
                   <textarea
@@ -145,7 +145,7 @@ const Profile = () => {
                     onChange={handleChange}
                     disabled={!isEditing}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-md focus:outline-none focus:ring-2 focus:ring-info disabled:bg-surface-elevated-dark"
                     placeholder="Tell us about yourself..."
                   />
                 </div>
@@ -156,13 +156,13 @@ const Profile = () => {
                       <button
                         type="button"
                         onClick={handleCancel}
-                        className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                        className="px-4 py-2 border border-hairline-on-dark rounded-md text-on-dark hover:bg-surface-elevated-dark transition-colors duration-200"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
-                        className="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-white hover:bg-indigo-700"
+                        className="px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active transition-colors duration-200"
                       >
                         Save Changes
                       </button>
@@ -171,7 +171,7 @@ const Profile = () => {
                     <button
                       type="button"
                       onClick={() => setIsEditing(true)}
-                      className="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-white hover:bg-indigo-700"
+                      className="px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active transition-colors duration-200"
                     >
                       Edit Profile
                     </button>
@@ -184,55 +184,53 @@ const Profile = () => {
           {/* Right Column - Additional Info */}
           <div className="space-y-8">
             {/* Account Stats */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Account Statistics</h3>
+            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6">
+              <h3 className="text-lg font-medium text-on-dark mb-4">Account Statistics</h3>
               <div className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Member Since</span>
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted">Member Since</span>
+                  <span className="text-sm font-medium text-on-dark">
                     {user?.date_joined ? new Date(user.date_joined).toLocaleDateString() : 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Account Type</span>
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted">Account Type</span>
+                  <span className="text-sm font-medium text-on-dark">
                     {isStudent ? 'Student' : isInstructor ? 'Instructor' : 'User'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Account Status</span>
-                  <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-medium rounded-full">
-                    Active
-                  </span>
+                  <span className="text-sm text-muted">Account Status</span>
+                  <span className="px-2 py-1 text-trading-up text-xs font-medium rounded-full">Active</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Links */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Links</h3>
+            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6">
+              <h3 className="text-lg font-medium text-on-dark mb-4">Quick Links</h3>
               <div className="space-y-3">
                 <a
                   href="/dashboard"
-                  className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                  className="block px-3 py-2 text-sm text-body-on-dark hover:bg-surface-elevated-dark rounded-md transition-colors"
                 >
                   📊 Dashboard
                 </a>
                 <a
                   href="/courses"
-                  className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                  className="block px-3 py-2 text-sm text-body-on-dark hover:bg-surface-elevated-dark rounded-md transition-colors"
                 >
                   📚 My Courses
                 </a>
                 <a
                   href="/certificates"
-                  className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                  className="block px-3 py-2 text-sm text-body-on-dark hover:bg-surface-elevated-dark rounded-md transition-colors"
                 >
                   🏆 Certificates
                 </a>
                 <a
                   href="/settings"
-                  className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                  className="block px-3 py-2 text-sm text-body-on-dark hover:bg-surface-elevated-dark rounded-md transition-colors"
                 >
                   ⚙️ Settings
                 </a>

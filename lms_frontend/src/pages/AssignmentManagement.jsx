@@ -90,11 +90,11 @@ const AssignmentManagement = () => {
 
   if (!user?.is_instructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Only instructors can manage assignments.</p>
+            <p className="text-muted">Access denied. Only instructors can manage assignments.</p>
           </div>
         </div>
       </div>
@@ -102,26 +102,26 @@ const AssignmentManagement = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Assignment Management</h1>
+          <h1 className="text-display-sm font-bold text-on-dark mb-8">Assignment Management</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
           {/* Course Selection */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
-            <select
-              value={selectedCourse}
-              onChange={(e) => setSelectedCourse(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
+            <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
+              <label className="block text-sm font-medium text-body-on-dark mb-2">Select Course</label>
+              <select
+                value={selectedCourse}
+                onChange={(e) => setSelectedCourse(e.target.value)}
+                className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
+              >
               <option value="">Choose a course...</option>
               {courses.map((course) => (
                 <option key={course.id} value={course.id}>
@@ -134,48 +134,48 @@ const AssignmentManagement = () => {
         {selectedCourse && (
           <>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">
-                Assignments for {courses.find(c => c.id == selectedCourse)?.title}
-              </h2>
-              <button
-                onClick={() => setShowCreateForm(!showCreateForm)}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-              >
+                <h2 className="text-title-md text-on-dark">
+                  Assignments for {courses.find(c => c.id == selectedCourse)?.title}
+                </h2>
+                <button
+                  onClick={() => setShowCreateForm(!showCreateForm)}
+                  className="px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active"
+                >
                 {showCreateForm ? 'Cancel' : 'Create Assignment'}
               </button>
             </div>
 
             {showCreateForm && (
-              <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Create New Assignment</h2>
+              <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
+                <h2 className="text-title-md text-on-dark mb-4">Create New Assignment</h2>
                 <form onSubmit={handleCreateAssignment} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Title</label>
                     <input
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <label className="block text-sm font-medium text-body-on-dark mb-2">Description</label>
                     <textarea
                       value={formData.description}
                       onChange={(e) => setFormData({...formData, description: e.target.value})}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                       rows="4"
                       required
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Submission Type</label>
+                      <label className="block text-sm font-medium text-body-on-dark mb-2">Submission Type</label>
                       <select
                         value={formData.submission_type}
                         onChange={(e) => setFormData({...formData, submission_type: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                       >
                         <option value="file">File Upload</option>
                         <option value="text">Text Response</option>
@@ -183,22 +183,22 @@ const AssignmentManagement = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Max Points</label>
+                      <label className="block text-sm font-medium text-body-on-dark mb-2">Max Points</label>
                       <input
                         type="number"
                         value={formData.max_points}
                         onChange={(e) => setFormData({...formData, max_points: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Deadline</label>
+                      <label className="block text-sm font-medium text-body-on-dark mb-2">Deadline</label>
                       <input
                         type="datetime-local"
                         value={formData.deadline}
                         onChange={(e) => setFormData({...formData, deadline: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
                         required
                       />
                     </div>
@@ -210,12 +210,12 @@ const AssignmentManagement = () => {
                         onChange={(e) => setFormData({...formData, allow_late_submission: e.target.checked})}
                         className="mr-2"
                       />
-                      <label htmlFor="allow_late_submission" className="text-sm text-gray-700">Allow Late Submission</label>
+                      <label htmlFor="allow_late_submission" className="text-sm text-body-on-dark">Allow Late Submission</label>
                     </div>
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                    className="w-full px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active"
                   >
                     Create Assignment
                   </button>
