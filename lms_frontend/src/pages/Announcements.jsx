@@ -84,11 +84,11 @@ const Announcements = () => {
 
   if (!user?.is_instructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Only instructors can manage announcements.</p>
+            <p className="text-muted">Access denied. Only instructors can manage announcements.</p>
           </div>
         </div>
       </div>
@@ -96,25 +96,25 @@ const Announcements = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Announcements</h1>
+          <h1 className="text-display-sm font-bold text-on-dark mb-8">Announcements</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
           {/* Course Selection */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
+          <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
+            <label className="block text-sm font-medium text-body-on-dark mb-2">Select Course</label>
             <select
               value={selectedCourse}
               onChange={(e) => setSelectedCourse(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
             >
               <option value="">Choose a course...</option>
               {courses.map((course) => (
@@ -128,12 +128,12 @@ const Announcements = () => {
         {selectedCourse && (
           <>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-title-md text-on-dark">
                 Announcements for {courses.find(c => c.id == selectedCourse)?.title}
               </h2>
               <button
                 onClick={() => setShowCreateForm(!showCreateForm)}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active"
               >
                 {showCreateForm ? 'Cancel' : 'Create Announcement'}
               </button>

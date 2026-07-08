@@ -9,7 +9,7 @@ const Payment = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   const [course, setCourse] = useState(null);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -103,7 +103,7 @@ const Payment = () => {
       console.error('Error response:', err.response?.data);
       // Display the actual error message from ClickPesa using SweetAlert
       let errorMessage = err.response?.data?.error || err.response?.data?.message || 'Failed to process payment';
-      
+
       // If error message is in JSON format, extract the message text
       if (typeof errorMessage === 'string' && errorMessage.includes('{')) {
         try {
@@ -113,7 +113,7 @@ const Payment = () => {
           // If parsing fails, use original message
         }
       }
-      
+
       setError(errorMessage);
       Swal.fire({
         icon: 'error',
@@ -159,13 +159,13 @@ const Payment = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark text-on-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Processing enrollment...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              <p className="mt-4 text-muted">Processing enrollment...</p>
             </div>
           </div>
         </div>
@@ -174,18 +174,18 @@ const Payment = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark text-on-dark">
       <Sidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 lg:ml-64">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white">
+        <div className="bg-canvas-dark border-b border-hairline-on-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold text-on-dark">
               {course?.is_free ? 'Free Course Enrollment' : 'Secure Checkout'}
             </h1>
-            <p className="text-indigo-200 mt-2">
+            <p className="text-muted mt-2">
               {course?.is_free ? 'Enroll in this free course' : 'Complete your course enrollment'}
             </p>
           </div>
@@ -196,15 +196,15 @@ const Payment = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Course Details */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Course Information</h2>
+            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6 mb-6">
+              <h2 className="text-xl font-semibold text-on-dark mb-4">Course Information</h2>
               {course && (
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{course.title}</h3>
-                  <p className="text-gray-600 mb-4">{course.description}</p>
+                  <h3 className="text-2xl font-bold text-on-dark mb-2">{course.title}</h3>
+                  <p className="text-muted mb-4">{course.description}</p>
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm text-gray-500">Instructor: {course.instructor_name || 'Instructor'}</span>
-                    <span className="text-sm text-gray-500">Duration: {course.duration || 'N/A'}</span>
+                    <span className="text-sm text-muted">Instructor: {course.instructor_name || 'Instructor'}</span>
+                    <span className="text-sm text-muted">Duration: {course.duration || 'N/A'}</span>
                   </div>
                 </div>
               )}
@@ -213,20 +213,20 @@ const Payment = () => {
 
             {/* Free Course Enrollment - Only for free courses */}
             {course?.is_free && (
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Free Course Enrollment</h2>
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+              <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6">
+                <h2 className="text-xl font-semibold text-on-dark mb-4">Free Course Enrollment</h2>
+                <div className="border border-trading-up rounded-lg p-6">
                   <div className="flex items-center mb-4">
-                    <svg className="h-8 w-8 text-green-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-8 w-8 text-trading-up mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-lg font-semibold text-green-800">This course is FREE</span>
+                    <span className="text-lg font-semibold text-trading-up">This course is FREE</span>
                   </div>
-                  <p className="text-gray-600 mb-4">Enroll now to start learning without any payment required.</p>
+                  <p className="text-muted mb-4">Enroll now to start learning without any payment required.</p>
                   <button
                     onClick={() => handleFreeEnrollment(course.id)}
                     disabled={processing}
-                    className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                    className="w-full px-6 py-3 bg-primary text-on-primary rounded-md hover:bg-primary-active transition-colors duration-200 disabled:bg-surface-elevated-dark disabled:text-muted disabled:cursor-not-allowed font-medium"
                   >
                     {processing ? 'Enrolling...' : 'Enroll Now - FREE'}
                   </button>
@@ -236,28 +236,28 @@ const Payment = () => {
 
             {/* Payment Form - Only for paid courses */}
             {!course?.is_free && (
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Details</h2>
-                
+              <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6">
+                <h2 className="text-xl font-semibold text-on-dark mb-4">Payment Details</h2>
+
                 {/* Payment Method Selection */}
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">Select Payment Method</label>
+                  <label className="block text-sm font-medium text-muted mb-3">Select Payment Method</label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {paymentMethods.map((method) => (
                       <button
                         key={method.id}
                         onClick={() => setPaymentMethod(method.id)}
-                        className={`p-4 rounded-lg border-2 transition-all ${
+                        className={`p-4 rounded-lg border-2 transition-colors ${
                           paymentMethod === method.id
-                            ? 'border-indigo-600 bg-indigo-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-primary bg-surface-elevated-dark'
+                            : 'border-hairline-on-dark hover:border-muted'
                         }`}
                       >
                         <div className="text-center">
                           {method.image ? (
-                            <div className="relative w-16 h-16 mx-auto mb-2 flex items-center justify-center bg-white rounded-lg p-2">
-                              <img 
-                                src={method.image} 
+                            <div className="relative w-16 h-16 mx-auto mb-2 flex items-center justify-center bg-surface-card-dark rounded-lg p-2">
+                              <img
+                                src={method.image}
                                 alt={method.name}
                                 className="max-w-full max-h-full object-contain"
                               />
@@ -265,7 +265,7 @@ const Payment = () => {
                           ) : (
                             <div className="text-2xl mb-1">{method.icon}</div>
                           )}
-                          <div className="text-xs font-medium text-gray-700">{method.name}</div>
+                          <div className="text-xs font-medium text-on-dark">{method.name}</div>
                         </div>
                       </button>
                     ))}
@@ -275,8 +275,8 @@ const Payment = () => {
                 {/* Card Payment Information */}
                 {paymentMethod === 'card' && (
                   <div className="space-y-4">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-sm text-blue-800">
+                    <div className="bg-surface-elevated-dark border border-hairline-on-dark rounded-lg p-4">
+                      <p className="text-sm text-body-on-dark">
                         <strong>💳 Card Payment:</strong> You will be redirected to ClickPesa's secure payment page to complete your payment.
                       </p>
                     </div>
@@ -286,34 +286,34 @@ const Payment = () => {
                 {/* Mobile Money Payment Form */}
                 {paymentMethod !== 'card' && (
                   <div className="space-y-4">
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-sm text-blue-800">
+                    <div className="bg-surface-elevated-dark border border-hairline-on-dark rounded-lg p-4">
+                      <p className="text-sm text-body-on-dark">
                         <strong>💳 Mobile Money Payment:</strong> You will be redirected to complete payment on your phone.
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <label className="block text-sm font-medium text-muted mb-2">Phone Number</label>
                       <input
                         type="tel"
                         name="phoneNumber"
                         value={mobileMoneyDetails.phoneNumber}
                         onChange={handleMobileMoneyChange}
                         placeholder="255712345678"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info"
                       />
-                      <p className="mt-1 text-xs text-gray-500">Enter your mobile money phone number (e.g., 255712345678)</p>
+                      <p className="mt-1 text-xs text-muted">Enter your mobile money phone number (e.g., 255712345678)</p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Account Name</label>
+                      <label className="block text-sm font-medium text-muted mb-2">Account Name</label>
                       <input
                         type="text"
                         name="accountName"
                         value={mobileMoneyDetails.accountName}
                         onChange={handleMobileMoneyChange}
                         placeholder="Enter your name of account"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info"
                       />
-                      <p className="mt-1 text-xs text-gray-500">Enter the name registered with your mobile money account</p>
+                      <p className="mt-1 text-xs text-muted">Enter the name registered with your mobile money account</p>
                     </div>
                   </div>
                 )}
@@ -322,39 +322,39 @@ const Payment = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow p-6 sticky top-8">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
+              <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6 sticky top-8">
+                <h2 className="text-xl font-semibold text-on-dark mb-4">Order Summary</h2>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Course Price</span>
-                    <span className="font-medium">
+                    <span className="text-muted">Course Price</span>
+                    <span className="font-medium text-on-dark">
                       {course?.is_free ? 'FREE' : `TZS ${course ? parseFloat(course.price).toFixed(2) : '0.00'}`}
                     </span>
                   </div>
-                  <div className="border-t pt-3 flex justify-between">
-                    <span className="text-lg font-semibold">Total</span>
-                    <span className="text-lg font-bold text-indigo-600">
+                  <div className="border-t border-hairline-on-dark pt-3 flex justify-between">
+                    <span className="text-lg font-semibold text-on-dark">Total</span>
+                    <span className="text-lg font-bold text-primary font-plex">
                       {course?.is_free ? 'FREE' : `TZS ${finalPrice}`}
                     </span>
                   </div>
                 </div>
-                
+
                 {!course?.is_free && (
                   <button
                     onClick={createOrder}
                     disabled={processing}
-                    className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
+                    className={`w-full mt-6 py-3 rounded-md font-medium transition-colors duration-200 ${
                       processing
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                        ? 'bg-surface-elevated-dark text-muted cursor-not-allowed'
+                        : 'bg-primary text-on-primary hover:bg-primary-active'
                     }`}
                   >
                     {processing ? 'Processing...' : `Pay TZS ${finalPrice} with ${paymentMethods.find(m => m.id === paymentMethod)?.name}`}
                   </button>
                 )}
-                
+
                 {!course?.is_free && paymentMethod === 'card' && (
-                  <div className="mt-4 text-center text-xs text-gray-500">
+                  <div className="mt-4 text-center text-xs text-muted">
                     <p>🔒 Secure payment powered by ClickPesa</p>
                     <p className="mt-1">Your payment information is encrypted and secure</p>
                   </div>

@@ -126,32 +126,32 @@ const QuizManagement = () => {
                         <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-surface-card-dark divide-y divide-hairline-on-dark">
                       {courseQuizzes.length === 0 ? (
                         <tr>
-                          <td colSpan="5" className="px-6 py-12 text-center text-gray-500">
+                          <td colSpan="5" className="px-6 py-12 text-center text-muted">
                             No quizzes found for this course
                           </td>
                         </tr>
                       ) : (
                         courseQuizzes.map((quiz) => (
                           <tr key={quiz.id}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-on-dark">
                               {quiz.title}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                               {quiz.question_count || 0}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                               {quiz.time_limit ? `${quiz.time_limit} min` : 'No limit'}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                               {quiz.passing_score}%
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                               <button
                                 onClick={() => handleDeleteQuiz(quiz.id)}
-                                className="text-red-600 hover:text-red-900 mr-4"
+                                className="text-trading-down hover:text-trading-down mr-4"
                               >
                                 Delete
                               </button>
@@ -165,10 +165,10 @@ const QuizManagement = () => {
               </div>
 
               {/* Create Quiz Button */}
-              <div className="bg-white rounded-lg shadow p-6">
+              <div className="bg-surface-card-dark rounded-xl p-6">
                 <button
                   onClick={() => setShowCreateForm(true)}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                  className="px-4 py-2 bg-primary text-on-primary rounded-lg hover:bg-primary-active"
                 >
                   Create New Quiz
                 </button>
