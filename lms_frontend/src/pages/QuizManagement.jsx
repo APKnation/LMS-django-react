@@ -86,8 +86,13 @@ const QuizManagement = () => {
             </div>
           )}
 
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : (
           {/* Course Selection */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
             <select
               value={selectedCourse}
