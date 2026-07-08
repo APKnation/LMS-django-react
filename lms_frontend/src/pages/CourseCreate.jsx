@@ -334,18 +334,18 @@ const CourseCreate = () => {
                   <input
                     type="radio"
                     name="is_free"
-                    value="true"
-                    checked={formData.is_free === true}
-                    onChange={() => setFormData(prev => ({ ...prev, is_free: true }))}
+                    value="false"
+                    checked={formData.is_free === false}
+                    onChange={() => setFormData(prev => ({ ...prev, is_free: false }))}
                     className="sr-only"
                   />
                   <div className="flex items-center">
                     <svg className="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332-.477 4.5-1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M3 10h2l-2.4 2M3 17h2l.4 2M3 24h2l-2.4 2M7 7h10l-4-4m0 0l4 4m-4-4l4 4" />
                     </svg>
                     <div>
-                      <p className="font-bold">Free Course</p>
-                      <p className="text-sm opacity-90">Open to everyone</p>
+                      <p className="font-bold">Paid Course</p>
+                      <p className="text-sm opacity-90">Students pay to enroll</p>
                     </div>
                   </div>
                 </label>
