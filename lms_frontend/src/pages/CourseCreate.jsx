@@ -288,7 +288,7 @@ const CourseCreate = () => {
                   </svg>
                   <div>
                     <p className="text-sm font-semibold text-blue-900">Visibility Status</p>
-                    <p className="text-xs text-blue-700 mt-1">Draft: Only visible to you | Published: Visible to all students</p>
+                                          <p className="text-xs text-muted mt-1">Draft: Only visible to you | Published: Visible to all students</p>
                   </div>
                 </div>
               </div>
@@ -420,7 +420,7 @@ const CourseCreate = () => {
                   </svg>
                   <div>
                     <p className="text-sm font-semibold text-blue-900">Image Guidelines</p>
-                    <p className="text-xs text-blue-700 mt-1">Recommended: 1280x720px, Max 5MB, JPG/PNG format</p>
+                                          <p className="text-xs text-muted mt-1">Recommended: 1280x720px, Max 5MB, JPG/PNG format</p>
                   </div>
                 </div>
               </div>
