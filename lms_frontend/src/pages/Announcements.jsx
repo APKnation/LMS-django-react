@@ -176,23 +176,23 @@ const Announcements = () => {
             {/* Announcement List */}
             <div className="space-y-4">
               {courseAnnouncements.length === 0 ? (
-                <div className="bg-white rounded-lg shadow p-12 text-center text-gray-500">
+                <div className="bg-surface-card-dark rounded-xl p-12 text-center text-muted">
                   No announcements found for this course
                 </div>
               ) : (
                 courseAnnouncements.map((announcement) => (
-                  <div key={announcement.id} className="bg-white rounded-lg shadow p-6">
+                  <div key={announcement.id} className="bg-surface-card-dark rounded-xl p-6">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{announcement.title}</h3>
-                        <p className="text-gray-600 mb-4">{announcement.content}</p>
-                        <p className="text-sm text-gray-500">
+                        <h3 className="text-lg font-semibold text-on-dark mb-2">{announcement.title}</h3>
+                        <p className="text-body-on-dark mb-4">{announcement.content}</p>
+                        <p className="text-sm text-muted">
                           Posted on {new Date(announcement.created_at).toLocaleString()}
                         </p>
                       </div>
                       <button
                         onClick={() => handleDeleteAnnouncement(announcement.id)}
-                        className="ml-4 text-red-600 hover:text-red-900"
+                        className="ml-4 text-trading-down hover:text-trading-down"
                       >
                         Delete
                       </button>
