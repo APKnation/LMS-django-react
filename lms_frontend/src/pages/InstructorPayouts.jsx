@@ -78,42 +78,42 @@ const InstructorPayouts = () => {
               {/* Revenue Summary */}
               {revenueSummary && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-white rounded-lg shadow p-6">
+                  <div className="bg-surface-card-dark rounded-xl p-6">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 bg-indigo-500 rounded-lg p-3">
-                        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
+                        <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div className="ml-5">
-                        <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                        <p className="text-2xl font-bold text-gray-900">TZS {revenueSummary.total_revenue || '0.00'}</p>
+                        <p className="text-caption text-muted">Total Revenue</p>
+                        <p className="text-2xl font-bold text-on-dark font-plex">TZS {revenueSummary.total_revenue || '0.00'}</p>
                       </div>
                     </div>
                 </div>
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-green-500 rounded-lg p-3">
+                      <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                       <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div className="ml-5">
-                      <p className="text-sm font-medium text-gray-500">Total Payouts</p>
-                      <p className="text-2xl font-bold text-gray-900">TZS {revenueSummary.total_payouts || '0.00'}</p>
+                      <p className="text-caption text-muted">Total Payouts</p>
+                      <p className="text-2xl font-bold text-on-dark font-plex">TZS {revenueSummary.total_payouts || '0.00'}</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-blue-500 rounded-lg p-3">
+                      <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                       <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div className="ml-5">
-                      <p className="text-sm font-medium text-gray-500">Pending Payouts</p>
-                      <p className="text-2xl font-bold text-gray-900">TZS {revenueSummary.pending_payouts || '0.00'}</p>
+                      <p className="text-caption text-muted">Pending Payouts</p>
+                      <p className="text-2xl font-bold text-on-dark font-plex">TZS {revenueSummary.pending_payouts || '0.00'}</p>
                     </div>
                   </div>
                 </div>
