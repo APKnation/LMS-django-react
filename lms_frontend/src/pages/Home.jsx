@@ -81,6 +81,31 @@ const Home = () => {
           </div>
         </div>
 
+        {/* SCREENSHOTS */}
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Platform Preview</h2>
+            <p className="text-muted max-w-2xl mx-auto">
+              Explore the intuitive interface designed for seamless learning.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { src: "/Screenshot from 2026-07-09 02-33-46.png", alt: "Dashboard preview" },
+              { src: "/Screenshot from 2026-07-09 02-33-53.png", alt: "Course view preview" },
+              { src: "/Screenshot from 2026-07-09 02-34-38.png", alt: "Learning experience preview" }
+            ].map((screenshot, i) => (
+              <div key={i} className="bg-surface-card-dark border border-hairline-on-dark rounded-xl overflow-hidden">
+                <img
+                  src={screenshot.src}
+                  alt={screenshot.alt}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* TESTIMONIALS */}
         <div className="bg-canvas-dark py-20">
           <div className="max-w-7xl mx-auto px-6">
