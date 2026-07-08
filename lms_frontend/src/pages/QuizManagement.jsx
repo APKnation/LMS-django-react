@@ -175,6 +175,7 @@ const QuizManagement = () => {
               </div>
             </>
           )}
+          )}
         </div>
       </div>
     </div>
