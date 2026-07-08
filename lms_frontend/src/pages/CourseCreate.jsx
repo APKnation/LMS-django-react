@@ -349,29 +349,6 @@ const CourseCreate = () => {
                     </div>
                   </div>
                 </label>
-                <label className={`relative cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
-                  !formData.is_free 
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 border-indigo-300 text-white shadow-lg' 
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-indigo-400'
-                }`}>
-                  <input
-                    type="radio"
-                    name="is_free"
-                    value="false"
-                    checked={formData.is_free === false}
-                    onChange={() => setFormData(prev => ({ ...prev, is_free: false }))}
-                    className="sr-only"
-                  />
-                  <div className="flex items-center">
-                    <svg className="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M3 10h2l-2.4 2M3 17h2l.4 2M3 24h2l-2.4 2M7 7h10l-4-4m0 0l4 4m-4-4l4 4" />
-                    </svg>
-                    <div>
-                      <p className="font-bold">Paid Course</p>
-                      <p className="text-sm opacity-90">Students pay to enroll</p>
-                    </div>
-                  </div>
-                </label>
               </div>
               <p className="mt-3 text-xs text-primary">Choose whether students can access this course for free or need to pay</p>
             </div>
