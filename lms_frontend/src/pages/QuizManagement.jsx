@@ -93,11 +93,11 @@ const QuizManagement = () => {
           ) : (
           {/* Course Selection */}
           <div className="bg-surface-card-dark rounded-xl p-6 mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
+            <label className="block text-sm font-medium text-body-on-dark mb-2">Select Course</label>
             <select
               value={selectedCourse}
               onChange={(e) => setSelectedCourse(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info"
             >
               <option value="">Choose a course...</option>
               {courses.map((course) => (
@@ -111,19 +111,19 @@ const QuizManagement = () => {
           {selectedCourse && (
             <>
               {/* Quiz List */}
-              <div className="bg-white rounded-lg shadow mb-6">
-                <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                  <h2 className="text-xl font-semibold text-gray-900">Quizzes for {courses.find(c => c.id == selectedCourse)?.title}</h2>
+              <div className="bg-surface-card-dark rounded-xl mb-6">
+                <div className="px-6 py-4 border-b border-hairline-on-dark flex justify-between items-center">
+                  <h2 className="text-title-md text-on-dark">Quizzes for {courses.find(c => c.id == selectedCourse)?.title}</h2>
                 </div>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                  <table className="min-w-full divide-y divide-hairline-on-dark">
+                    <thead className="bg-surface-elevated-dark">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Questions</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time Limit</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Passing Score</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Title</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Questions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Time Limit</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Passing Score</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
