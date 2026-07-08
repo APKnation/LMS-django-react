@@ -19,7 +19,7 @@ const Home = () => {
             <div className="hidden lg:block absolute top-24 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
               <img src="/Screenshot from 2026-07-09 02-33-53.png" alt="" className="w-full h-full object-cover opacity-90" />
             </div>
-            <div className="hidden lg:block absolute bottom-12 left-1/2 -translate-x-1/2 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
+            <div className="hidden lg:block absolute bottom-8 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
               <img src="/Screenshot from 2026-07-09 02-34-38.png" alt="" className="w-full h-full object-cover opacity-90" />
             </div>
           </div>
@@ -38,7 +38,7 @@ const Home = () => {
               to="/login"
               className="inline-block px-10 py-4 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200"
             >
-              Get Started
+            Start Learning
             </Link>
           </div>
         </div>
