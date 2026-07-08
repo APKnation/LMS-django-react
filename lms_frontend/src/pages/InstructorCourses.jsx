@@ -41,7 +41,7 @@ const InstructorCourses = () => {
 
   if (!isInstructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="flex items-center justify-center py-12">
