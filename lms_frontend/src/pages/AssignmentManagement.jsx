@@ -240,7 +240,7 @@ const AssignmentManagement = () => {
                    <tbody className="bg-surface-card-dark divide-y divide-hairline-on-dark">
                     {courseAssignments.length === 0 ? (
                       <tr>
-                        <td colSpan="6" className="px-6 py-12 text-center text-gray-500">
+                          <td colSpan="6" className="px-6 py-12 text-center text-muted">
                           No assignments found for this course
                         </td>
                       </tr>
@@ -250,7 +250,7 @@ const AssignmentManagement = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-on-dark">
                             {assignment.title}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-muted capitalize">
                             {assignment.submission_type}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
