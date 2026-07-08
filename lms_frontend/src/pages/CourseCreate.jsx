@@ -166,7 +166,7 @@ const CourseCreate = () => {
         <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8">
           {error && (
             <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-6 py-4 rounded-xl mb-6 flex items-center">
-              <svg className="w-5 h-5 mr-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 mr-3 text-trading-down" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
@@ -210,7 +210,7 @@ const CourseCreate = () => {
                 onChange={handleChange}
                 placeholder="Describe what students will learn and the course objectives..."
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 resize-none"
+                className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200 resize-none"
                 required
               />
             </div>
