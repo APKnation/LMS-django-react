@@ -36,20 +36,20 @@ const InstructorPayouts = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'paid': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'failed': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'paid': return 'bg-trading-up/10 text-trading-up';
+      case 'pending': return 'bg-primary/10 text-primary';
+      case 'failed': return 'bg-trading-down/10 text-trading-down';
+      default: return 'bg-muted/10 text-muted';
     }
   };
 
   if (!user?.is_instructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Only instructors can view payouts.</p>
+            <p className="text-muted">Access denied. Only instructors can view payouts.</p>
           </div>
         </div>
       </div>
@@ -57,21 +57,21 @@ const InstructorPayouts = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Instructor Payouts</h1>
+          <h1 className="text-display-sm font-bold text-on-dark mb-8">Instructor Payouts</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : (
             <>

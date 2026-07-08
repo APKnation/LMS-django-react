@@ -84,12 +84,12 @@ const RevenueAnalytics = () => {
                     </svg>
                   </div>
                   <div className="ml-5">
-                    <p className="text-sm font-medium text-gray-500">Total Sales</p>
-                    <p className="text-2xl font-bold text-gray-900">{analytics.total_sales || 0}</p>
+                                          <p className="text-caption text-muted">Total Sales</p>
+                                          <p className="text-2xl font-bold text-on-dark font-plex">{analytics.total_sales || 0}</p>
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                 <div className="flex items-center">
                     <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,12 +97,12 @@ const RevenueAnalytics = () => {
                     </svg>
                   </div>
                   <div className="ml-5">
-                    <p className="text-sm font-medium text-gray-500">Total Students</p>
-                    <p className="text-2xl font-bold text-gray-900">{analytics.total_students || 0}</p>
+                                          <p className="text-caption text-muted">Total Students</p>
+                                          <p className="text-2xl font-bold text-on-dark font-plex">{analytics.total_students || 0}</p>
                   </div>
                 </div>
               </div>
-              <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                 <div className="flex items-center">
                     <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,39 +110,39 @@ const RevenueAnalytics = () => {
                     </svg>
                   </div>
                   <div className="ml-5">
-                    <p className="text-sm font-medium text-gray-500">Avg. Completion</p>
-                    <p className="text-2xl font-bold text-gray-900">{analytics.avg_completion || 0}%</p>
+                                          <p className="text-caption text-muted">Avg. Completion</p>
+                                          <p className="text-2xl font-bold text-on-dark font-plex">{analytics.avg_completion || 0}%</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Course Revenue */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-surface-card-dark rounded-xl p-6">
               <h2 className="text-title-md text-on-dark mb-4">Revenue by Course</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-hairline-on-dark">
+                  <thead className="bg-surface-elevated-dark">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Completion Rate</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Course</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Sales</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Revenue</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Completion Rate</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-surface-card-dark divide-y divide-hairline-on-dark">
                     {analytics.course_revenue && analytics.course_revenue.length > 0 ? (
                       analytics.course_revenue.map((course, index) => (
                         <tr key={index}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{course.title}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.sales}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">TZS {course.revenue}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.completion_rate}%</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-on-dark">{course.title}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-plex text-muted">{course.sales}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-on-dark font-plex">TZS {course.revenue}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-plex text-muted">{course.completion_rate}%</td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="4" className="px-6 py-12 text-center text-gray-500">
+                        <td colSpan="4" className="px-6 py-12 text-center text-muted">
                           No revenue data available
                         </td>
                       </tr>
@@ -153,7 +153,7 @@ const RevenueAnalytics = () => {
             </div>
           </div>
         ) : (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-muted">
             No analytics data available
           </div>
         )}
