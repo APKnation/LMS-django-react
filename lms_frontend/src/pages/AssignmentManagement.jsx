@@ -224,20 +224,20 @@ const AssignmentManagement = () => {
             )}
 
             {/* Assignment List */}
-            <div className="bg-white rounded-lg shadow">
+            <div className="bg-surface-card-dark rounded-xl">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-hairline-on-dark">
+                  <thead className="bg-surface-elevated-dark">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Max Points</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late Submission</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Title</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Max Points</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Deadline</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Late Submission</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                   <tbody className="bg-surface-card-dark divide-y divide-hairline-on-dark">
                     {courseAssignments.length === 0 ? (
                       <tr>
                         <td colSpan="6" className="px-6 py-12 text-center text-gray-500">
@@ -247,25 +247,25 @@ const AssignmentManagement = () => {
                     ) : (
                       courseAssignments.map((assignment) => (
                         <tr key={assignment.id}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-on-dark">
                             {assignment.title}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
                             {assignment.submission_type}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                             TZS {assignment.max_points}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                             {new Date(assignment.deadline).toLocaleString()}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-muted">
                             {assignment.allow_late_submission ? 'Yes' : 'No'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm">
                             <button
                               onClick={() => handleDeleteAssignment(assignment.id)}
-                              className="text-red-600 hover:text-red-900"
+                              className="text-trading-down hover:text-trading-down"
                             >
                               Delete
                             </button>
