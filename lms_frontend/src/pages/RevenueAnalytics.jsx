@@ -31,11 +31,11 @@ const RevenueAnalytics = () => {
 
   if (!user?.is_instructor) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-canvas-dark">
         <Sidebar />
         <div className="flex-1 lg:ml-64">
           <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">Access denied. Only instructors can view analytics.</p>
+            <p className="text-muted">Access denied. Only instructors can view analytics.</p>
           </div>
         </div>
       </div>
@@ -43,43 +43,43 @@ const RevenueAnalytics = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-canvas-dark">
       <Sidebar />
       <div className="flex-1 lg:ml-64">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Revenue Analytics</h1>
+          <h1 className="text-display-sm font-bold text-on-dark mb-8">Revenue Analytics</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div className="bg-trading-down/10 border border-trading-down/40 text-trading-down px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : analytics ? (
             <div className="space-y-6">
               {/* Summary Cards */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-indigo-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
+                      <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div className="ml-5">
-                      <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                      <p className="text-2xl font-bold text-gray-900">TZS {analytics.total_revenue || '0.00'}</p>
+                      <p className="text-caption text-muted">Total Revenue</p>
+                      <p className="text-2xl font-bold text-on-dark font-plex">TZS {analytics.total_revenue || '0.00'}</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-surface-card-dark rounded-xl p-6">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-green-500 rounded-lg p-3">
-                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
+                      <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -91,7 +91,7 @@ const RevenueAnalytics = () => {
               </div>
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-blue-500 rounded-lg p-3">
+                    <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
@@ -104,7 +104,7 @@ const RevenueAnalytics = () => {
               </div>
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-purple-500 rounded-lg p-3">
+                    <div className="flex-shrink-0 bg-surface-elevated-dark rounded-lg p-3">
                     <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
@@ -119,7 +119,7 @@ const RevenueAnalytics = () => {
 
             {/* Course Revenue */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Revenue by Course</h2>
+              <h2 className="text-title-md text-on-dark mb-4">Revenue by Course</h2>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
