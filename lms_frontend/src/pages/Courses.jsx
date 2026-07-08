@@ -73,23 +73,45 @@ const Courses = () => {
       {/* Main Content Area */}
       <div className="flex-1 lg:ml-64">
         {/* Header */}
-        <div className="bg-canvas-dark border-b border-hairline-on-dark">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-on-dark">
-                {isInstructor ? 'Course Catalog' : 'Explore Courses'}
-              </h1>
-              <p className={`text-xl text-muted`}>
-                {isInstructor ? 'View all courses in the system' : 'Discover courses that match your interests and career goals'}
-              </p>
-              {isInstructor && (
-                <button
-                  onClick={() => navigate('/instructor-courses')}
-                  className="mt-4 px-6 py-2 bg-primary text-on-primary rounded-md hover:bg-primary-active font-medium transition-colors duration-200"
-                >
-                  Manage My Courses
-                </button>
-              )}
+        <div className="relative overflow-hidden border-b border-hairline-on-dark bg-canvas-dark">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-info/10" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
+                  <span className="mr-2 h-2.5 w-2.5 rounded-full bg-primary" />
+                  {isInstructor ? 'Manage and review your catalog' : 'Discover your next skill'}
+                </div>
+                <h1 className="text-3xl lg:text-5xl font-bold mb-4 text-on-dark leading-tight">
+                  {isInstructor ? 'Course Catalog' : 'Explore Courses'}
+                </h1>
+                <p className="text-lg lg:text-xl text-muted max-w-xl">
+                  {isInstructor ? 'View all courses in the system and keep your catalog polished and up to date.' : 'Browse a curated collection of practical courses designed to help you grow faster.'}
+                </p>
+                {isInstructor && (
+                  <button
+                    onClick={() => navigate('/instructor-courses')}
+                    className="mt-6 px-6 py-3 bg-primary text-on-primary rounded-lg hover:bg-primary-active font-medium transition-colors duration-200 shadow-lg shadow-primary/20"
+                  >
+                    Manage My Courses
+                  </button>
+                )}
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 lg:min-w-[320px]">
+                <div className="rounded-2xl border border-hairline-on-dark bg-surface-card-dark/80 p-4">
+                  <p className="text-2xl font-bold text-primary">10K+</p>
+                  <p className="text-sm text-muted">Learners</p>
+                </div>
+                <div className="rounded-2xl border border-hairline-on-dark bg-surface-card-dark/80 p-4">
+                  <p className="text-2xl font-bold text-info">24/7</p>
+                  <p className="text-sm text-muted">Access</p>
+                </div>
+                <div className="rounded-2xl border border-hairline-on-dark bg-surface-card-dark/80 p-4 col-span-2">
+                  <p className="text-sm text-muted">Popular this week</p>
+                  <p className="text-lg font-semibold text-on-dark mt-1">AI, Data Analytics & Business Skills</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,12 +148,12 @@ const Courses = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Search Bar */}
-            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-6 mb-6">
+            <div className="bg-surface-card-dark border border-hairline-on-dark rounded-2xl p-6 mb-6 shadow-lg shadow-black/10">
               <div className="flex items-center justify-between mb-4">
                 <label className="block text-sm font-semibold text-on-dark">
                   Discover Courses
                 </label>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 rounded-full border border-hairline-on-dark bg-surface-elevated-dark px-3 py-1">
                   <div className="w-2 h-2 bg-trading-up rounded-full animate-pulse"></div>
                   <span className="text-xs text-muted">Live Search</span>
                 </div>
@@ -147,7 +169,7 @@ const Courses = () => {
                   placeholder="Search by title, instructor, or keyword..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-surface-card-dark text-on-dark border border-hairline-on-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-info transition-colors duration-200 placeholder:text-muted"
+                  className="w-full pl-12 pr-4 py-3 bg-surface-elevated-dark text-on-dark border border-hairline-on-dark rounded-xl focus:outline-none focus:ring-2 focus:ring-info transition-colors duration-200 placeholder:text-muted"
                 />
               </div>
             </div>
@@ -212,7 +234,7 @@ const Courses = () => {
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {courses.map(course => (
-              <div key={course.id} className="group relative bg-surface-card-dark border border-hairline-on-dark rounded-xl overflow-hidden hover:bg-surface-elevated-dark transition-colors duration-200">
+              <div key={course.id} className="group relative bg-surface-card-dark border border-hairline-on-dark rounded-2xl overflow-hidden shadow-lg shadow-black/10 hover:-translate-y-1 hover:bg-surface-elevated-dark transition-all duration-300">
                 {/* Course Image */}
                 <div className="relative h-48 overflow-hidden">
                   {course.thumbnail ? (
@@ -229,6 +251,12 @@ const Courses = () => {
                     </div>
                   )}
                   {/* Course Badges */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-card-dark/80 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">
+                      Featured
+                    </span>
+                  </div>
                   <div className="absolute top-4 right-4 flex flex-col items-end space-y-2">
                     <span className={`px-3 py-1 text-xs font-bold rounded-full border border-hairline-on-dark ${
                       course.difficulty === 'beginner' ? 'text-trading-up' :
@@ -238,11 +266,11 @@ const Courses = () => {
                       {course.difficulty?.charAt(0).toUpperCase() + course.difficulty?.slice(1)}
                     </span>
                     {course.is_free ? (
-                      <span className="px-3 py-1 border border-trading-up text-trading-up text-xs font-medium rounded-full">
+                      <span className="px-3 py-1 border border-trading-up text-trading-up text-xs font-medium rounded-full bg-surface-card-dark/80">
                         FREE
                       </span>
                     ) : (
-                      <span className="px-3 py-1 border border-trading-down text-trading-down text-xs font-medium rounded-full">
+                      <span className="px-3 py-1 border border-trading-down text-trading-down text-xs font-medium rounded-full bg-surface-card-dark/80">
                         PAID
                       </span>
                     )}
@@ -317,7 +345,7 @@ const Courses = () => {
                     </div>
                     <button
                       onClick={() => handleEnroll(course.id)}
-                      className="px-6 py-3 text-on-dark text-sm font-bold rounded-md transition-colors duration-200 bg-primary hover:bg-primary-active"
+                      className="px-5 py-2.5 text-on-dark text-sm font-bold rounded-lg transition-all duration-200 bg-primary hover:bg-primary-active shadow-md shadow-primary/20"
                     >
                       <span className="flex items-center">
                         {course.is_free ? (
