@@ -178,9 +178,9 @@ const CourseCreate = () => {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Course Title */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2 2v5a2 2 0 002 2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L19.586 19H2a1 1 0 01-1-1v-5a1 1 0 011-1h7z" />
                 </svg>
                 Course Title *
@@ -191,15 +191,15 @@ const CourseCreate = () => {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter an engaging course title"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
                 required
               />
             </div>
 
             {/* Course Description */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2 2v5a2 2 0 002 2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L19.586 19H2a1 1 0 01-1-1v-5a1 1 0 011-1h7z" />
                 </svg>
                 Course Description *
@@ -216,9 +216,9 @@ const CourseCreate = () => {
             </div>
 
             {/* Category */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h10M7 12h10m-7 5h10M7 17h10M3 21a1 1 0 01-1-1h18a1 1 0 01-1 1v-7a1 1 0 011-1H4a1 1 0 01-1 1v7a1 1 0 011 1h18z" />
                 </svg>
                 Category
@@ -227,7 +227,7 @@ const CourseCreate = () => {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
               >
                 <option value="">Select a category</option>
                 {categories.map(cat => (
@@ -239,9 +239,9 @@ const CourseCreate = () => {
             </div>
 
             {/* Difficulty */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l4-4m0 0l4 4m-4-4l4 4" />
                 </svg>
                 Difficulty Level
@@ -250,21 +250,21 @@ const CourseCreate = () => {
                 name="difficulty"
                 value={formData.difficulty}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
               >
                 {difficulties.map(diff => (
-                  <option key={diff} value={diff} className={diff === formData.difficulty ? 'bg-indigo-50 text-indigo-700' : ''}>
+                    <option key={diff} value={diff} className={diff === formData.difficulty ? 'bg-primary/10 text-primary' : ''}>
                     {diff.charAt(0).toUpperCase() + diff.slice(1)}
                   </option>
                 ))}
               </select>
-              <p className="mt-2 text-xs text-gray-500">Select the appropriate difficulty level for your target audience</p>
+              <p className="mt-2 text-xs text-muted">Select the appropriate difficulty level for your target audience</p>
             </div>
 
             {/* Status */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2m0 0l-2-2m6 0l-2 2m0 0l2 2m-6 0l-2-2" />
                 </svg>
                 Course Status
@@ -273,10 +273,10 @@ const CourseCreate = () => {
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
               >
                 {statuses.map(status => (
-                  <option key={status} value={status} className={status === formData.status ? 'bg-indigo-50 text-indigo-700' : ''}>
+                    <option key={status} value={status} className={status === formData.status ? 'bg-primary/10 text-primary' : ''}>
                     {status.charAt(0).toUpperCase() + status.slice(1)}
                   </option>
                 ))}
@@ -297,7 +297,7 @@ const CourseCreate = () => {
             {/* Course Type - Free or Paid */}
             <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border border-indigo-200">
               <label className="block text-sm font-semibold text-gray-900 mb-4 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .343-3.757-3.684 2.928-.464 1.062-.11 2.055-.03.928.994.144.798.392.247-1.822-.034-.928-.386-.598-.762-.423-1.256.082-.391-.277.582-.395.93-.26.432.217-.674.31-.09-.03-.28-.154-.52-.146-.833.656-.816-.578.703.193-.31-.69-.284-.144-.47-.195-.857-.232-1.18-.117-.526-.045-.768.06-.227-.245-.365-.228-.817-.138-.902-.139-.823-.068-.12-.063-.215-.09-.61-.125-.182-.054-.004-.179-.007-.335.018-.62-.003-.225.023-.461.04-.265-.065-.308-.099-.493-.124-.887-.159-.534-.007-.995-.07-.69.025-.923-.04-.66.014-.8-.049-.626-.06-.363-.062-.263-.062-.263-.147-.81-.14-.805-.085-.805-.123-.424-.089-.805-.079-.673-.08-.36-.063-.263" />
                 </svg>
                 Course Type *
@@ -356,8 +356,8 @@ const CourseCreate = () => {
             {/* Price - Only show if not free */}
             {!formData.is_free && (
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border border-indigo-200">
-                <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .343-3.757-3.684 2.928-.464 1.062-.11 2.055-.03.928.994.144.798.392.247-1.822-.034-.928-.386-.598-.762-.423-1.256.082-.391-.277.582-.395.93-.26.432.217-.674.31-.09-.03-.28-.154-.52-.146-.833.656-.816-.578.703.193-.31-.69-.284-.144-.47-.195-.857-.232-1.18-.117-.526-.045-.768.06-.227-.245-.365-.228-.817-.138-.902-.139-.823-.068-.12-.063-.215-.09-.61-.125-.182-.054-.004-.179-.007-.335.018-.62-.003-.225.023-.461.04-.265-.065-.308-.099-.493-.124-.887-.159-.534-.007-.995-.07-.69.025-.923-.04-.66.014-.8-.049-.626-.06-.363-.062-.263-.062-.263-.147-.81-.14-.805-.085-.805-.123-.424-.089-.805-.079-.673-.08-.36-.063-.263" />
                   </svg>
                   Course Price (TZS) *
@@ -381,9 +381,9 @@ const CourseCreate = () => {
             )}
 
             {/* Thumbnail */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-4 h-4 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
+                <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0 2.828 0 012.828 0 012.828 0 011.656l-4.586 4.586a2 2 0 01-2.828 2.828 0 012.828 0 01-1.656l4.586 4.586a2 2 0 01.828 2.828 0 01.828 2.828z" />
                 </svg>
                 Course Thumbnail
@@ -394,7 +394,7 @@ const CourseCreate = () => {
                   name="thumbnail"
                   onChange={handleChange}
                   accept="image/*"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-surface-card-dark border border-hairline-on-dark rounded-lg text-on-dark focus:outline-none focus:ring-2 focus:ring-info transition-all duration-200"
                 />
                 {thumbnailPreview && (
                   <div className="mt-4">
