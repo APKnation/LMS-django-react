@@ -281,13 +281,13 @@ const CourseCreate = () => {
                   </option>
                 ))}
               </select>
-              <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="mt-3 p-3 bg-surface-card-dark rounded-lg border border-hairline-on-dark">
                 <div className="flex items-start">
-                  <svg className="w-4 h-4 mr-2 text-blue-600 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4 mr-2 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h18v4h1m1-4v4m-9 2h6a2 2 0 002 2v8a2 2 0 002 2h6a2 2 0 002-2V6a2 2 0 00-2-2H8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="text-sm font-semibold text-blue-900">Visibility Status</p>
+                                          <p className="text-sm font-semibold text-on-dark">Visibility Status</p>
                                           <p className="text-xs text-muted mt-1">Draft: Only visible to you | Published: Visible to all students</p>
                   </div>
                 </div>
@@ -413,13 +413,13 @@ const CourseCreate = () => {
                   </div>
                 )}
               </div>
-              <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="mt-3 p-3 bg-surface-card-dark rounded-lg border border-hairline-on-dark">
                 <div className="flex items-start">
-                  <svg className="w-4 h-4 mr-2 text-blue-600 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4 mr-2 text-primary mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h18v4h1m1-4v4m-9 2h6a2 2 0 002 2v8a2 2 0 002 2h6a2 2 0 002-2V6a2 2 0 00-2-2H8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="text-sm font-semibold text-blue-900">Image Guidelines</p>
+                                          <p className="text-sm font-semibold text-on-dark">Image Guidelines</p>
                                           <p className="text-xs text-muted mt-1">Recommended: 1280x720px, Max 5MB, JPG/PNG format</p>
                   </div>
                 </div>
