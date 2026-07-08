@@ -147,7 +147,7 @@ export const coursesAPI = {
     api.post(`/courses/${courseId}/quizzes/${quizId}/submit/`, { answers }),
 
   getQuizzes: (courseId) =>
-    api.get(`/courses/${courseId}/quizzes/`),
+    api.get('/quizzes/', { params: { course: courseId } }),
 
   getMyCourses: () =>
     api.get('/courses/my_courses/'),

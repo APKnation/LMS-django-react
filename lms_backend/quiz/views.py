@@ -21,6 +21,13 @@ class QuizViewSet(viewsets.ModelViewSet):
             return QuizCreateSerializer
         return QuizSerializer
 
+    def get_queryset(self):
+        queryset = Quiz.objects.all()
+        course_id = self.request.query_params.get('course')
+        if course_id:
+            queryset = queryset.filter(course_id=course_id)
+        return queryset
+
     @action(detail=True, methods=['get'])
     def start_attempt(self, request, pk=None):
         """Start a new quiz attempt or get current in-progress attempt"""
