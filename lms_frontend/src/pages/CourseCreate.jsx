@@ -295,8 +295,8 @@ const CourseCreate = () => {
             </div>
 
             {/* Course Type - Free or Paid */}
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border border-indigo-200">
-              <label className="block text-sm font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-surface-elevated-dark p-6 rounded-xl border border-hairline-on-dark">
+              <label className="block text-sm font-semibold text-on-dark mb-4 flex items-center">
                 <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .343-3.757-3.684 2.928-.464 1.062-.11 2.055-.03.928.994.144.798.392.247-1.822-.034-.928-.386-.598-.762-.423-1.256.082-.391-.277.582-.395.93-.26.432.217-.674.31-.09-.03-.28-.154-.52-.146-.833.656-.816-.578.703.193-.31-.69-.284-.144-.47-.195-.857-.232-1.18-.117-.526-.045-.768.06-.227-.245-.365-.228-.817-.138-.902-.139-.823-.068-.12-.063-.215-.09-.61-.125-.182-.054-.004-.179-.007-.335.018-.62-.003-.225.023-.461.04-.265-.065-.308-.099-.493-.124-.887-.159-.534-.007-.995-.07-.69.025-.923-.04-.66.014-.8-.049-.626-.06-.363-.062-.263-.062-.263-.147-.81-.14-.805-.085-.805-.123-.424-.089-.805-.079-.673-.08-.36-.063-.263" />
                 </svg>
@@ -305,8 +305,31 @@ const CourseCreate = () => {
               <div className="grid grid-cols-2 gap-4">
                 <label className={`relative cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
                   formData.is_free 
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 border-green-300 text-white shadow-lg' 
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-indigo-400'
+                    ? 'bg-surface-elevated-dark border-primary text-on-dark' 
+                    : 'bg-surface-card-dark border-hairline-on-dark text-muted hover:border-primary'
+                }`}>
+                  <input
+                    type="radio"
+                    name="is_free"
+                    value="true"
+                    checked={formData.is_free === true}
+                    onChange={() => setFormData(prev => ({ ...prev, is_free: true }))}
+                    className="sr-only"
+                  />
+                  <div className="flex items-center">
+                    <svg className="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <div>
+                      <p className="font-bold">Free Course</p>
+                      <p className="text-sm opacity-90">Open to everyone</p>
+                    </div>
+                  </div>
+                </label>
+                <label className={`relative cursor-pointer rounded-xl p-4 border-2 transition-all duration-200 ${
+                  !formData.is_free 
+                    ? 'bg-surface-elevated-dark border-primary text-on-dark' 
+                    : 'bg-surface-card-dark border-hairline-on-dark text-muted hover:border-primary'
                 }`}>
                   <input
                     type="radio"
@@ -350,12 +373,12 @@ const CourseCreate = () => {
                   </div>
                 </label>
               </div>
-              <p className="mt-3 text-xs text-gray-600 text-center">Choose whether students can access this course for free or need to pay</p>
+              <p className="mt-3 text-xs text-primary">Choose whether students can access this course for free or need to pay</p>
             </div>
 
             {/* Price - Only show if not free */}
             {!formData.is_free && (
-              <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border border-indigo-200">
+              <div className="bg-surface-elevated-dark rounded-xl p-6 border border-hairline-on-dark">
                 <label className="block text-sm font-semibold text-on-dark mb-3 flex items-center">
                   <svg className="w-4 h-4 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .343-3.757-3.684 2.928-.464 1.062-.11 2.055-.03.928.994.144.798.392.247-1.822-.034-.928-.386-.598-.762-.423-1.256.082-.391-.277.582-.395.93-.26.432.217-.674.31-.09-.03-.28-.154-.52-.146-.833.656-.816-.578.703.193-.31-.69-.284-.144-.47-.195-.857-.232-1.18-.117-.526-.045-.768.06-.227-.245-.365-.228-.817-.138-.902-.139-.823-.068-.12-.063-.215-.09-.61-.125-.182-.054-.004-.179-.007-.335.018-.62-.003-.225.023-.461.04-.265-.065-.308-.099-.493-.124-.887-.159-.534-.007-.995-.07-.69.025-.923-.04-.66.014-.8-.049-.626-.06-.363-.062-.263-.062-.263-.147-.81-.14-.805-.085-.805-.123-.424-.089-.805-.079-.673-.08-.36-.063-.263" />
