@@ -8,7 +8,10 @@ const Home = () => {
       <div className="flex-1">
         {/* HERO */}
         <div className="relative overflow-hidden bg-canvas-dark">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/student1.png')" }}></div>
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/student1.png')" }}
+          ></div>
           <div className="absolute inset-0 bg-canvas-dark/80"></div>
 
           {/* Screenshot cards */}
@@ -19,26 +22,29 @@ const Home = () => {
             <div className="hidden lg:block absolute top-24 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
               <img src="/Screenshot from 2026-07-09 02-33-53.png" alt="" className="w-full h-full object-cover opacity-90" />
             </div>
-            <div className="hidden lg:block absolute bottom-8 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
-              <img src="/Screenshot from 2026-07-09 02-34-38.png" alt="" className="w-full h-full object-cover opacity-90" />
-            </div>
           </div>
 
           <div className="relative max-w-7xl mx-auto px-6 py-28 text-center">
             <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-              Next-Gen Learning <br />
-              <span className="text-primary">Management System</span>
+              Next-Gen <br />
+              <span className="text-primary">Learning Platform</span>
             </h1>
 
             <p className="text-xl lg:text-2xl text-body-on-dark mb-10 max-w-3xl mx-auto">
-              Learn smarter, faster, and better with a platform built for the future of education.
+              Learn smarter, faster, and better with a platform built for the
+              future of education.
             </p>
-
+<div className="flex flex-wrap justify-center gap-6 mb-10 text-body-on-dark">
+    <span> HD Video Lessons</span>
+    <span>Interactive Quizzes</span>
+    <span>Certificates</span>
+    <span>Learn Anywhere</span>
+  </div>
             <Link
               to="/login"
               className="inline-block px-10 py-4 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200"
             >
-            Start Learning
+              Start Learning
             </Link>
           </div>
         </div>
@@ -49,10 +55,15 @@ const Home = () => {
             {[
               { value: "10K+", label: "Active Students" },
               { value: "500+", label: "Courses" },
-              { value: "98%", label: "Success Rate" }
+              { value: "98%", label: "Success Rate" },
             ].map((stat, i) => (
-              <div key={i} className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 text-center">
-                <div className={`text-5xl font-bold mb-2 font-plex text-primary`}>
+              <div
+                key={i}
+                className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 text-center"
+              >
+                <div
+                  className={`text-5xl font-bold mb-2 font-plex text-primary`}
+                >
                   {stat.value}
                 </div>
                 <p className="text-muted">{stat.label}</p>
@@ -66,7 +77,8 @@ const Home = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Why Choose Our LMS?</h2>
             <p className="text-muted max-w-2xl mx-auto">
-              Designed to deliver the best learning experience for students and instructors.
+              Designed to deliver the best learning experience for students and
+              instructors.
             </p>
           </div>
 
@@ -74,22 +86,27 @@ const Home = () => {
             {[
               {
                 title: "Rich Content",
-                desc: "Access videos, PDFs, quizzes, and more"
+                desc: "Access videos, PDFs, quizzes, and more",
               },
               {
                 title: "Track Progress",
-                desc: "Monitor your journey with analytics"
+                desc: "Monitor your journey with analytics",
               },
               {
                 title: "Certification",
-                desc: "Get recognized for your achievements"
-              }
+                desc: "Get recognized for your achievements",
+              },
             ].map((f, i) => (
-              <div key={i} className="group bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 hover:bg-surface-elevated-dark transition-colors duration-200">
+              <div
+                key={i}
+                className="group bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 hover:bg-surface-elevated-dark transition-colors duration-200"
+              >
                 <div className="w-16 h-16 rounded-xl bg-surface-elevated-dark flex items-center justify-center text-primary text-2xl mb-6">
                   ⚡
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-on-dark">{f.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-on-dark">
+                  {f.title}
+                </h3>
                 <p className="text-muted">{f.desc}</p>
               </div>
             ))}
@@ -106,11 +123,23 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { src: "/Screenshot from 2026-07-09 02-33-46.png", alt: "Dashboard preview" },
-              { src: "/Screenshot from 2026-07-09 02-33-53.png", alt: "Course view preview" },
-              { src: "/Screenshot from 2026-07-09 02-34-38.png", alt: "Learning experience preview" }
+              {
+                src: "/Screenshot from 2026-07-09 02-33-46.png",
+                alt: "Dashboard preview",
+              },
+              {
+                src: "/Screenshot from 2026-07-09 02-33-53.png",
+                alt: "Course view preview",
+              },
+              {
+                src: "/Screenshot from 2026-07-09 02-34-38.png",
+                alt: "Learning experience preview",
+              },
             ].map((screenshot, i) => (
-              <div key={i} className="bg-surface-card-dark border border-hairline-on-dark rounded-xl overflow-hidden">
+              <div
+                key={i}
+                className="bg-surface-card-dark border border-hairline-on-dark rounded-xl overflow-hidden"
+              >
                 <img
                   src={screenshot.src}
                   alt={screenshot.alt}
@@ -130,7 +159,10 @@ const Home = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8">
+                <div
+                  key={i}
+                  className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8"
+                >
                   <div className="flex items-center mb-4">
                     <img
                       src={`https://picsum.photos/seed/student${i}/60`}
@@ -138,7 +170,9 @@ const Home = () => {
                       alt=""
                     />
                     <div className="ml-4">
-                      <h4 className="font-semibold text-on-dark">Student {i}</h4>
+                      <h4 className="font-semibold text-on-dark">
+                        Student {i}
+                      </h4>
                       <p className="text-sm text-muted">LMS User</p>
                     </div>
                   </div>
