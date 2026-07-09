@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import Footer from '../../components/common/Footer';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import Footer from "../../components/common/Footer";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    password2: '',
-    first_name: '',
-    last_name: '',
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+    first_name: "",
+    last_name: "",
     is_student: true,
     is_instructor: false,
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { register } = useAuth();
@@ -24,22 +24,22 @@ const Register = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validation
     if (formData.password !== formData.password2) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError("Password must be at least 8 characters long");
       return;
     }
 
@@ -51,7 +51,7 @@ const Register = () => {
       // 3. Require email verification
       // For now, we'll allow it but show a warning
       const confirmInstructor = window.confirm(
-        'You are registering as an Instructor. This role requires approval from administrators. Continue?'
+        "You are registering as an Instructor. This role requires approval from administrators. Continue?",
       );
       if (!confirmInstructor) {
         return;
@@ -67,18 +67,24 @@ const Register = () => {
 
     if (result.success) {
       if (formData.is_instructor) {
-        alert('Registration successful! Your instructor account is pending approval from administrators.');
+        alert(
+          "Registration successful! Your instructor account is pending approval from administrators.",
+        );
       } else {
-        alert('Registration successful! Welcome to LMS.');
+        alert("Registration successful! Welcome to LMS.");
       }
-      navigate('/');
+      navigate("/");
     } else {
       // Format error messages from API
-      const errorMsg = typeof result.error === 'object'
-        ? Object.entries(result.error)
-            .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
-            .join('; ')
-        : result.error;
+      const errorMsg =
+        typeof result.error === "object"
+          ? Object.entries(result.error)
+              .map(
+                ([key, value]) =>
+                  `${key}: ${Array.isArray(value) ? value.join(", ") : value}`,
+              )
+              .join("; ")
+          : result.error;
       setError(errorMsg);
     }
 
@@ -86,156 +92,215 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0e11]" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <div
+      className="min-h-screen flex flex-col bg-[#0b0e11]"
+      style={{
+        fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+      }}
+    >
       <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12">
         <div className="w-full max-w-md sm:max-w-6xl bg-[#1e2329] rounded-md overflow-hidden flex flex-col lg:flex-row min-h-[600px] lg:min-h-[500px] border border-[#2b3139]">
-        {/* Left Side - Welcome Section */}
-        <div className="lg:w-2/5 bg-[#fcd535] flex items-center justify-center text-[#181a20] p-8 sm:p-10 lg:p-16">
-          <div className="text-center">
-            <p className="text-lg sm:text-xl lg:text-2xl tracking-widest mb-4 lg:mb-6 font-semibold">JOIN</p>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 lg:mb-8" style={{ fontFamily: '"JetBrains Mono", monospace' }}>LMS</h1>
-            <p className="text-xl lg:text-3xl font-semibold">Learning Management System</p>
-            <p className="mt-4 lg:mt-6 text-sm lg:text-base text-[#181a20] opacity-80">Create your account and start learning today</p>
-          </div>
-        </div>
-
-        {/* Right Side - Register Form */}
-        <div className="w-full lg:w-3/5 flex items-center justify-center bg-[#0b0e11] p-8 lg:p-16">
-          <div className="w-full max-w-lg space-y-6">
+          {/* Left Side - Welcome Section */}
+          <div className="lg:w-2/5 bg-[#fcd535] flex items-center justify-center text-[#181a20] p-8 sm:p-10 lg:p-16">
             <div className="text-center">
-              <h2 className="text-2xl lg:text-3xl font-semibold text-white tracking-wide">REGISTER FOR LMS</h2>
-            </div>
-
-            {error && (
-              <div className="bg-[#2b3139] border border-[#f6465d] text-[#f6465d] px-6 py-4 rounded-md text-base lg:text-lg">
-                {error}
-              </div>
-            )}
-
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleChange}
-                placeholder="First Name"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <input
-                type="text"
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleChange}
-                placeholder="Last Name"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-                placeholder="Username *"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Email *"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="Password *"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <input
-                type="password"
-                name="password2"
-                value={formData.password2}
-                onChange={handleChange}
-                required
-                placeholder="Confirm Password *"
-                className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
-              />
-
-              <div className="bg-[#1e2329] p-4 lg:p-5 rounded-md border border-[#2b3139]">
-                <p className="text-sm lg:text-base text-[#eaecef] mb-3 font-medium">Register as:</p>
-                <div className="space-y-3">
-                  <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
-                    <input
-                      type="radio"
-                      name="userType"
-                      checked={formData.is_student}
-                      onChange={() => setFormData({ ...formData, is_student: true, is_instructor: false })}
-                      className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
-                    />
-                    <div className="ml-3">
-                      <span className="text-sm lg:text-base font-semibold text-white">Student</span>
-                      <p className="text-xs text-[#707a8a] mt-1">Enroll in courses, track progress, earn certificates</p>
-                    </div>
-                  </label>
-                  <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
-                    <input
-                      type="radio"
-                      name="userType"
-                      checked={formData.is_instructor}
-                      onChange={() => setFormData({ ...formData, is_student: false, is_instructor: true })}
-                      className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
-                    />
-                    <div className="ml-3">
-                      <span className="text-sm lg:text-base font-semibold text-white">Instructor</span>
-                      <p className="text-xs text-[#707a8a] mt-1">Create courses, manage students, track analytics</p>
-                    </div>
-                  </label>
-                </div>
-
-                {formData.is_instructor && (
-                  <div className="mt-4 p-3 bg-[#2b3139] rounded-md border border-[#2b3139]">
-                    <div className="flex items-start">
-                      <svg className="w-5 h-5 text-[#fcd535] mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <div className="text-xs text-[#eaecef]">
-                        <p className="font-semibold mb-1 text-[#fcd535]">Instructor Registration</p>
-                        <p>Instructor accounts require approval from administrators. You'll be able to create courses once approved.</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 lg:py-5 bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base lg:text-lg"
+              <p className="text-lg sm:text-xl lg:text-2xl tracking-widest mb-4 lg:mb-6 font-semibold">
+                JOIN
+              </p>
+              <h1
+                className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 lg:mb-8"
+                style={{ fontFamily: '"JetBrains Mono", monospace' }}
               >
-                {loading ? 'Creating account...' : 'REGISTER'}
-              </button>
-            </form>
-
-            <div className="text-center mt-6">
-              <p className="text-sm lg:text-base text-[#707a8a]">
-                Already have an account?{' '}
-                <Link to="/login" className="text-[#fcd535] hover:text-[#f0b90b] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#3b82f6] rounded-sm">
-                  Sign in here
-                </Link>
+                LMS
+              </h1>
+              <p className="text-xl lg:text-3xl font-semibold">
+                Learning Management System
+              </p>
+              <p className="mt-4 lg:mt-6 text-sm lg:text-base text-[#181a20] opacity-80">
+                Create your account and start learning today
               </p>
             </div>
           </div>
-        </div>
+
+          {/* Right Side - Register Form */}
+          <div className="w-full lg:w-3/5 flex items-center justify-center bg-[#0b0e11] p-8 lg:p-16">
+            <div className="w-full max-w-lg space-y-6">
+              <div className="text-center">
+                <h2 className="text-2xl lg:text-3xl font-semibold text-white tracking-wide">
+                  REGISTER FOR LMS
+                </h2>
+              </div>
+
+              {error && (
+                <div className="bg-[#2b3139] border border-[#f6465d] text-[#f6465d] px-6 py-4 rounded-md text-base lg:text-lg">
+                  {error}
+                </div>
+              )}
+
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="first_name"
+                  value={formData.first_name}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <input
+                  type="text"
+                  name="last_name"
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  placeholder="Username *"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email *"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Password *"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <input
+                  type="password"
+                  name="password2"
+                  value={formData.password2}
+                  onChange={handleChange}
+                  required
+                  placeholder="Confirm Password *"
+                  className="w-full px-4 py-4 bg-[#1e2329] border border-[#2b3139] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6] transition-colors text-base lg:text-lg text-white placeholder-[#707a8a]"
+                />
+
+                <div className="bg-[#1e2329] p-4 lg:p-5 rounded-md border border-[#2b3139]">
+                  <p className="text-sm lg:text-base text-[#eaecef] mb-3 font-medium">
+                    Register as:
+                  </p>
+                  <div className="space-y-3">
+                    <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
+                      <input
+                        type="radio"
+                        name="userType"
+                        checked={formData.is_student}
+                        onChange={() =>
+                          setFormData({
+                            ...formData,
+                            is_student: true,
+                            is_instructor: false,
+                          })
+                        }
+                        className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
+                      />
+                      <div className="ml-3">
+                        <span className="text-sm lg:text-base font-semibold text-white">
+                          Student
+                        </span>
+                        <p className="text-xs text-[#707a8a] mt-1">
+                          Enroll in courses, track progress, earn certificates
+                        </p>
+                      </div>
+                    </label>
+                    <label className="flex items-start cursor-pointer p-3 bg-[#0b0e11] rounded-md border-2 border-[#2b3139] hover:border-[#fcd535] transition-colors">
+                      <input
+                        type="radio"
+                        name="userType"
+                        checked={formData.is_instructor}
+                        onChange={() =>
+                          setFormData({
+                            ...formData,
+                            is_student: false,
+                            is_instructor: true,
+                          })
+                        }
+                        className="w-5 h-5 text-[#fcd535] border-[#2b3139] focus:ring-[#3b82f6] mt-1 accent-[#fcd535]"
+                      />
+                      <div className="ml-3">
+                        <span className="text-sm lg:text-base font-semibold text-white">
+                          Instructor
+                        </span>
+                        <p className="text-xs text-[#707a8a] mt-1">
+                          Create courses, manage students, track analytics
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  {formData.is_instructor && (
+                    <div className="mt-4 p-3 bg-[#2b3139] rounded-md border border-[#2b3139]">
+                      <div className="flex items-start">
+                        <svg
+                          className="w-5 h-5 text-[#fcd535] mt-0.5 mr-2 flex-shrink-0"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <div className="text-xs text-[#eaecef]">
+                          <p className="font-semibold mb-1 text-[#fcd535]">
+                            Instructor Registration
+                          </p>
+                          <p>
+                            Instructor accounts require approval from
+                            administrators. You'll be able to create courses
+                            once approved.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-4 lg:py-5 bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-[#3b82f6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base lg:text-lg"
+                >
+                  {loading ? "Creating account..." : "REGISTER"}
+                </button>
+              </form>
+
+              <div className="text-center mt-6">
+                <p className="text-sm lg:text-base text-[#707a8a]">
+                  Already have an account?{" "}
+                  <Link
+                    to="/login"
+                    className="text-[#fcd535] hover:text-[#f0b90b] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#3b82f6] rounded-sm"
+                  >
+                    Sign in here
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

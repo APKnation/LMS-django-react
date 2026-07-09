@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Footer from '../components/common/Footer';
+import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "../components/common/Footer";
 
 const Home = () => {
   return (
@@ -17,10 +17,18 @@ const Home = () => {
           {/* Screenshot cards */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="hidden lg:block absolute top-24 left-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
-              <img src="/Screenshot from 2026-07-09 02-33-46.png" alt="" className="w-full h-full object-cover opacity-90" />
+              <img
+                src="/Screenshot from 2026-07-09 02-33-46.png"
+                alt=""
+                className="w-full h-full object-cover opacity-90"
+              />
             </div>
             <div className="hidden lg:block absolute top-24 right-8 w-64 h-40 bg-surface-card-dark/90 border border-hairline-on-dark rounded-xl overflow-hidden shadow-2xl">
-              <img src="/Screenshot from 2026-07-09 02-33-53.png" alt="" className="w-full h-full object-cover opacity-90" />
+              <img
+                src="/Screenshot from 2026-07-09 02-33-53.png"
+                alt=""
+                className="w-full h-full object-cover opacity-90"
+              />
             </div>
           </div>
 
@@ -34,12 +42,22 @@ const Home = () => {
               Learn smarter, faster, and better with a platform built for the
               future of education.
             </p>
-<div className="flex flex-wrap justify-center gap-6 mb-10 text-body-on-dark">
-    <span> HD Video Lessons</span>
-    <span>Interactive Quizzes</span>
-    <span>Certificates</span>
-    <span>Learn Anywhere</span>
-  </div>
+            <div className="flex flex-wrap justify-center gap-4 mb-10">
+              {[
+                { label: "HD Video Lessons" },
+                { label: "Interactive Quizzes" },
+                { label: "Certificates" },
+                { label: "Learn Anywhere" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 rounded-full border border-primary/20 bg-white/10 px-4 py-2 text-sm font-medium text-body-on-dark backdrop-blur-sm shadow-sm"
+                >
+                  <span className="text-base">{item.icon}</span>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
             <Link
               to="/login"
               className="inline-block px-10 py-4 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200"
