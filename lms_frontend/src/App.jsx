@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Navbar from './components/common/Navbar';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
@@ -37,6 +38,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <Navbar />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
