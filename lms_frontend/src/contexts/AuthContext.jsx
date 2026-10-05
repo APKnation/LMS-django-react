@@ -72,9 +72,33 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true, data: response.data };
     } catch (error) {
+      // Distinguish network errors from server errors
+      if (!error.response) {
+        return {
+          success: false,
+          error: 'Network error: cannot reach the server. Is the backend running?',
+        };
+      }
+      // Server responded with an error status
+      const data = error.response.data;
+      if (typeof data === 'object' && data !== null) {
+        // Django REST validation errors: { field: [errors] }
+        if (Object.keys(data).length > 0 && !data.detail) {
+          return {
+            success: false,
+            error: Object.entries(data)
+              .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
+              .join('; '),
+          };
+        }
+        return {
+          success: false,
+          error: data.detail || JSON.stringify(data),
+        };
+      }
       return {
         success: false,
-        error: error.response?.data || 'Registration failed. Please try again.',
+        error: String(data) || 'Registration failed. Please try again.',
       };
     }
   };
