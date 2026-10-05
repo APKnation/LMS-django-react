@@ -44,7 +44,12 @@ const Login = () => {
     setError("");
     setLoading(true);
 
-    const result = await login(formData.username, formData.password);
+    // Read directly from the form to avoid any stale state
+    const form = e.target;
+    const username = form.username.value.trim();
+    const password = form.password.value;
+
+    const result = await login(username, password);
 
     if (result.success) {
       // Redirect will be handled by useEffect when user state updates

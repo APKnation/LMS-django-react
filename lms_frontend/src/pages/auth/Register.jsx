@@ -28,28 +28,36 @@ const Register = () => {
     });
   };
 
+  // Helper to read radio/checkbox state directly from the DOM
+  const formElementIsChecked = (form, name) => {
+    const el = form.querySelector(`input[name="${name}"]`);
+    return el ? el.checked : false;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
+    // Read directly from the form to avoid any stale state
+    const form = e.target;
+    const username = form.username.value.trim();
+    const password = form.password.value;
+    const password2 = form.password2.value;
+
     // Validation
-    if (formData.password !== formData.password2) {
+    if (password !== password2) {
       setError("Passwords do not match");
       return;
     }
 
-    if (formData.password.length < 8) {
+    if (password.length < 8) {
       setError("Password must be at least 8 characters long");
       return;
     }
 
     // Instructor validation
-    if (formData.is_instructor) {
-      // In a real application, you might want to:
-      // 1. Require additional information (qualifications, experience)
-      // 2. Send for admin approval
-      // 3. Require email verification
-      // For now, we'll allow it but show a warning
+    const isInstructor = formElementIsChecked(form, 'is_instructor');
+    if (isInstructor) {
       const confirmInstructor = window.confirm(
         "You are registering as an Instructor. This role requires approval from administrators. Continue?",
       );
@@ -60,8 +68,16 @@ const Register = () => {
 
     setLoading(true);
 
-    // Remove password2 before sending to API
-    const { password2, ...registerData } = formData;
+    // Build register data from form values directly
+    const registerData = {
+      username,
+      email: form.email.value.trim(),
+      password,
+      first_name: form.first_name.value.trim(),
+      last_name: form.last_name.value.trim(),
+      is_student: !isInstructor,
+      is_instructor: isInstructor,
+    };
 
     const result = await register(registerData);
 

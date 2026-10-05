@@ -1,38 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/common/ProtectedRoute';
-import Navbar from './components/common/Navbar';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Dashboard from './pages/Dashboard';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Courses from './pages/Courses';
-import Enrollments from './pages/Enrollments';
-import Quiz from './pages/Quiz';
-import QuizIndividual from './pages/QuizIndividual';
-import Quizzes from './pages/Quizzes';
-import Progress from './pages/Progress';
-import Bookmarks from './pages/Bookmarks';
-import Notes from './pages/Notes';
-import Certificates from './pages/Certificates';
-import Payment from './pages/Payment';
-import PaymentHistory from './pages/PaymentHistory';
-import CourseCreate from './pages/CourseCreate';
-import Coupons from './pages/Coupons';
-import InstructorPayouts from './pages/InstructorPayouts';
-import RevenueAnalytics from './pages/RevenueAnalytics';
-import QuizManagement from './pages/QuizManagement';
-import AssignmentManagement from './pages/AssignmentManagement';
-import Announcements from './pages/Announcements';
-import InstructorDashboard from './pages/InstructorDashboard';
-import InstructorCourses from './pages/InstructorCourses';
-import StudentManagement from './pages/StudentManagement';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminCourses from './pages/AdminCourses';
-import AdminCategories from './pages/AdminCategories';
-import AdminEnrollments from './pages/AdminEnrollments';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Navbar from "./components/common/Navbar";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Courses from "./pages/Courses";
+import Enrollments from "./pages/Enrollments";
+import Quiz from "./pages/Quiz";
+import QuizIndividual from "./pages/QuizIndividual";
+import Quizzes from "./pages/Quizzes";
+import Progress from "./pages/Progress";
+import Bookmarks from "./pages/Bookmarks";
+import Notes from "./pages/Notes";
+import Certificates from "./pages/Certificates";
+import Payment from "./pages/Payment";
+import PaymentHistory from "./pages/PaymentHistory";
+import CourseCreate from "./pages/CourseCreate";
+import Coupons from "./pages/Coupons";
+import InstructorPayouts from "./pages/InstructorPayouts";
+import RevenueAnalytics from "./pages/RevenueAnalytics";
+import QuizManagement from "./pages/QuizManagement";
+import AssignmentManagement from "./pages/AssignmentManagement";
+import Announcements from "./pages/Announcements";
+import InstructorDashboard from "./pages/InstructorDashboard";
+import InstructorCourses from "./pages/InstructorCourses";
+import StudentManagement from "./pages/StudentManagement";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminCourses from "./pages/AdminCourses";
+import AdminCategories from "./pages/AdminCategories";
+import AdminEnrollments from "./pages/AdminEnrollments";
 
 function App() {
   return (
