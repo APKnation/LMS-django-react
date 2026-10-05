@@ -96,7 +96,7 @@ const Sidebar = () => {
       <aside
         className={`fixed left-0 top-0 h-full bg-[#0b0e11] border-r border-[#2b3139] z-50 transition-transform duration-300 ease-in-out ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 lg:static lg:z-auto`}
+        } lg:translate-x-0 lg:static lg:z-auto lg:block`}
         style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}
       >
         <div className="flex flex-col h-full w-64">
@@ -167,6 +167,9 @@ const Sidebar = () => {
           </nav>
         </div>
       </aside>
+
+      {/* Mobile spacer so content doesn't shift when sidebar toggles */}
+      <div className="lg:hidden h-0" />
     </>
   );
 };

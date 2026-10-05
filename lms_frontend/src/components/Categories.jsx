@@ -48,23 +48,23 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
   }
 
   return (
-    <div className="space-y-2">
-      <h3 className="text-lg font-semibold text-on-dark mb-3">Categories</h3>
+    <div className="space-y-1.5">
+      <h3 className="text-sm font-semibold text-on-dark mb-2">Categories</h3>
 
       {/* All Categories Option */}
       <button
         onClick={() => onCategorySelect(null)}
-        className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+        className={`w-full text-left px-3 py-1.5 rounded-lg transition-colors text-xs sm:text-sm ${
           selectedCategory === null
             ? 'bg-primary text-on-primary'
             : 'bg-surface-card-dark text-body-on-dark hover:bg-surface-elevated-dark'
         }`}
       >
         <div className="flex items-center">
-          <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-3.5 h-3.5 mr-1.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          All Categories
+          <span className="truncate">All Categories</span>
         </div>
       </button>
 
@@ -73,27 +73,27 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
         <button
           key={category.id}
           onClick={() => onCategorySelect(category)}
-          className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+          className={`w-full text-left px-3 py-1.5 rounded-lg transition-colors text-xs sm:text-sm ${
             selectedCategory?.id === category.id
               ? 'bg-primary text-on-primary'
               : 'bg-surface-card-dark text-body-on-dark hover:bg-surface-elevated-dark'
           }`}
         >
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center min-w-0">
+              <svg className="w-3.5 h-3.5 mr-1.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
               </svg>
-              <span className="font-medium">{category.name}</span>
+              <span className="font-medium truncate">{category.name}</span>
             </div>
             {selectedCategory?.id === category.id && (
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             )}
           </div>
           {category.description && (
-            <p className={`text-xs mt-1 ml-6 ${
+            <p className={`text-xs mt-0.5 ml-4 sm:ml-5 ${
               selectedCategory?.id === category.id ? 'text-primary' : 'text-muted'
             }`}>
               {category.description}
@@ -103,11 +103,11 @@ const Categories = ({ onCategorySelect, selectedCategory }) => {
       ))}
 
       {categories.length === 0 && (
-        <div className="text-center py-8 text-muted">
-          <svg className="w-12 h-12 mx-auto mb-2 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="text-center py-4 text-muted">
+          <svg className="w-8 h-8 mx-auto mb-1 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
-          <p>No categories available</p>
+          <p className="text-xs">No categories available</p>
         </div>
       )}
     </div>

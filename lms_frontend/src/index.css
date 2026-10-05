@@ -60,6 +60,100 @@
     overflow-x: hidden;
   }
 
+  /* Prevent layout breakage from overflowing content on small screens */
+  .min-w-0 {
+    min-width: 0;
+  }
+
+  /* Ensure form inputs and buttons don't overflow their container on mobile */
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='tel'],
+  input[type='search'],
+  textarea,
+  select,
+  button,
+  a{
+    @apply min-w-0;
+  }
+
+  /* Responsive table wrapper — allows horizontal scroll on small screens */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ===== GLOBAL RESPONSIVE FIXES ===== */
+  
+  /* Prevent cards and sections from overflowing on small screens */
+  .rounded-xl,
+  .rounded-2xl,
+  .rounded-lg {
+    @apply overflow-visible;
+  }
+
+  /* Ensure grids don't overflow on mobile — tighten gaps */
+  .grid-cols-1.lg\:grid-cols-3,
+  .grid-cols-1.lg\:grid-cols-2,
+  .grid-cols-1.md\:grid-cols-2,
+  .grid-cols-1.sm\:grid-cols-2,
+  .grid-cols-1.md\:grid-cols-3 {
+    @apply gap-3 sm:gap-4;
+  }
+
+  /* Shrink large padding on cards for mobile — handled per-page with responsive padding classes */
+
+  /* Responsive text sizes for headings — handled per-page with responsive text classes */
+
+  /* Ensure buttons and inputs never overflow */
+  button,
+  input,
+  select,
+  textarea {
+    @apply max-w-full;
+  }
+
+  /* Common page layout: ensure content area has proper padding on mobile */
+  .flex-1.lg\:ml-64 {
+    min-width: 0;
+  }
+
+  /* Navigation tabs: make them wrap on small screens */
+  nav.\-mb-px.flex.space-x-8,
+  nav.\-mb-px.flex.space-x-6 {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Hero section: prevent massive padding on mobile — handled per-page with responsive py classes */
+
+  /* Prevent course images from being too tall on mobile */
+  .relative.h-48 {
+    height: 8rem;
+  }
+  @media (min-width: 640px) {
+    .relative.h-48 { height: 10rem; }
+  }
+  @media (min-width: 768px) {
+    .relative.h-48 { height: 12rem; }
+  }
+
+  /* Progress bars and inline stats: shrink for mobile */
+  .text-3xl,
+  .text-2xl {
+    line-height: 1.2;
+  }
+
+  /* Form grids: stack on mobile, 2-col on tablet+ — handled per-page */
+
+  /* SVG icons inside buttons: don't overflow */
+  button svg,
+  a svg {
+    max-width: 1em;
+    max-height: 1em;
+  }
+
   h1 {
     @apply text-display-sm md:text-display-md lg:text-display-lg font-sans text-on-dark;
   }

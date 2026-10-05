@@ -32,17 +32,17 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-6 py-28 text-center">
-            <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28 text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight">
               Next-Gen <br />
               <span className="text-primary">Learning Platform</span>
             </h1>
 
-            <p className="text-xl lg:text-2xl text-body-on-dark mb-10 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-body-on-dark mb-6 sm:mb-8 max-w-2xl mx-auto">
               Learn smarter, faster, and better with a platform built for the
               future of education.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
               {[
                 { label: "HD Video Lessons" },
                 { label: "Interactive Quizzes" },
@@ -51,16 +51,15 @@ const Home = () => {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-center gap-2 rounded-full border border-primary/20 bg-white/10 px-4 py-2 text-sm font-medium text-body-on-dark backdrop-blur-sm shadow-sm"
+                  className="flex items-center gap-1.5 rounded-full border border-primary/20 bg-white/10 px-3 py-1.5 text-xs sm:text-sm font-medium text-body-on-dark backdrop-blur-sm shadow-sm"
                 >
-                  <span className="text-base">{item.icon}</span>
                   <span>{item.label}</span>
                 </div>
               ))}
             </div>
             <Link
               to="/login"
-              className="inline-block px-10 py-4 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200"
+              className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200 text-sm sm:text-base"
             >
               Start Learning
             </Link>
@@ -68,8 +67,8 @@ const Home = () => {
         </div>
 
         {/* STATS */}
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-10">
             {[
               { value: "10K+", label: "Active Students" },
               { value: "500+", label: "Courses" },
@@ -77,30 +76,30 @@ const Home = () => {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 text-center"
+                className="bg-surface-card-dark border border-hairline-on-dark rounded-xl p-4 sm:p-6 lg:p-8 text-center"
               >
                 <div
-                  className={`text-5xl font-bold mb-2 font-plex text-primary`}
+                  className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-1 sm:mb-2 font-plex text-primary`}
                 >
                   {stat.value}
                 </div>
-                <p className="text-muted">{stat.label}</p>
+                <p className="text-sm sm:text-base text-muted">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* FEATURES */}
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Our LMS?</h2>
-            <p className="text-muted max-w-2xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Why Choose Our LMS?</h2>
+            <p className="text-sm sm:text-base text-muted max-w-xl mx-auto">
               Designed to deliver the best learning experience for students and
               instructors.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
                 title: "Rich Content",
@@ -117,29 +116,29 @@ const Home = () => {
             ].map((f, i) => (
               <div
                 key={i}
-                className="group bg-surface-card-dark border border-hairline-on-dark rounded-xl p-8 hover:bg-surface-elevated-dark transition-colors duration-200"
+                className="group bg-surface-card-dark border border-hairline-on-dark rounded-xl p-4 sm:p-6 lg:p-8 hover:bg-surface-elevated-dark transition-colors duration-200"
               >
-                <div className="w-16 h-16 rounded-xl bg-surface-elevated-dark flex items-center justify-center text-primary text-2xl mb-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-surface-elevated-dark flex items-center justify-center text-primary text-lg sm:text-2xl mb-3 sm:mb-4">
                   ⚡
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-on-dark">
+                <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-on-dark">
                   {f.title}
                 </h3>
-                <p className="text-muted">{f.desc}</p>
+                <p className="text-xs sm:text-sm text-muted">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* SCREENSHOTS */}
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Platform Preview</h2>
-            <p className="text-muted max-w-2xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Platform Preview</h2>
+            <p className="text-sm sm:text-base text-muted max-w-xl mx-auto">
               Explore the intuitive interface designed for seamless learning.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 src: "/Screenshot from 2026-07-09 02-33-46.png",
@@ -161,7 +160,7 @@ const Home = () => {
                 <img
                   src={screenshot.src}
                   alt={screenshot.alt}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover max-h-48 sm:max-h-64"
                 />
               </div>
             ))}
@@ -207,27 +206,27 @@ const Home = () => {
         </div>
 
         {/* CTA */}
-        <div className="relative py-24 bg-surface-card-dark text-on-dark text-center overflow-hidden">
-          <div className="relative max-w-7xl mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-4">
+        <div className="relative py-12 sm:py-16 lg:py-24 bg-surface-card-dark text-on-dark text-center overflow-hidden">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
               Ready to Level Up Your Learning?
             </h2>
 
-            <p className="text-lg mb-10 text-muted">
+            <p className="text-base sm:text-lg mb-6 sm:mb-8 text-muted">
               Join thousands of learners today.
             </p>
 
-            <div className="space-x-6">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               <Link
                 to="/register"
-                className="inline-block px-10 py-4 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200"
+                className="inline-block px-5 sm:px-8 py-2.5 sm:py-3 bg-primary text-on-primary font-semibold rounded-md hover:bg-primary-active transition-colors duration-200 text-sm sm:text-base"
               >
                 Sign Up
               </Link>
 
               <Link
                 to="/courses"
-                className="inline-block px-10 py-4 border-2 border-hairline-on-dark rounded-md text-on-dark hover:bg-surface-elevated-dark transition-colors duration-200"
+                className="inline-block px-5 sm:px-8 py-2.5 sm:py-3 border-2 border-hairline-on-dark rounded-md text-on-dark hover:bg-surface-elevated-dark transition-colors duration-200 text-sm sm:text-base"
               >
                 Browse Courses
               </Link>

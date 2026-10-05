@@ -73,12 +73,12 @@ const Enrollments = () => {
       <div className="flex-1 lg:ml-64">
         {/* Header */}
         <div className="bg-canvas-dark border-b border-hairline-on-dark">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-on-dark">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 text-on-dark">
                 My Enrollments
               </h1>
-              <p className="text-xl text-muted">
+              <p className="text-sm sm:text-base text-muted">
               Track your learning progress and achievements
             </p>
           </div>
